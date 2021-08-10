@@ -6,9 +6,6 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
-	<div>
-		<p>Hello world</p>
-	</div>
+<body>Hello
 </body>
 </html>

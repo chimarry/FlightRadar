@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --main-color: #007fc8;
+    --secondary-color: white;
+    --ternary-color: #061135;
+    --main-font-color: white;
+    --secondary-font-color: #061135;
+    --ternary-font-color: white;
+}

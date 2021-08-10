@@ -1,1 +1,28 @@
 @charset "ISO-8859-1";
+.--header-container {
+    background-color: white;
+    min-height: 20vh;
+    max-height: auto;
+    width: 100%;
+    font-size: 1.2rem;
+    justify-self: center;
+}
+
+.--login-form {
+    border: 5px solid var(--main-color);
+    border-radius: 5px;
+    min-height: 18vh;
+}
+
+.--header-logo-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 4em;
+    color: var(--secondary-font-color);
+}
+
+.header-logo-container > img {
+    max-width: 50px;
+    height: 50px;
+}

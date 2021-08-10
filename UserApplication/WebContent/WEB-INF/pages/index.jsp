@@ -1,15 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="l" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="l" tagdir="/WEB-INF/tags"%>
 
 <l:layout>
 	<jsp:attribute name="header">
-      <h1>Welcome</h1>
-    </jsp:attribute>
+                <%@include file='header.jsp'%>
+            </jsp:attribute>
+	<jsp:attribute name="navmenu">
+            <%@include file='navmenu.jsp'%>
+            </jsp:attribute>
 	<jsp:attribute name="footer">
-      <p id="copyright">Copyright 1927, Future Bits When There Be Bits Inc.</p>
-    </jsp:attribute>
+                <%@include file='footer.jsp'%>
+            </jsp:attribute>
 	<jsp:body>
-        <p>Hi I'm the heart of the message</p>
-    </jsp:body>
+                <div class="container-fluid --index-container">
+                    <div class="row">
+                        <div class="col-6">
+
+                        </div>
+                        <div class="col-6">
+
+                        </div>
+                    </div>
+                </div>
+            </jsp:body>
 </l:layout>

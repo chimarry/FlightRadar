@@ -1,6 +1,7 @@
 @charset "ISO-8859-1";
-p {
-    background-color: yellow;
-    color: black;
-    font-size: 1em;
+.--index-container {
+    background-image: url('../images/airplane.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 80vh;
 }

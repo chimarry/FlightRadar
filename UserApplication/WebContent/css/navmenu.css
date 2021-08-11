@@ -1,1 +1,15 @@
 @charset "ISO-8859-1";
+.--navmenu {
+    background-color: var(--secondary-color);
+    color: var(--secondary-font-color);
+    font-size: 1.2rem;
+}
+
+.--navmenu a {
+    color: var(--secondary-font-color);
+}
+
+.--navbar-icon {
+    color: var(--secondary-font-color);
+    font-size: 1.2em;
+}

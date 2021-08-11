@@ -1,7 +1,9 @@
 @charset "ISO-8859-1";
 .--index-container {
-    background-image: url('../images/airplane.jpg');
+    background-image: url('../images/airport.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height: 80vh;
+    background-position-x: center;
+    background-position-y: center;
 }

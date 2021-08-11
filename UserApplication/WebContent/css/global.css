@@ -1,13 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre&family=Monoton&display=swap');;
 * {
     margin: 0;
     padding: 0;
+   
+}
+
+body{
+	 font-size: 17px;
+    font-family: 'Frank Ruhl Libre', serif;
 }
 
 :root {
-    --main-color: #007fc8;
-    --secondary-color: white;
-    --ternary-color: #061135;
-    --main-font-color: white;
-    --secondary-font-color: #061135;
+    --main-color: white;
+    --secondary-color: #7b98b8;
+    --ternary-color: #4d6a88;
+    --main-font-color: #253a58;
+    --secondary-font-color: white;
     --ternary-font-color: white;
+}
+
+@media (max-width: 900px) {
+    * {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    * {
+        font-size: 13px;
+    }
 }

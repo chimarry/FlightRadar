@@ -6,4 +6,18 @@
     height: 80vh;
     background-position-x: center;
     background-position-y: center;
+    padding-top: 10vh;
+    overflow-y: auto;
+}
+
+.--flight-title {
+    background-color: var(--quat-color);
+    color: var(--quat-font-color);
+    padding: 0;
+    margin: 0;
+}
+
+.--flight-title>img {
+    max-height: 2em;
+    width: auto;
 }

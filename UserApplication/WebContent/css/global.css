@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre&family=Monoton&display=swap');;
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre&family=Monoton&display=swap');
+;
 * {
     margin: 0;
     padding: 0;
-   
 }
 
-body{
-	 font-size: 17px;
+body {
+    font-size: 17px;
     font-family: 'Frank Ruhl Libre', serif;
 }
 
@@ -18,6 +18,8 @@ body{
     --main-font-color: #253a58;
     --secondary-font-color: white;
     --ternary-font-color: white;
+    --quat-color: #253a58;
+    --quat-font-color: white;
 }
 
 @media (max-width: 900px) {

@@ -3,7 +3,8 @@
     background-image: url('../images/airport.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    height: 80vh;
+    min-height: 90vh;
+    height:auto;
     background-position-x: center;
     background-position-y: center;
     padding-top: 10vh;

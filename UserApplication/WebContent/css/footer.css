@@ -1,1 +1,42 @@
 @charset "ISO-8859-1";
+.--footer {
+    background-color: var(--quat-color);
+    color: var(--quat-font-color);
+}
+
+.--margin-top {
+	margin-top:20px;
+}
+
+.--contact-info {
+    padding: 25px;
+    text-align: left;
+}
+
+.--contact-form {
+    text-align: left;
+}
+
+.--send-message-button {
+    background-color: var(--ternary-color);
+    color: var(--ternary-font-color);
+}
+
+.--footer-map {
+    width: 600px;
+    height: 300px;
+}
+
+@media screen and (max-width:700px) and (min-width:400px) {
+    .--footer-map {
+        width: 400px;
+        height: 300px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .--footer-map {
+        width: 200px;
+        height: 150px;
+    }
+}

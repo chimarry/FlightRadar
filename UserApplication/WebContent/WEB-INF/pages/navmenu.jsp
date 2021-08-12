@@ -7,8 +7,8 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
-				<a class="nav-item nav-link active" href="#">Departures<span class="sr-only">(current)</span></a>
-				<a class="nav-item nav-link" href="#">Arrivals</a>
+				<a class="nav-item nav-link active" href="FlightsController?action=departures">Departures<span class="sr-only">(current)</span></a>
+				<a class="nav-item nav-link" href="FlightsController?action=arrivals">Arrivals</a>
 				<a class="nav-item nav-link" href="FlightReservationController?action=all">All reservations</a>
 				<a class="nav-item nav-link" href="FlightReservationController?action=form">Flight reservation</a>
 			</div>

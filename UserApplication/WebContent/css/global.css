@@ -11,6 +11,16 @@ body {
     font-family: 'Frank Ruhl Libre', serif;
 }
 
+a {
+    color: var(--secondary-font-color);
+    text-decoration: none;
+}
+
+a:link, a:visited, a:hover, a:active{
+    color: var(--secondary-font-color);
+    text-decoration: none;
+}
+
 :root {
     --main-color: white;
     --secondary-color: #7b98b8;

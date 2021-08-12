@@ -9,17 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/IndexController")
-public class IndexController extends HttpServlet {
+@WebServlet("/RegistrationController")
+public class RegistrationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public IndexController() {
+	public RegistrationController() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String address = "/WEB-INF/pages/index.jsp";
+		String address = "/WEB-INF/pages/registration.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}

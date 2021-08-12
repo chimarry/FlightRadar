@@ -22,6 +22,12 @@
     border: none;
 }
 
+.--login-button>a:hover {
+    display: inline-block;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+}
+
 .--login-form-col {
     display: flex;
     flex-direction: column;
@@ -48,7 +54,12 @@
     padding: 0;
 }
 
-.--header-logo-container>img {
+.--header-logo-container img {
     max-height: 15vh;
     width: auto;
+}
+
+.--header-logo-container>a:hover {
+    transform: none;
+    transition: none;
 }

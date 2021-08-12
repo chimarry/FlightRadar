@@ -1,0 +1,18 @@
+@charset "ISO-8859-1";
+.--main-table-container {
+    padding: 5%;
+    font-size: 1rem;
+    min-height: 80vh;
+    overflow-x: auto;
+}
+
+.--main-table {
+    font-size: 0.8em;
+    overflow-x: auto;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.--main-table button {
+    font-size: 0.8em;
+}

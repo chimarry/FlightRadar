@@ -9,8 +9,8 @@
 			<div class="navbar-nav">
 				<a class="nav-item nav-link active" href="#">Departures<span class="sr-only">(current)</span></a>
 				<a class="nav-item nav-link" href="#">Arrivals</a>
-				<a class="nav-item nav-link" href="#">All reservations</a>
-				<a class="nav-item nav-link" href="FlightReservationController">Flight reservation</a>
+				<a class="nav-item nav-link" href="FlightReservationController?action=all">All reservations</a>
+				<a class="nav-item nav-link" href="FlightReservationController?action=form">Flight reservation</a>
 			</div>
 		</div>
 	</nav>

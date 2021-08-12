@@ -1,0 +1,21 @@
+@charset "ISO-8859-1";
+.--flight-reservation {
+    padding: 5%;
+    font-size: 1rem;
+    color: var(--main-font-color);
+}
+
+.--flight-reservation-control {
+    font-size: 0.8em;
+}
+
+.--flight-reservation-button {
+    background-color: var(--ternary-color);
+    color: var(--ternary-font-color);
+    outline: none;
+    border: none;
+}
+
+.custom-file {
+    font-size: 0.8em;
+}

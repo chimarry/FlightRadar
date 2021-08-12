@@ -3,6 +3,7 @@
 <%@attribute name="footer" fragment="true"%>
 <%@attribute name="navmenu" fragment="true"%>
 <%@attribute name="customScript" fragment="true"%>
+<%@attribute name="customLinks" fragment="true"%>
 <html>
 <head>
 <title>ETFBL_IP_Aero</title>
@@ -18,6 +19,7 @@
 <link rel="stylesheet" href='css/navmenu.css'>
 <link rel="stylesheet" href='css/featuredFligths.css'>
 <link rel="stylesheet" href='css/registration.css'>
+<link rel="stylesheet" href='css/flightReservation.css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -34,6 +36,7 @@
 <script
     src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <jsp:invoke fragment="customScript" />
+<jsp:invoke fragment="customLinks" />
 <script>
 var map;
 function initialize() {

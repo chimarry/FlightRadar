@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
     <%@taglib prefix="l" tagdir="/WEB-INF/tags" %>
         <l:layout>
+            <jsp:attribute name="customScript">
+                <script src='js/registration.js'></script>
+            </jsp:attribute>
             <jsp:attribute name="header">
                 <%@include file='header.jsp' %>
             </jsp:attribute>
@@ -11,53 +14,71 @@
                 <%@include file='footer.jsp' %>
             </jsp:attribute>
             <jsp:body>
-                <div class="container-fluid">
+                <div class="container-fluid --register-form">
                     <form>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                <label for="inputName">Name</label>
+                                <input type="text" class="form-control --register-control" id="inputName"
+                                    placeholder="Name">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputPassword4">Password</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                                <label for="lastName">Last name</label>
+                                <input type="text" class="form-control  --register-control" id="lastName"
+                                    placeholder="Last name">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail">Email</label>
+                                <input type="email" class="form-control  --register-control" id="inputEmail"
+                                    placeholder="Email">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputUsername">Username</label>
+                                <input type="text" class="form-control  --register-control" id="inputUsername"
+                                    placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword">Password</label>
+                                <input type="password" class="form-control  --register-control" id="inputPassword"
+                                    placeholder="Password">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputConfirmPassword">Confirm password</label>
+                                <input type="password" class="form-control  --register-control"
+                                    id="inputConfirmPassword" placeholder="Password">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputAddress">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                            <input type="text" class="form-control  --register-control" id="inputAddress"
+                                placeholder="1234 Main St">
                         </div>
                         <div class="form-group">
-                            <label for="inputAddress2">Address 2</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                placeholder="Apartment, studio, or floor">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">City</label>
-                                <input type="text" class="form-control" id="inputCity">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputState">State</label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Choose...</option>
-                                    <option>...</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputZip">Zip</label>
-                                <input type="text" class="form-control" id="inputZip">
-                            </div>
+                            <label for="inputState">Country</label>
+                            <select id="inputState" class="form-control  --register-control">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <input class="form-check-input" type="checkbox" id="employee">
                                 <label class="form-check-label" for="gridCheck">
-                                    Check me out
+                                    Employee
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="user">
+                                <label class="form-check-label" for="gridCheck">
+                                    User
                                 </label>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <button type="submit" class="btn --register-button">Sign in</button>
                     </form>
                 </div>
             </jsp:body>

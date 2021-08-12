@@ -26,7 +26,7 @@
 								id="loginbutton"><a href="RegistrationController">Log in</a></button>
 						</div>
 						<div class="form-group col-md-2 --login-form-col">
-							<button class="btn --login-button align-items-bottom --login-control" id="loginbutton">
+							<button class="btn --login-button align-items-bottom --login-control" id="registerbutton">
 								<a href="RegistrationController">Sign in</a>
 							</button>
 						</div>

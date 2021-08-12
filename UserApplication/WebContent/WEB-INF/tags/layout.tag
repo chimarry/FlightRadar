@@ -11,6 +11,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href='css/global.css'>
 <link rel="stylesheet" href='css/index.css'>
+<link rel="stylesheet" href='css/scrollbar.css'>
 <link rel="stylesheet" href='css/header.css'>
 <link rel="stylesheet" href='css/footer.css'>
 <link rel="stylesheet" href='css/navmenu.css'>

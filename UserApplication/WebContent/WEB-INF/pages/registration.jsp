@@ -15,6 +15,12 @@
             </jsp:attribute>
             <jsp:body>
                 <div class="container-fluid --register-form">
+                    <div class='--register-cite'>
+                        <cite>
+                            Become a member of our company. As an employee you get to organize important features of our
+                            company. As an user,you can reserve flights, see history of your previous flights and many other awesome things.
+                        </cite>
+                    </div>
                     <form>
                         <div class="form-row">
                             <div class="form-group col-md-6">

@@ -1,23 +1,31 @@
 package pro.artse.dal.errorhandling;
 
-public class DBResultMessage<T> {
+public class DbResultMessage<T> {
 	private T result;
 	private DbStatus status;
 	private String message = "";
 
-	public DBResultMessage(T result, DbStatus status, String message) {
+	public DbResultMessage(T result, DbStatus status, String message) {
 		this(result, status);
 		this.message = message;
 	}
 
-	public DBResultMessage(T result, DbStatus status) {
+	public DbResultMessage(T result, DbStatus status) {
 		this(status);
 		this.result = result;
 	}
 
-	public DBResultMessage(DbStatus status) {
+	public DbResultMessage(DbStatus status) {
 		super();
 		this.status = status;
+	}
+
+	public DbResultMessage(DbStatus status, String message) {
+		this(null, status, message);
+	}
+
+	public DbResultMessage(T result) {
+		this(result, DbStatus.SUCCESS);
 	}
 
 	public T getResult() {

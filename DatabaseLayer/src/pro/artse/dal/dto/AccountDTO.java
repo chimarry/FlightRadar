@@ -6,7 +6,6 @@ public class AccountDTO {
 	private String name;
 	private String lastName;
 	private String email;
-	private String password;
 	private String username;
 	private String country;
 	private String address;
@@ -15,21 +14,31 @@ public class AccountDTO {
 	public AccountDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public AccountDTO(int accountId, String name, String lastName, String email, String password, String username,
-			String country, String address, AccountRole role) {
+
+	public AccountDTO(int accountId, String name, String lastName, String email, String username, String country,
+			String address, AccountRole role) {
 		super();
 		this.accountId = accountId;
 		this.name = name;
 		this.lastName = lastName;
 		this.email = email;
-		this.password = password;
 		this.username = username;
 		this.country = country;
 		this.address = address;
 		this.role = role;
 	}
 
+	public AccountDTO(String name, String lastName, String email, String username, String country, String address,
+			AccountRole role) {
+		super();
+		this.name = name;
+		this.lastName = lastName;
+		this.email = email;
+		this.username = username;
+		this.country = country;
+		this.address = address;
+		this.role = role;
+	}
 
 	public int getAccountId() {
 		return accountId;
@@ -61,14 +70,6 @@ public class AccountDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getUsername() {

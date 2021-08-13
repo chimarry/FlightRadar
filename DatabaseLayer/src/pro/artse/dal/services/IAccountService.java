@@ -1,11 +1,11 @@
 package pro.artse.dal.services;
 
 import pro.artse.dal.dto.AccountDTO;
-import pro.artse.dal.errorhandling.DBResultMessage;
+import pro.artse.dal.errorhandling.DbResultMessage;
 
 public interface IAccountService {
 
-	public DBResultMessage<Boolean> register(AccountDTO account);
+	public DbResultMessage<Boolean> register(AccountDTO account, String password);
 
-	public DBResultMessage<Boolean> login(String username, String password);
+	public DbResultMessage<AccountDTO> login(String username, String password);
 }

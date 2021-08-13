@@ -1,10 +1,13 @@
 package pro.artse.dal.util;
 
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 import pro.artse.dal.dto.AccountDTO;
 
 public final class Validator {
+
+	private static final String EMAIL_VERIFICATION_REGEX = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
 	/**
 	 * Checks if string is null or empty.
@@ -48,6 +51,7 @@ public final class Validator {
 
 	public static boolean isInvalidAccount(AccountDTO account) {
 		return areNullOrEmpty(account.getUsername(), account.getName(), account.getLastName(), account.getEmail(),
-				account.getCountry(), account.getAddress());
+				account.getCountry(), account.getAddress())
+				|| !Pattern.matches(EMAIL_VERIFICATION_REGEX, account.getEmail());
 	}
 }

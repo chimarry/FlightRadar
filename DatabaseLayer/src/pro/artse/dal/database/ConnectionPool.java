@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import pro.artse.dal.util.ConfigurationUtil;
-import pro.artse.dal.util.Validator;
 
 public final class ConnectionPool {
 

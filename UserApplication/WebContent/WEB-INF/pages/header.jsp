@@ -9,21 +9,23 @@
 				</div>
 			</div>
 			<div class="col-lg-4">
-				<form class='--login-form'>
+				<form class='--login-form' method="post">
 					<div class="form-row">
 						<div class="form-group col-md-4 --login-form-col">
-							<label for="inputEmail4">&nbsp; Email</label>
-							<input type="email" class="form-control --login-control" id="inputEmail4"
-								placeholder="Email">
+							<label for="email">&nbsp; Email</label>
+							<input type="email" class="form-control --login-control" id="email" placeholder="Email"
+								required>
 						</div>
 						<div class="form-group col-md-4 --login-form-col">
-							<label for="inputPassword4">&nbsp; Password</label>
-							<input type="password" class="form-control --login-control" id="inputPassword4"
+							<label for="password">&nbsp; Password</label>
+							<input type="password" class="form-control --login-control" id="password"
 								placeholder="Password">
 						</div>
 						<div class="form-group col-md-2 --login-form-col">
 							<button type="submit" class="btn --login-button align-items-bottom --login-control"
-								id="loginbutton"><a href="RegistrationController">Log in</a></button>
+								id="loginbutton">
+								<a href="RegistrationController">Log in</a>
+							</button>
 						</div>
 						<div class="form-group col-md-2 --login-form-col">
 							<button class="btn --login-button align-items-bottom --login-control" id="registerbutton">

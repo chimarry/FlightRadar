@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import pro.artse.user.util.Validator;
-
 @WebServlet("/FlightReservationController")
 public class FlightReservationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

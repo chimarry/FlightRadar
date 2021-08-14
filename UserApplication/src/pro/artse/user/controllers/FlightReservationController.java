@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import pro.artse.user.util.Pages;
 import pro.artse.user.util.SessionBeans;
+import pro.artse.user.util.HttpSessionUtil;
 import pro.artse.user.util.Validator;
 
 @WebServlet("/FlightReservationController")
@@ -28,7 +29,7 @@ public class FlightReservationController extends HttpServlet {
 			throws ServletException, IOException {
 		String address = Pages.NOT_AUTHENTICATED;
 		HttpSession session = request.getSession();
-		if (Validator.isLoggedIn(session.getAttribute(SessionBeans.ACCOUNT_BEAN))) {
+		if (HttpSessionUtil.isLoggedIn(session)) {
 			String action = request.getParameter("action");
 			if (SHOW_ALL_RESERVATIONS.equals(action))
 				address = Pages.FLIGHT_RESERVATIONS;

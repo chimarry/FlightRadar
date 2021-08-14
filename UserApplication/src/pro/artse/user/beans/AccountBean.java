@@ -107,4 +107,13 @@ public class AccountBean implements Serializable {
 	public void setLoggedIn(boolean isLoggedIn) {
 		this.isLoggedIn = isLoggedIn;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("%s %s", getName(), getLastName());
+	}
+	
+	public static AccountBean createGuest() {
+		return new AccountBean();
+	}
 }

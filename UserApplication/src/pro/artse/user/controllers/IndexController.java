@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.manager.util.SessionUtils;
+
 import pro.artse.dal.dto.AccountDTO;
 import pro.artse.dal.errorhandling.DbResultMessage;
 import pro.artse.dal.services.IAccountService;
@@ -18,6 +20,7 @@ import pro.artse.user.beans.AccountBean;
 import pro.artse.user.mapper.AccountMapper;
 import pro.artse.user.util.Pages;
 import pro.artse.user.util.SessionBeans;
+import pro.artse.user.util.HttpSessionUtil;
 
 @WebServlet("/IndexController")
 public class IndexController extends HttpServlet {
@@ -33,6 +36,11 @@ public class IndexController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String address = Pages.INDEX;
+		HttpSession session = request.getSession();
+
+		if (!HttpSessionUtil.isLoggedIn(session))
+			HttpSessionUtil.turnOnGuestMode(session);
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}
@@ -51,9 +59,9 @@ public class IndexController extends HttpServlet {
 		if (loggedIn.isSuccess()) {
 			AccountBean account = AccountMapper.mapToBean(loggedIn.getResult());
 			account.setLoggedIn(true);
-			session.setAttribute(SessionBeans.ACCOUNT_BEAN, account);
+			HttpSessionUtil.logIn(session, account);
 		}
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}

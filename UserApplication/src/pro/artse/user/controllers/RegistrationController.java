@@ -8,12 +8,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import pro.artse.dal.dto.AccountDTO;
+import pro.artse.dal.dto.AccountRole;
+import pro.artse.dal.errorhandling.DbResultMessage;
+import pro.artse.dal.services.IAccountService;
+import pro.artse.dal.services.ServiceFactory;
+import pro.artse.user.beans.AccountBean;
+import pro.artse.user.mapper.AccountMapper;
+import pro.artse.user.util.HttpSessionUtil;
+import pro.artse.user.util.Messages;
 import pro.artse.user.util.Pages;
+import pro.artse.user.util.Validator;
 
 @WebServlet("/RegistrationController")
 public class RegistrationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	private IAccountService accountService = ServiceFactory.getAccountService();
 
 	public RegistrationController() {
 		super();
@@ -28,7 +41,30 @@ public class RegistrationController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		String address = Pages.INDEX;
+
+		AccountDTO accountDTO = new AccountDTO();
+		accountDTO.setName(request.getParameter("name"));
+		accountDTO.setLastName(request.getParameter("lastName"));
+		accountDTO.setUsername(request.getParameter("username"));
+		accountDTO.setCountry(request.getParameter("country"));
+		accountDTO.setEmail(request.getParameter("email"));
+		accountDTO.setAddress(request.getParameter("address"));
+		accountDTO.setRole(
+				request.getParameter("passenger").equals("on") ? AccountRole.Passenger : AccountRole.Transport);
+		String password = request.getParameter("password");
+
+		DbResultMessage<Boolean> isRegistered = accountService.register(accountDTO, password);
+
+		if (isRegistered.isSuccess()) {
+			request.setAttribute("successMessage", Messages.SUCCESS);
+		} else
+			request.setAttribute("errorMessage",
+					Validator.isEmptyOrNull(isRegistered.getMessage()) ? Messages.FAILED_REGISTER
+							: isRegistered.getMessage());
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+		dispatcher.forward(request, response);
 	}
 }

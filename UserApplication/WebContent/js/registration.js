@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    $('#user').change(function () {
-        $('#employee').prop('checked', false);
-        $('#employee').prop('disabled', $(this).prop('checked'));
+    $('#passenger').change(function () {
+        $('#transport').prop('checked', false);
+        $('#transport').prop('disabled', $(this).prop('checked'));
     })
-    $('#employee').change(function () {
-        $('#user').prop('checked', false);
-        $('#user').prop('disabled', $(this).prop('checked'));
+    $('#transport').change(function () {
+        $('#passenger').prop('checked', false);
+        $('#passenger').prop('disabled', $(this).prop('checked'));
     })
 });

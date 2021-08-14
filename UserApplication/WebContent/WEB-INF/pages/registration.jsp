@@ -21,66 +21,69 @@
                             company. As an user,you can reserve flights, see history of your previous flights and many other awesome things.
                         </cite>
                     </div>
-                    <form>
+                    <form method="POST" action="RegistrationController">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputName">Name</label>
-                                <input type="text" class="form-control --register-control" id="inputName"
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control --register-control" id="name" name="name" required
                                     placeholder="Name">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="lastName">Last name</label>
-                                <input type="text" class="form-control  --register-control" id="lastName"
+                                <input type="text" class="form-control  --register-control" id="lastName" name="lastName" required
                                     placeholder="Last name">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputEmail">Email</label>
-                                <input type="email" class="form-control  --register-control" id="inputEmail"
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control  --register-control" id="email" name="email" required
                                     placeholder="Email">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputUsername">Username</label>
-                                <input type="text" class="form-control  --register-control" id="inputUsername"
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control  --register-control" id="username" name="username" required
                                     placeholder="Username">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputPassword">Password</label>
-                                <input type="password" class="form-control  --register-control" id="inputPassword"
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control  --register-control" id="password" name="password" required
                                     placeholder="Password">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputConfirmPassword">Confirm password</label>
+                                <label for="confirmPassword">Confirm password</label>
                                 <input type="password" class="form-control  --register-control"
-                                    id="inputConfirmPassword" placeholder="Password">
+                                    id="confirmPassword" name="confirmPassword" placeholder="Password" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputAddress">Address</label>
-                            <input type="text" class="form-control  --register-control" id="inputAddress"
-                                placeholder="1234 Main St">
+                            <label for="adddress">Address</label>
+                            <input type="text" class="form-control  --register-control" id="address" name="address"
+                                placeholder="1234 Main St" required>
                         </div>
                         <div class="form-group">
-                            <label for="inputState">Country</label>
-                            <select id="inputState" class="form-control  --register-control">
+                            <label for="country">Country</label>
+                            <select id="country" class="form-control  --register-control" name="country" required>
                                 <option selected>Choose...</option>
-                                <option>...</option>
+                                <option>BiH</option>
+                                <option>Hrvatska</option>
+                                <option>Makedonija</option>
+                                <option>Srbija</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="employee">
+                                <input class="form-check-input" type="checkbox" id="transport" name="transport">
                                 <label class="form-check-label" for="gridCheck">
-                                    Employee
+                                    Transport
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="user">
+                                <input class="form-check-input" type="checkbox" id="passenger" name="passenger">
                                 <label class="form-check-label" for="gridCheck">
-                                    User
+                                    Passenger
                                 </label>
                             </div>
                         </div>

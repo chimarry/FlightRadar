@@ -8,17 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import pro.artse.dal.dto.AccountDTO;
 import pro.artse.dal.dto.AccountRole;
 import pro.artse.dal.errorhandling.DbResultMessage;
 import pro.artse.dal.services.IAccountService;
 import pro.artse.dal.services.ServiceFactory;
-import pro.artse.user.beans.AccountBean;
 import pro.artse.user.beans.CountriesBean;
-import pro.artse.user.mapper.AccountMapper;
-import pro.artse.user.util.HttpSessionUtil;
 import pro.artse.user.util.Messages;
 import pro.artse.user.util.Pages;
 import pro.artse.user.util.RestApiUtil;
@@ -58,6 +53,7 @@ public class RegistrationController extends HttpServlet {
 		accountDTO.setCountry(request.getParameter("country"));
 		accountDTO.setEmail(request.getParameter("email"));
 		accountDTO.setAddress(request.getParameter("address"));
+		// TODO: Fix null pointer
 		accountDTO.setRole(
 				request.getParameter("passenger").equals("on") ? AccountRole.Passenger : AccountRole.Transport);
 		String password = request.getParameter("password");

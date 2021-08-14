@@ -31,6 +31,16 @@ public class AccountService implements IAccountService {
 		try {
 			connectionPool = ConnectionPool.getInstance();
 			connection = connectionPool.checkOut();
+			
+			// Check if a user with the specified username already exists
+			PreparedStatement psExists = ServiceUtil.prepareStatement(connection,
+					AccountSqlExtension.SQL_SELECT_WITH_USERNAME, account.getUsername());
+			ResultSet rs = psExists.executeQuery();
+			if (rs.next())
+				return new DbResultMessage<Boolean>(DbStatus.EXISTS,
+						"Account with " + account.getUsername() + " already exists.");
+			psExists.close();
+
 			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_INSERT, false,
 					AccountSqlExtension.mapForInsert(account, passwordHash));
 			ps.executeUpdate();

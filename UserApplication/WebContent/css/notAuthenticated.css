@@ -1,0 +1,26 @@
+@charset "ISO-8859-1";
+.--not-authenticated-container {
+	font-size: 1.4rem;
+	color: var(--main-font-color);
+	height: 80vh;
+	padding: 5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	align-items:center;
+}
+
+.--not-authenticated-center{
+	align-items: center;
+}
+.--not-authenticated-container img{
+	width:100%;
+	height: auto;
+}
+
+@media screen and (max-width: 576px){
+	.--not-authenticated-container{
+		height: 50vh;
+	}
+}

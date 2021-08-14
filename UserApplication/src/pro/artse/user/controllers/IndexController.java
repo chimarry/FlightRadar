@@ -50,6 +50,7 @@ public class IndexController extends HttpServlet {
 			session.setAttribute("accountBean", AccountMapper.mapToBean(loggedIn.getResult()));
 		    address = "/WEB-INF/pages/registration.jsp";
 		}
+		else address = "/WEB-INF/pages/notAuthenticated.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}

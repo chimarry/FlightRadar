@@ -63,3 +63,23 @@
     transform: none;
     transition: none;
 }
+
+.--account-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.--account-icon{
+	margin-right: 5px;
+}
+
+.--account-info>p{
+	font-weight: bold;
+	font-size: 1.2em;
+	color: var(--main-font-color);
+	margin: 0 10px;
+}
+.--account-info>a {
+    color: white;
+}

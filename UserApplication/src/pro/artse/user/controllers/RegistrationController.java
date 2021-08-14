@@ -16,10 +16,12 @@ import pro.artse.dal.errorhandling.DbResultMessage;
 import pro.artse.dal.services.IAccountService;
 import pro.artse.dal.services.ServiceFactory;
 import pro.artse.user.beans.AccountBean;
+import pro.artse.user.beans.CountriesBean;
 import pro.artse.user.mapper.AccountMapper;
 import pro.artse.user.util.HttpSessionUtil;
 import pro.artse.user.util.Messages;
 import pro.artse.user.util.Pages;
+import pro.artse.user.util.RestApiUtil;
 import pro.artse.user.util.Validator;
 
 @WebServlet("/RegistrationController")
@@ -35,6 +37,11 @@ public class RegistrationController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String address = Pages.REGISTRATION_FORM;
+		
+		CountriesBean bean = new CountriesBean();
+		bean.setCountries(RestApiUtil.getCountries());
+		request.setAttribute("countriesBean", bean);
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}

@@ -70,16 +70,23 @@
     justify-content: flex-end;
 }
 
-.--account-icon{
-	margin-right: 5px;
+.--account-icon {
+    margin-right: 5px;
 }
 
-.--account-info>p{
-	font-weight: bold;
-	font-size: 1.2em;
-	color: var(--main-font-color);
-	margin: 0 10px;
+.--account-info>p {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: var(--main-font-color);
+    margin: 0 10px;
 }
+
 .--account-info>a {
     color: white;
+}
+
+@media screen and (max-width:992px){
+    .--account-info {
+        margin-bottom: 20px;
+    }
 }

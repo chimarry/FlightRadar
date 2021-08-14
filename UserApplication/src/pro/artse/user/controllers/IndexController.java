@@ -37,7 +37,7 @@ public class IndexController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String address = "/WEB-INF/pages/registration.jsp";
+		String address = "/WEB-INF/pages/index.jsp";
 		HttpSession session = request.getSession();
 
 		String username = request.getParameter("username");
@@ -46,9 +46,10 @@ public class IndexController extends HttpServlet {
 		DbResultMessage<AccountDTO> loggedIn = accountService.login(username, password);
 
 		// TODO: Obrada greske
-		if (loggedIn.isSuccess())
+		if (loggedIn.isSuccess()) {
 			session.setAttribute("accountBean", AccountMapper.mapToBean(loggedIn.getResult()));
-
+		    address = "/WEB-INF/pages/registration.jsp";
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}

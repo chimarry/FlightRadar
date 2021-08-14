@@ -9,28 +9,25 @@
 				</div>
 			</div>
 			<div class="col-lg-4">
-				<form class='--login-form' method="post">
+				<form class='--login-form' action="IndexController" method="POST">
 					<div class="form-row">
 						<div class="form-group col-md-4 --login-form-col">
-							<label for="email">&nbsp; Email</label>
-							<input type="email" class="form-control --login-control" id="email" placeholder="Email"
+							<label for="username">&nbsp; Username</label>
+							<input type="text" class="form-control --login-control" id="username" placeholder="Username" name="username"
 								required>
 						</div>
 						<div class="form-group col-md-4 --login-form-col">
 							<label for="password">&nbsp; Password</label>
-							<input type="password" class="form-control --login-control" id="password"
-								placeholder="Password">
+							<input type="password" class="form-control --login-control" id="password" name="password"
+								placeholder="Password" required>
 						</div>
 						<div class="form-group col-md-2 --login-form-col">
-							<button type="submit" class="btn --login-button align-items-bottom --login-control"
-								id="loginbutton">
-								<a href="RegistrationController">Log in</a>
-							</button>
+							<button type="submit" class="btn --login-button align-items-bottom --login-control" 
+								id="loginbutton">Log in</button>
 						</div>
 						<div class="form-group col-md-2 --login-form-col">
-							<button class="btn --login-button align-items-bottom --login-control" id="registerbutton">
-								<a href="RegistrationController">Sign in</a>
-							</button>
+							<a class="btn --login-button align-items-bottom --login-control" id="registerbutton"
+								href="RegistrationController">Sign in</a>
 						</div>
 					</div>
 				</form>

@@ -2,7 +2,7 @@
     <%@taglib prefix="l" tagdir="/WEB-INF/tags" %>
         <l:layout>
             <jsp:attribute name="header">
-                <%@include file='loggedInHeader.jsp' %>
+                <%@include file='header.jsp' %>
             </jsp:attribute>
             <jsp:attribute name="navmenu">
                 <%@include file='navmenu.jsp' %>

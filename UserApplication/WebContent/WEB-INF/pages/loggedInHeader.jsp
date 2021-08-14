@@ -11,7 +11,7 @@
 			<div class="col-lg-4">
 				<div class='--account-info'>
 					<p><i class="fas fa-user-alt --account-icon"></i>Marija Novakovic</p>
-					<button class="btn --login-button align-items-bottom --login-control" id="logoutbutton">Log out</button>
+					<a class="btn --login-button align-items-bottom --login-control" id="logoutbutton">Log out</a>
 				</div>
 			</div>
 		</div>

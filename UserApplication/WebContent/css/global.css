@@ -16,7 +16,7 @@ a {
     text-decoration: none;
 }
 
-a:link, a:visited, a:hover, a:active{
+a:link, a:visited, a:hover, a:active {
     color: var(--secondary-font-color);
     text-decoration: none;
 }
@@ -41,5 +41,11 @@ a:link, a:visited, a:hover, a:active{
 @media (max-width: 400px) {
     * {
         font-size: 13px;
+    }
+}
+
+@media (max-width: 300px) {
+    * {
+        font-size: 10px;
     }
 }

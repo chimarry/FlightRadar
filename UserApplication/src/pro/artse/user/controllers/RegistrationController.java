@@ -53,11 +53,11 @@ public class RegistrationController extends HttpServlet {
 		accountDTO.setCountry(request.getParameter("country"));
 		accountDTO.setEmail(request.getParameter("email"));
 		accountDTO.setAddress(request.getParameter("address"));
-		// TODO: Fix null pointer
-		accountDTO.setRole(
-				request.getParameter("passenger").equals("on") ? AccountRole.Passenger : AccountRole.Transport);
+		
+		boolean isPassenger = request.getParameter("passenger") != null
+				&& request.getParameter("passenger").equals("on");
+		accountDTO.setRole(isPassenger ? AccountRole.Passenger : AccountRole.Transport);
 		String password = request.getParameter("password");
-
 		DbResultMessage<Boolean> isRegistered = accountService.register(accountDTO, password);
 
 		if (isRegistered.isSuccess()) {

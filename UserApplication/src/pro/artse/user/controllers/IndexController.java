@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.manager.util.SessionUtils;
-
 import pro.artse.dal.dto.AccountDTO;
 import pro.artse.dal.errorhandling.DbResultMessage;
 import pro.artse.dal.services.IAccountService;
@@ -19,8 +17,8 @@ import pro.artse.dal.services.ServiceFactory;
 import pro.artse.user.beans.AccountBean;
 import pro.artse.user.mapper.AccountMapper;
 import pro.artse.user.util.Pages;
-import pro.artse.user.util.SessionBeans;
 import pro.artse.user.util.HttpSessionUtil;
+import pro.artse.user.util.Messages;
 
 @WebServlet("/IndexController")
 public class IndexController extends HttpServlet {
@@ -59,11 +57,12 @@ public class IndexController extends HttpServlet {
 
 		DbResultMessage<AccountDTO> loggedIn = accountService.login(username, password);
 
-		if (loggedIn.isSuccess()) {
+		if (loggedIn.getResult() != null) {
 			AccountBean account = AccountMapper.mapToBean(loggedIn.getResult());
 			account.setLoggedIn(true);
 			HttpSessionUtil.logIn(session, account);
-		}
+		} else
+			request.setAttribute("errorMessage", Messages.FAILED_LOG_IN);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);

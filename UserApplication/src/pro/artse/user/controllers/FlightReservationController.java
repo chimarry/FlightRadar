@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import pro.artse.user.util.Pages;
-import pro.artse.user.util.SessionBeans;
 import pro.artse.user.util.HttpSessionUtil;
-import pro.artse.user.util.Validator;
 
 @WebServlet("/FlightReservationController")
 public class FlightReservationController extends HttpServlet {

@@ -26,6 +26,7 @@ import pro.artse.user.util.HttpSessionUtil;
 public class IndexController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	private static final String LOG_OUT = "logout";
 
 	private IAccountService accountService = ServiceFactory.getAccountService();
 
@@ -37,8 +38,10 @@ public class IndexController extends HttpServlet {
 			throws ServletException, IOException {
 		String address = Pages.INDEX;
 		HttpSession session = request.getSession();
-
-		if (!HttpSessionUtil.isLoggedIn(session))
+		String action = request.getParameter("action");
+		if (LOG_OUT.equals(action))
+			HttpSessionUtil.logOut(session);
+		else if (!HttpSessionUtil.isLoggedIn(session))
 			HttpSessionUtil.turnOnGuestMode(session);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);

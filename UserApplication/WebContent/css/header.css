@@ -68,6 +68,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    color: var(--ternary-font-color);
 }
 
 .--account-icon {
@@ -79,10 +80,6 @@
     font-size: 1.2em;
     color: var(--main-font-color);
     margin: 0 10px;
-}
-
-.--account-info>a {
-    color: white;
 }
 
 @media screen and (max-width:992px){

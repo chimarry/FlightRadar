@@ -21,7 +21,7 @@ public final class HttpSessionUtil {
 		session.setAttribute(SessionBeans.ACCOUNT_BEAN, AccountBean.createGuest());
 	}
 
-	public static final void logOut(HttpSession session, AccountBean account) {
-
+	public static final void logOut(HttpSession session) {
+		turnOnGuestMode(session);
 	}
 }

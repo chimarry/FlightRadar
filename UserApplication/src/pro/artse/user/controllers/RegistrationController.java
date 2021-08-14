@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import pro.artse.user.util.Pages;
+
 @WebServlet("/RegistrationController")
 public class RegistrationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +21,7 @@ public class RegistrationController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String address = "/WEB-INF/pages/registration.jsp";
+		String address = Pages.REGISTRATION_FORM;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}

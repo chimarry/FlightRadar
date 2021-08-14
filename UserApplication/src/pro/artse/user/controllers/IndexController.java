@@ -14,7 +14,10 @@ import pro.artse.dal.dto.AccountDTO;
 import pro.artse.dal.errorhandling.DbResultMessage;
 import pro.artse.dal.services.IAccountService;
 import pro.artse.dal.services.ServiceFactory;
+import pro.artse.user.beans.AccountBean;
 import pro.artse.user.mapper.AccountMapper;
+import pro.artse.user.util.Pages;
+import pro.artse.user.util.SessionBeans;
 
 @WebServlet("/IndexController")
 public class IndexController extends HttpServlet {
@@ -29,7 +32,7 @@ public class IndexController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String address = "/WEB-INF/pages/index.jsp";
+		String address = Pages.INDEX;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}
@@ -37,7 +40,7 @@ public class IndexController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String address = "/WEB-INF/pages/index.jsp";
+		String address = Pages.INDEX;
 		HttpSession session = request.getSession();
 
 		String username = request.getParameter("username");
@@ -45,12 +48,12 @@ public class IndexController extends HttpServlet {
 
 		DbResultMessage<AccountDTO> loggedIn = accountService.login(username, password);
 
-		// TODO: Obrada greske
 		if (loggedIn.isSuccess()) {
-			session.setAttribute("accountBean", AccountMapper.mapToBean(loggedIn.getResult()));
-		    address = "/WEB-INF/pages/registration.jsp";
+			AccountBean account = AccountMapper.mapToBean(loggedIn.getResult());
+			account.setLoggedIn(true);
+			session.setAttribute(SessionBeans.ACCOUNT_BEAN, account);
 		}
-		else address = "/WEB-INF/pages/notAuthenticated.jsp";
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}

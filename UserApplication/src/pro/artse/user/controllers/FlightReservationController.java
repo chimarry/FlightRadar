@@ -8,6 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import pro.artse.user.util.Pages;
+import pro.artse.user.util.SessionBeans;
+import pro.artse.user.util.Validator;
 
 @WebServlet("/FlightReservationController")
 public class FlightReservationController extends HttpServlet {
@@ -21,13 +26,15 @@ public class FlightReservationController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String address = "/WEB-INF/pages/index.jsp";
-
-		String action = request.getParameter("action");
-		if (SHOW_ALL_RESERVATIONS.equals(action))
-			address = "/WEB-INF/pages/flightReservations.jsp";
-		if (SHOW_RESERVATION_FORM.equals(action))
-			address = "/WEB-INF/pages/flightReservation.jsp";
+		String address = Pages.NOT_AUTHENTICATED;
+		HttpSession session = request.getSession();
+		if (Validator.isLoggedIn(session.getAttribute(SessionBeans.ACCOUNT_BEAN))) {
+			String action = request.getParameter("action");
+			if (SHOW_ALL_RESERVATIONS.equals(action))
+				address = Pages.FLIGHT_RESERVATIONS;
+			if (SHOW_RESERVATION_FORM.equals(action))
+				address = Pages.FLIGHT_RESERVATION_FORM;
+		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);

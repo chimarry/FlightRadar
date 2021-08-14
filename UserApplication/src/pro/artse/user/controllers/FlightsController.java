@@ -9,30 +9,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import pro.artse.user.util.Pages;
+
 @WebServlet("/FlightsController")
 public class FlightsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ARRIVALS = "arrivals";
 	private static final String DEPARTURES = "departures";
-	
-    public FlightsController() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String address = "/WEB-INF/pages/index.jsp";
+	public FlightsController() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String address = Pages.INDEX;
 
 		String action = request.getParameter("action");
 		if (ARRIVALS.equals(action))
-			address = "/WEB-INF/pages/arrivals.jsp";
+			address = Pages.ARRIVALS;
 		if (DEPARTURES.equals(action))
-			address = "/WEB-INF/pages/departures.jsp";
+			address = Pages.DEPARTURES;
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

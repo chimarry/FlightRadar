@@ -16,6 +16,7 @@ public class AccountBean implements Serializable {
 	private String country;
 	private String address;
 	private AccountRole role;
+	private boolean isLoggedIn;
 
 	public AccountBean() {
 
@@ -32,6 +33,7 @@ public class AccountBean implements Serializable {
 		this.country = country;
 		this.address = address;
 		this.role = role;
+		this.isLoggedIn = false;
 	}
 
 	public int getAccountId() {
@@ -96,5 +98,13 @@ public class AccountBean implements Serializable {
 
 	public void setRole(AccountRole role) {
 		this.role = role;
+	}
+
+	public boolean isLoggedIn() {
+		return isLoggedIn;
+	}
+
+	public void setLoggedIn(boolean isLoggedIn) {
+		this.isLoggedIn = isLoggedIn;
 	}
 }

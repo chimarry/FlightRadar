@@ -22,7 +22,7 @@
 							$("#tableBody").find("tr").remove();
 							$.each(responseJson, function (index, flight) {
 								$('#tableBody').append('<tr>');
-								$('#tableBody').append('<td>' +flight.departureCityName + '</td>');
+								$('#tableBody').append('<td>' + flight.departureCityName + '</td>');
 								$('#tableBody').append('<td>' + flight.arrivalCityName  + '</td>');
 								$('#tableBody').append('<td>' + flight.time + '</td>');
 								$('#tableBody').append('<td>' + flight.status + '</td>');

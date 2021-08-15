@@ -3,7 +3,7 @@
     background-color: var(--ternary-color);
     color: var(--ternary-font-color);
     font-size: 1.2em;
-    height: 40vh;
+    max-height: 40vh;
     text-align:center;
 }
 

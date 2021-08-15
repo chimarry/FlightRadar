@@ -36,16 +36,16 @@ public class FlightsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<FlightBean> flights = new ArrayList<>();
-		
+
 		String address = Pages.FLIGHTS;
 		String action = request.getParameter("action");
 		String isDeparture = request.getParameter("isDeparture");
-	
+
 		if (NOT_DEPARTURE.equals(isDeparture))
 			flights = getFlights(false);
 		else
 			flights = getFlights(true);
-		
+
 		String json = new Gson().toJson(flights);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

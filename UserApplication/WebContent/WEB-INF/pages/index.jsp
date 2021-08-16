@@ -14,20 +14,11 @@
                 <script>
                     function loadData() {
                         $.get("IndexController?action=refresh", function (responseJson) {
+                            $("#departuresTable").find("td").remove();
+                            $("#departuresTable").find("tr").remove();
                             $("#arrivalsTable").find("td").remove();
                             $("#arrivalsTable").find("tr").remove();
                             $.each(responseJson[0], function (index, flight) {
-                                $('#arrivalsTable').append('<tr>');
-                                $('#arrivalsTable').append('<td>' + flight.departureCityName + '</td>');
-                                $('#arrivalsTable').append('<td>' + flight.arrivalCityName + '</td>');
-                                $('#arrivalsTable').append('<td>' + flight.time + '</td>');
-                                $('#arrivalsTable').append('<td>' + flight.status + '</td>');
-                                $('#arrivalsTable').append('<td>' + flight.type + '</td></tr>');
-                            });
-
-                            $("#departuresTable").find("td").remove();
-                            $("#departuresTable").find("tr").remove();
-                            $.each(responseJson[1], function (index, flight) {
                                 $('#departuresTable').append('<tr>');
                                 $('#departuresTable').append('<td>' + flight.departureCityName + '</td>');
                                 $('#departuresTable').append('<td>' + flight.arrivalCityName + '</td>');
@@ -35,17 +26,14 @@
                                 $('#departuresTable').append('<td>' + flight.status + '</td>');
                                 $('#departuresTable').append('<td>' + flight.type + '</td></tr>');
                             });
-                            
-                            var tableArrivals = document.getElementById("arrivalsTableBody");
-                            var tableDepartures = document.getElementById("departuresTable");
-                            if(tableDepartures.rows.length<5){
-                            	 $('#departuresTable').append('<tr>');
-                                 $('#departuresTable').append('<td>'+  '</td>');
-                                 $('#departuresTable').append('<td>'+  '</td>');
-                                 $('#departuresTable').append('<td>'+ '</td>');
-                                 $('#departuresTable').append('<td>' + '</td>');
-                                 $('#departuresTable').append('<td>'+  '</td></tr>');
-                            }
+                            $.each(responseJson[1], function (index, flight) {
+                                $('#arrivalsTable').append('<tr>');
+                                $('#arrivalsTable').append('<td>' + flight.departureCityName + '</td>');
+                                $('#arrivalsTable').append('<td>' + flight.arrivalCityName + '</td>');
+                                $('#arrivalsTable').append('<td>' + flight.time + '</td>');
+                                $('#arrivalsTable').append('<td>' + flight.status + '</td>');
+                                $('#arrivalsTable').append('<td>' + flight.type + '</td></tr>');
+                            });
                         });
                     }
                     $(document).ready(function () {

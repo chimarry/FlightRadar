@@ -64,7 +64,6 @@ public class FlightsController extends HttpServlet {
 
 	private List<FlightBean> getFlights(boolean isDeparture) {
 		List<FlightDTO> flights = flightService.getAll(isDeparture);
-		return flights.stream().map(x -> FlightMapper.mapToBean(x, isDeparture))
-				.collect(Collectors.toCollection(ArrayList::new));
+		return FlightMapper.mapToBeans(flights, isDeparture);
 	}
 }

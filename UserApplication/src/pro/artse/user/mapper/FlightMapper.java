@@ -1,5 +1,9 @@
 package pro.artse.user.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import pro.artse.dal.dto.FlightDTO;
 import pro.artse.user.beans.FlightBean;
 
@@ -12,5 +16,10 @@ public final class FlightMapper {
 		bean.setStatus(dto.getStatus());
 		bean.calculateAndSetTime(isDeparture);
 		return bean;
+	}
+
+	public static final ArrayList<FlightBean> mapToBeans(List<FlightDTO> flights, boolean isDeparture) {
+		return flights.stream().map(x -> FlightMapper.mapToBean(x, isDeparture))
+				.collect(Collectors.toCollection(ArrayList::new));
 	}
 }

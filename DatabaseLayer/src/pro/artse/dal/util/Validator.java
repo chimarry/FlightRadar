@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import pro.artse.dal.dto.AccountDTO;
+import pro.artse.dal.dto.AccountRole;
+import pro.artse.dal.dto.InputFlightReservationDTO;
 
 public final class Validator {
 
@@ -53,5 +55,13 @@ public final class Validator {
 		return areNullOrEmpty(account.getUsername(), account.getName(), account.getLastName(), account.getEmail(),
 				account.getCountry(), account.getAddress())
 				|| !Pattern.matches(EMAIL_VERIFICATION_REGEX, account.getEmail());
+	}
+
+	public static boolean isInvalidFlightReservation(InputFlightReservationDTO dto, AccountRole role) {
+		if (role == AccountRole.Passenger)
+			return dto.getSeatNumber() == 0;
+		else if (role == AccountRole.Transport)
+			return dto.getCargoDescription() == null || dto.getFileSpecification() == null;
+		return false;
 	}
 }

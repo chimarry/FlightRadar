@@ -37,12 +37,12 @@
                         });
                     }
                     function getCities(selectedCountryId, selectId) {
-                    	console.log(selectedCountryId);
+                        console.log(selectedCountryId);
                         var x = document.getElementById(selectedCountryId).value;
                         $.get("LocationController?action=cities&countryId=" + x, function (responseJson) {
                             $(selectId).empty();
                             $.each(responseJson, function (index, city) {
-                                $(selectId).append('<option>' + city.name + '</option>');
+                                $(selectId).append('<option value=' + city.cityId + '>' + city.name + '</option>');
                             });
                         });
                     }
@@ -64,7 +64,7 @@
             </jsp:attribute>
             <jsp:body>
                 <div class="container-fluid --flight-reservation">
-                    <form id="flightReservationForm">
+                    <form id="flightReservationForm" method="POST" action="FlightReservationController" enctype="multipart/form-data">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="departureCountry">Departure country</label>

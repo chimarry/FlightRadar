@@ -17,6 +17,10 @@ public final class HttpSessionUtil {
 		return false;
 	}
 
+	public static final AccountBean getAccountInfo(HttpSession session) {
+		return (AccountBean) session.getAttribute(SessionBeans.ACCOUNT_BEAN);
+	}
+
 	public static final void turnOnGuestMode(HttpSession session) {
 		session.setAttribute(SessionBeans.ACCOUNT_BEAN, AccountBean.createGuest());
 	}

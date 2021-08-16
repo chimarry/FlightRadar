@@ -12,7 +12,8 @@ public class ErrorHandler {
 
 	public static <T> DbResultMessage<T> handle(Exception ex) {
 		// TODO: Add logger
-		if(ex instanceof SQLException)
+		ex.printStackTrace();
+		if (ex instanceof SQLException)
 			return new DbResultMessage<T>(DbStatus.SERVER_ERROR);
 		else if (ex instanceof DateTimeParseException) {
 			return new DbResultMessage<T>(DbStatus.INVALID_DATA);

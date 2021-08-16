@@ -42,32 +42,6 @@
                     <form id="flightReservationForm">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <!-- Date input -->
-                                <label class="control-label" for="departureDate">Departure date</label>
-                                <input class="form-control" id="departureDate" name="departureDate"
-                                    placeholder="MM/DD/YYY" type="text" />
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputDepartureTime">Departure time:</label>
-                                <input type="text" class="form-control  --flight-reservation-control"
-                                    id="inputDepartureTime" placeholder="22:00">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <!-- Date input -->
-                                <label class="control-label" for="arrivalDate">Arrival date</label>
-                                <input class="form-control" id="arrivalDate" name="arrivalDate" placeholder="MM/DD/YYY"
-                                    type="text" />
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputArrivalTime">Arrival time:</label>
-                                <input type="text" class="form-control  --flight-reservation-control"
-                                    id="inputArrivalTime" placeholder="23:10">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
                                 <label for="inputState">Country</label>
                                 <select id="inputState" class="form-control  --flight-reservation-control">
                                     <option selected>Choose...</option>
@@ -83,6 +57,12 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <!-- Date input -->
+                                <label class="control-label" for="departureDate">Departure date</label>
+                                <input class="form-control" id="departureDate" name="departureDate"
+                                    placeholder="MM/DD/YYY" type="text" />
+                            </div>
                             <div class="form-group col-md-6">
                                 <label for="inputSeatNumber">Seat number</label>
                                 <input id="inputSeatNumber" type="number"
@@ -108,7 +88,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn --flight-reservation-button">Sign in</button>
+                        <button type="submit" class="btn --flight-reservation-button">Submit</button>
                     </form>
                 </div>
             </jsp:body>

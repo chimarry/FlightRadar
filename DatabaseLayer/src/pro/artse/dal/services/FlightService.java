@@ -57,15 +57,20 @@ public class FlightService implements IFlightService {
 	}
 
 	private static class FlightSqlExtensions {
+		
 		private static final String SELECT_FLIGHTS = "select a.name as arrivalCityName, d.name as departureCityName, f.arrivalCityId, f.departureCityId, f.flightId, f.arrivalOn, f.departureOn, f.type  ";
+		
 		private static final String SELECT_DEPARTURES = SELECT_FLIGHTS + " from cities d " + "left join flights f "
 				+ "on d.cityId=f.departureCityId " + "left join cities a on a.cityId=f.arrivalCityId "
 				+ " WHERE d.name=%s";
+		
 		private static final String SELECT_ARRIVALS = SELECT_FLIGHTS + " from cities a " + "left join flights f "
 				+ "on a.cityId=f.arrivalCityId " + "left join cities d on d.cityId=f.departureCityId "
 				+ " WHERE a.name=%s";
+		
 		static final String SELECT_FEATURED_ARRIVALS = SELECT_ARRIVALS + " LIMIT "
 				+ ConfigurationUtil.getNumber("featured");
+		
 		private static final String SELECT_FEATURED_DEPARTURES = SELECT_DEPARTURES + " LIMIT "
 				+ ConfigurationUtil.getNumber("featured");
 

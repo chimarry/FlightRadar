@@ -18,7 +18,6 @@ import pro.artse.user.util.AlertManager;
 import pro.artse.user.util.Messages;
 import pro.artse.user.util.Pages;
 import pro.artse.user.util.RestApiUtil;
-import pro.artse.user.util.Validator;
 
 @WebServlet("/RegistrationController")
 public class RegistrationController extends HttpServlet {

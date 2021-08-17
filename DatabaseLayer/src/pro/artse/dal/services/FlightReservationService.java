@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 import pro.artse.dal.database.ConnectionPool;
 import pro.artse.dal.database.ServiceUtil;
@@ -17,6 +19,7 @@ import pro.artse.dal.dto.InputFlightReservationDTO;
 import pro.artse.dal.errorhandling.DbResultMessage;
 import pro.artse.dal.errorhandling.DbStatus;
 import pro.artse.dal.errorhandling.ErrorHandler;
+import pro.artse.dal.errorhandling.ForbiddenAccessException;
 import pro.artse.dal.util.FileUtil;
 import pro.artse.dal.util.Validator;
 
@@ -61,34 +64,115 @@ public abstract class FlightReservationService implements IFlightReservationServ
 	@Override
 	public DbResultMessage<Boolean> changeStatus(int flightReservationId, FlightReservationStatus status,
 			int accountId) {
-		// Get the specified reservation
-		// Do authorization - if employee or owner of the account
-		// Change status
-		return null;
+		ConnectionPool connectionPool = null;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		try {
+			connectionPool = ConnectionPool.getInstance();
+			connection = connectionPool.checkOut();
+
+			ps = ServiceUtil.prepareStatement(connection, FlightReservationSqlExtension.UPDATE_STATUS, status.name(),
+					flightReservationId, accountId);
+			ps.executeUpdate();
+
+			return new DbResultMessage<Boolean>(true, DbStatus.SUCCESS);
+		} catch (Exception ex) {
+			return ErrorHandler.handle(ex);
+		} finally {
+			ServiceUtil.finish(connectionPool, connection, ps);
+		}
 	}
 
 	@Override
-	public ArrayList<FlightReservationDTO> getAll(int accountId) {
-		// Get all reservations for the specified account
-		return null;
+	public List<FlightReservationDTO> getAll(int accountId) {
+		List<FlightReservationDTO> flightReservations = new ArrayList<>();
+		ConnectionPool connectionPool = null;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		try {
+			connectionPool = ConnectionPool.getInstance();
+			connection = connectionPool.checkOut();
+			ps = ServiceUtil.prepareStatement(connection, FlightReservationSqlExtension.SELECT_ALL_RELATED_TO_ACCOUNT,
+					accountId);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next())
+				flightReservations.add(FlightReservationSqlExtension.mapFromSelect(rs));
+
+			return flightReservations;
+		} catch (Exception ex) {
+			ErrorHandler.handle(ex);
+			return flightReservations;
+		} finally {
+			ServiceUtil.finish(connectionPool, connection, ps);
+		}
+	}
+
+	public byte[] downloadSpecificationFile(String uri, int accountId) throws ForbiddenAccessException {
+		ConnectionPool connectionPool = null;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		try {
+			connectionPool = ConnectionPool.getInstance();
+			connection = connectionPool.checkOut();
+			String escapedUri = uri;
+			ps = ServiceUtil.prepareStatement(connection, FlightReservationSqlExtension.CHECK_ACCOUNT, escapedUri,
+					accountId);
+			ResultSet rs = ps.executeQuery();
+			if(ServiceUtil.isEmpty(rs))
+				throw new ForbiddenAccessException();
+			byte[] data =  FileUtil.downloadFile(uri);
+			return data;
+		} catch (Exception ex) {
+			ErrorHandler.handle(ex);
+			return new byte[] {};
+		} finally {
+			ServiceUtil.finish(connectionPool, connection, ps);
+		}
 	}
 
 	protected static class FlightReservationSqlExtension {
 		public static final String SELECT_WITH_ACCOUNT_ID = "SELECT accountRole FROM accounts WHERE accountId=%d";
 		public static final String SELECT_FLIGHT_ON_DATE = "SELECT flightId FROM flights WHERE DATE(departureOn)=%s AND type=%s AND departureCityId=%d AND arrivalCityId=%d";
 		public static final String MYSQL_DATE_FORMAT = "YYYY-MM-dd";
-		public static final String INSERT_FLIGHT_RESERVATION_PASSENGER = "INSERT INTO flightReservations(accountId, flightId, seatNumber)"
-				+ " VALUES(?,?,?)";
-		public static final String INSERT_FLIGHT_RESERVATION_TRANSPORT = "INSERT INTO flightReservations(accountId, flightId, description, fileSpecificationUri)"
-				+ " VALUES(?,?,?,?)";
+		public static final String MYSQL_DATETIME_FORMAT = "YYYY-MM-dd hh:mm:ss";
+		public static final String INSERT_FLIGHT_RESERVATION_PASSENGER = "INSERT INTO flightReservations(accountId, flightId, seatNumber, status, createdOn)"
+				+ " VALUES(?,?,?,?,?)";
+		public static final String INSERT_FLIGHT_RESERVATION_TRANSPORT = "INSERT INTO flightReservations(accountId, flightId, description, fileSpecificationUri, status, createdOn)"
+				+ " VALUES(?,?,?,?,?,?)";
+		public static final String SELECT_ALL_RELATED_TO_ACCOUNT = "SELECT fr.flightReservationId, fr.status, fr.createdOn, fr.accountId, ac.name AS arrivalCountryName, a.name AS arrivalCityName,"
+				+ "dc.name AS departureCountryName, d.name AS departureCityName, f.departureOn, f.arrivalOn, fr.seatNumber, "
+				+ "fr.description, fr.fileSpecificationUri FROM flightReservations fr " + "INNER JOIN flights f "
+				+ "ON f.flightId=fr.flightId " + "INNER JOIN cities a " + "ON f.arrivalCityId=a.cityId "
+				+ "INNER JOIN countries ac " + "ON ac.countryId=a.countryId " + "INNER JOIN cities d "
+				+ "ON f.departureCityId=d.cityId " + "INNER JOIN countries dc " + "ON dc.countryId=d.countryId "
+				+ "WHERE fr.accountId=%d" + " ORDER BY fr.createdOn";
+
+		public static final String UPDATE_STATUS = "UPDATE flightReservations SET status=%s WHERE flightReservationId=%d AND accountId=%d";
+
+		public static final String CHECK_ACCOUNT = "SELECT * FROM flightReservations WHERE fileSpecificationUri=%s AND accountId=%d";
 
 		public static Object[] mapForInsertPassenger(InputFlightReservationDTO reservation, int flightId) {
-			return new Object[] { reservation.getAccountId(), flightId, reservation.getSeatNumber() };
+			String createdOn = LocalDateTime.now().format(DateTimeFormatter.ofPattern(MYSQL_DATETIME_FORMAT));
+			return new Object[] { reservation.getAccountId(), flightId, reservation.getSeatNumber(),
+					FlightReservationStatus.New.name(), createdOn };
 		}
 
 		public static Object[] mapForInsertTransport(InputFlightReservationDTO reservation, int flightId) {
+			String createdOn = LocalDateTime.now().format(DateTimeFormatter.ofPattern(MYSQL_DATETIME_FORMAT));
 			return new Object[] { reservation.getAccountId(), flightId, reservation.getCargoDescription(),
-					FileUtil.DirectoryStructureBuilder.buildPathForFile(reservation.getFileSpecificationName()) };
+					FileUtil.DirectoryStructureBuilder.buildPathForFile(reservation.getFileSpecificationName()),
+					FlightReservationStatus.New.name(), createdOn };
+		}
+
+		public static final FlightReservationDTO mapFromSelect(ResultSet rs) throws SQLException {
+			return new FlightReservationDTO(rs.getInt("accountId"), rs.getInt("flightReservationId"),
+					rs.getTimestamp("arrivalOn").toLocalDateTime(), rs.getTimestamp("departureOn").toLocalDateTime(),
+					rs.getString("arrivalCityName"), rs.getString("arrivalCountryName"),
+					rs.getString("departureCityName"), rs.getString("departureCountryName"),
+					FlightReservationStatus.valueOf(rs.getString("status")),
+					rs.getTimestamp("createdOn").toLocalDateTime(), rs.getInt("seatNumber"),
+					rs.getString("description"), rs.getString("fileSpecificationUri"));
 		}
 
 		public static final String formatDate(LocalDate date) {

@@ -114,6 +114,8 @@ public class AccountBean implements Serializable {
 	}
 	
 	public static AccountBean createGuest() {
-		return new AccountBean();
+		AccountBean accountBean =  new AccountBean();
+		accountBean.setLoggedIn(false);
+		return accountBean;
 	}
 }

@@ -1,13 +1,11 @@
 package pro.artse.dal.util;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import pro.artse.dal.dto.AccountRole;
-import pro.artse.dal.dto.FlightDTO;
-import pro.artse.dal.dto.InputFlightReservationDTO;
+import pro.artse.dal.dto.FlightReservationDTO;
+import pro.artse.dal.dto.FlightReservationStatus;
 import pro.artse.dal.services.IFlightReservationService;
-import pro.artse.dal.services.IFlightService;
 import pro.artse.dal.services.ServiceFactory;
 
 public class Test {
@@ -19,13 +17,19 @@ public class Test {
 		 * flights) { System.out.println(flight.getFlightId() + ". " +
 		 * flight.getArrivalCityName() + " " + flight.getDepartureCityName() + " " +
 		 * flight.getDepartureOn() + " " + flight.getType()); }
-		 */
+		 
 
 		IFlightReservationService reservationService = ServiceFactory
 				.getFlightReservationService(AccountRole.Passenger);
-		InputFlightReservationDTO dto = new InputFlightReservationDTO(LocalDate.of(2021, 8, 15), 1, 1);
+		InputFlightReservationDTO dto = new InputFlightReservationDTO(LocalDate.of(2021, 8, 15), 3, 1);
 		dto.setSeatNumber(12);
 		dto.setAccountId(1);
-		System.out.println(reservationService.create(dto, AccountRole.Passenger).getStatus());
+		System.out.println(reservationService.create(dto, AccountRole.Passenger).getStatus());*/
+		IFlightReservationService reservationService = ServiceFactory
+				.getFlightReservationService(AccountRole.Passenger);
+		reservationService.changeStatus(1, FlightReservationStatus.Canceled, 1);
+		List<FlightReservationDTO> flightReservationDTOs = reservationService.getAll(1);
+		for(var f:flightReservationDTOs)
+			System.out.println(f.getArrivalCityName()+ f.getArrivalCountryName()+ f.getSeatNumber()+" "+f.getAccountId()+f.getArrivalOn());
 	}
 }

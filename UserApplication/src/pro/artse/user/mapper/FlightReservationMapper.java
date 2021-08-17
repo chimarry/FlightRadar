@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 import pro.artse.dal.dto.AccountRole;
+import pro.artse.dal.dto.FlightReservationDTO;
 import pro.artse.dal.dto.InputFlightReservationDTO;
+import pro.artse.user.beans.FlightReservationBean;
 
 public class FlightReservationMapper {
 	public static InputFlightReservationDTO mapFromRequest(HttpServletRequest request, AccountRole role)
@@ -32,5 +34,12 @@ public class FlightReservationMapper {
 			dto.setFileSpecification(filePart.getInputStream().readAllBytes());
 		}
 		return dto;
+	}
+
+	public static FlightReservationBean mapFromDTO(FlightReservationDTO dto) {
+		return new FlightReservationBean(dto.getAccountId(), dto.getFlightReservationId(), dto.getDepartureOn(),
+				dto.getArrivalOn(), dto.getArrivalCityName(), dto.getArrivalCountryName(), dto.getDepatureCityName(),
+				dto.getDepartureCountryName(), dto.getStatus(), dto.getCreatedOn(), dto.getSeatNumber(),
+				dto.getCargoDescription(), dto.getFileSpecificationName());
 	}
 }

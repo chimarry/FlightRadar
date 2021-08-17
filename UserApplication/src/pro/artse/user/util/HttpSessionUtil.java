@@ -1,5 +1,6 @@
 package pro.artse.user.util;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import pro.artse.user.beans.AccountBean;
@@ -19,6 +20,10 @@ public final class HttpSessionUtil {
 
 	public static final AccountBean getAccountInfo(HttpSession session) {
 		return (AccountBean) session.getAttribute(SessionBeans.ACCOUNT_BEAN);
+	}
+	
+	public static final int getAccountId(HttpServletRequest request) {
+		return getAccountInfo(request.getSession()).getAccountId();
 	}
 
 	public static final void turnOnGuestMode(HttpSession session) {

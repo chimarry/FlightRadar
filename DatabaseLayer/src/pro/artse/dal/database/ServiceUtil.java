@@ -30,7 +30,8 @@ public final class ServiceUtil {
 		Object[] wrappedValues = Stream.of(values).map(x -> x.getClass() == String.class ? String.format("'%s'", x) : x)
 				.toArray();
 		String sqlToExecute = String.format(sql, wrappedValues);
-		return connection.prepareStatement(sqlToExecute);
+		return connection.prepareStatement(sqlToExecute,ResultSet.TYPE_SCROLL_SENSITIVE, 
+                ResultSet.CONCUR_UPDATABLE);
 	}
 
 	public static boolean isSuccess(PreparedStatement ps) throws SQLException {
@@ -54,9 +55,11 @@ public final class ServiceUtil {
 	}
 
 	public static boolean isEmpty(ResultSet resultSet) throws SQLException {
-		boolean isEmpty = !resultSet.next();
-		resultSet.beforeFirst();
-		return isEmpty;
+		if (resultSet.next()) {
+			resultSet.beforeFirst();
+			return true;
+		}
+		return false;
 	}
 
 	public static boolean hasMany(ResultSet resultSet) throws SQLException {

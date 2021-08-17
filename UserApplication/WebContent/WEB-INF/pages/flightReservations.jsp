@@ -1,79 +1,97 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-    <%@taglib prefix="l" tagdir="/WEB-INF/tags" %>
-        <l:layout>
-            <jsp:attribute name="header">
-                <%@include file='header.jsp' %>
-            </jsp:attribute>
-            <jsp:attribute name="navmenu">
-                <%@include file='navmenu.jsp' %>
-            </jsp:attribute>
-            <jsp:attribute name="footer">
-                <%@include file='footer.jsp' %>
-            </jsp:attribute>
-            <jsp:body>
-                <div class="container-fluid --main-table-container">
-                    <div class="row">
-                        <div class='col-12'>
-                            <table class="table table-sm --main-table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Departure country</th>
-                                        <th scope="col">Departure city</th>
-                                        <th scope="col">Arrival country</th>
-                                        <th scope="col">Arrival city</th>
+<%@ page import="pro.artse.user.beans.FlightReservationBean" %>
+    <%@ page import="pro.artse.dal.dto.FlightReservationStatus" %>
+        <%@ page import="pro.artse.dal.dto.AccountRole" %>
+            <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+                <jsp:useBean id="flightReservationsBean" type="pro.artse.user.beans.FlightReservationsBean"
+                    scope="request" />
+                <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+                    <%@taglib prefix="l" tagdir="/WEB-INF/tags" %>
+                        <c:set var="flightReservations">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Departure country</th>
+                                    <th scope="col">Departure city</th>
+                                    <th scope="col">Arrival country</th>
+                                    <th scope="col">Arrival city</th>
+                                    <% if((AccountRole)request.getAttribute("accountRole")==AccountRole.Passenger) {%>
                                         <th scope="col">Seat number</th>
-                                        <th scope="col">Cargo description</th>
-                                        <th scope="col">Specification file</th>
-                                        <th scope="col">Departure datetime</th>
-                                        <th scope="col">Arrival datetime</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Change status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                        <%} else { %>
+                                            <th scope="col">Cargo description</th>
+                                            <th scope="col">Specification file</th>
+                                            <% } %>
+                                                <th scope="col">Departure on</th>
+                                                <th scope="col">Arrival on</th>
+                                                <th scope="col">Created on</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Change status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${flightReservationsBean.getFlightReservations()}" var="item">
                                     <tr>
-                                        <td>California</td>
-                                        <td>Boston</td>
-                                        <td>Serbia</td>
-                                        <td>Belgrade</td>
-                                        <td>12</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>12/12/2021 8:00</td>
-                                        <td>12/12/2021 20:00</td>
-                                        <td>Approved</td>
-                                        <td><button class='btn btn-danger' disabled>Cancel</button></td>
+                                        <td>${item.getDepartureCountryName()}</td>
+                                        <td>${item.getDepartureCityName()}</td>
+                                        <td>${item.getArrivalCountryName()}</td>
+                                        <td>${item.getArrivalCityName()}</td>
+                                        <% if((AccountRole)request.getAttribute("accountRole")==AccountRole.Passenger)
+                                            {%>
+                                            <td>${item.getSeatNumber()}</td>
+                                            <%} else { %>
+                                                <td>${item.getCargoDescription()}</td>
+                                                 <c:url var="downloadFile"
+                                                                value="FlightReservationController">
+                                                                <c:param name="file" value="${item.getFileSpecificationName()}" />
+                                                                <c:param name="action" value="download" />
+                                                            </c:url>
+                                                <td><button class='btn btn-secondary'><a href="${downloadFile}">Download</a></button></td>
+                                                <% } %>
+                                                    <td>${item.getDepartureOn()}</td>
+                                                    <td>${item.getArrivalOn()}</td>
+                                                    <td>${item.getCreatedOn()}</td>
+                                                    <td>${item.getStatus()}</td>
+                                                    <c:choose>
+                                                        <c:when test="${item.getStatus()==FlightReservationStatus.New}">
+                                                            <c:url var="changeStatus"
+                                                                value="FlightReservationController">
+                                                                <c:param name="status" value="Canceled" />
+                                                                <c:param name="action" value="change" />
+                                                                <c:param name="flightReservationId"
+                                                                    value="${item.getFlightReservationId()}" />
+                                                            </c:url>
+                                                            <td><button class='btn btn-danger'>
+                                                                    <a href="${changeStatus}">
+                                                                        Cancel
+                                                                    </a>
+                                                                </button></td>
+                                                        </c:when>
+                                                        <c:when test="${item.getStatus()!=FlightReservationStatus.New}">
+                                                            <td><button class='btn btn-danger' disabled>Cancel</button>
+                                                            </td>
+                                                        </c:when>
+                                                    </c:choose>
                                     </tr>
-                                    <tr>
-                                        <td>Russia</td>
-                                        <td>Moscow</td>
-                                        <td>Bosnia and Herzegovina</td>
-                                        <td>Banja Luka</td>
-                                        <td></td>
-                                        <td>This is a huge description of an imaginary cargo being shipped from Russia to Bosnia, in late evening time.</td>
-                                        <td><button class='btn btn-secondary'>Download</button></td>
-                                        <td>13/12/2021 21:00</td>
-                                        <td>13/12/2021 02:00</td>
-                                        <td>New</td>
-                                        <td><button class='btn btn-danger'>Cancel</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Netherlands</td>
-                                        <td>Amsterdam</td>
-                                        <td>Bosnia and Herzegovina</td>
-                                        <td>Sarajevo</td>
-                                        <td>11</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>13/11/2021 21:00</td>
-                                        <td>13/11/2021 03:00</td>
-                                        <td>Canceled</td>
-                                        <td><button class='btn btn-danger' disabled>Cancel</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </jsp:body>
-        </l:layout>
+                                </c:forEach>
+                            </tbody>
+                        </c:set>
+                        <l:layout>
+                            <jsp:attribute name="header">
+                                <%@include file='header.jsp' %>
+                            </jsp:attribute>
+                            <jsp:attribute name="navmenu">
+                                <%@include file='navmenu.jsp' %>
+                            </jsp:attribute>
+                            <jsp:attribute name="footer">
+                                <%@include file='footer.jsp' %>
+                            </jsp:attribute>
+                            <jsp:body>
+                                <div class="container-fluid --main-table-container">
+                                    <div class="row">
+                                        <div class='col-12'>
+                                            <table class="table table-sm --main-table">
+                                                ${flightReservations}
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </jsp:body>
+                        </l:layout>

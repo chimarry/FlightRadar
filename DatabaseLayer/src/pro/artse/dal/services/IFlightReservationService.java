@@ -1,12 +1,13 @@
 package pro.artse.dal.services;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import pro.artse.dal.dto.AccountRole;
 import pro.artse.dal.dto.FlightReservationDTO;
 import pro.artse.dal.dto.FlightReservationStatus;
 import pro.artse.dal.dto.InputFlightReservationDTO;
 import pro.artse.dal.errorhandling.DbResultMessage;
+import pro.artse.dal.errorhandling.ForbiddenAccessException;
 
 public interface IFlightReservationService {
 	
@@ -14,5 +15,7 @@ public interface IFlightReservationService {
 	
 	public DbResultMessage<Boolean> changeStatus(int flightReservationId, FlightReservationStatus status, int accountId);
 	
-	public ArrayList<FlightReservationDTO> getAll(int accountId);
+	public List<FlightReservationDTO> getAll(int accountId);
+	
+	public byte[] downloadSpecificationFile(String uri, int accountId) throws ForbiddenAccessException;
 }

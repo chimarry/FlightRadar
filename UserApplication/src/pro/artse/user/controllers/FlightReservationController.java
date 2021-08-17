@@ -43,6 +43,7 @@ public class FlightReservationController extends HttpServlet {
 		HttpSession session = request.getSession();
 		if (HttpSessionUtil.isLoggedIn(session)) {
 			String action = request.getParameter("action");
+			request.setAttribute("accountRole", getRole(request));
 			if (SHOW_ALL_RESERVATIONS.equals(action))
 				address = Pages.FLIGHT_RESERVATIONS;
 			if (SHOW_RESERVATION_FORM.equals(action))
@@ -72,5 +73,9 @@ public class FlightReservationController extends HttpServlet {
 
 	private void setFlightReservationService(HttpServletRequest request, AccountRole role) {
 		flightReservationService = ServiceFactory.getFlightReservationService(role);
+	}
+
+	private AccountRole getRole(HttpServletRequest request) {
+		return HttpSessionUtil.getAccountInfo(request.getSession()).getRole();
 	}
 }

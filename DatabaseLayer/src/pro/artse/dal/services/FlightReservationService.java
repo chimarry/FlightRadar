@@ -38,7 +38,8 @@ public abstract class FlightReservationService implements IFlightReservationServ
 			// Find appropriate flight
 			PreparedStatement getStatement = ServiceUtil.prepareStatement(connection,
 					FlightReservationSqlExtension.SELECT_FLIGHT_ON_DATE,
-					FlightReservationSqlExtension.formatDate(reservation.getDepartureDate()), role.name());
+					FlightReservationSqlExtension.formatDate(reservation.getDepartureDate()), role.name(),
+					reservation.getDepartureCityId(), reservation.getArrivalCityId());
 			ResultSet rs = getStatement.executeQuery();
 			if (rs.next())
 				flightId = rs.getInt("flightId");
@@ -74,11 +75,11 @@ public abstract class FlightReservationService implements IFlightReservationServ
 
 	protected static class FlightReservationSqlExtension {
 		public static final String SELECT_WITH_ACCOUNT_ID = "SELECT accountRole FROM accounts WHERE accountId=%d";
-		public static final String SELECT_FLIGHT_ON_DATE = "SELECT flightId FROM flights WHERE DATE(departureOn)=%s AND type=%s";
+		public static final String SELECT_FLIGHT_ON_DATE = "SELECT flightId FROM flights WHERE DATE(departureOn)=%s AND type=%s AND departureCityId=%d AND arrivalCityId=%d";
 		public static final String MYSQL_DATE_FORMAT = "YYYY-MM-dd";
-		public static final String INSERT_FLIGHT_RESERVATION_PASSENGER = "INSERT INTO fligthReservations(accountId, flightId, seatNumber)"
+		public static final String INSERT_FLIGHT_RESERVATION_PASSENGER = "INSERT INTO flightReservations(accountId, flightId, seatNumber)"
 				+ " VALUES(?,?,?)";
-		public static final String INSERT_FLIGHT_RESERVATION_TRANSPORT = "INSERT INTO fligthReservations(accountId, flightId, description, fileSpecificationUri)"
+		public static final String INSERT_FLIGHT_RESERVATION_TRANSPORT = "INSERT INTO flightReservations(accountId, flightId, description, fileSpecificationUri)"
 				+ " VALUES(?,?,?,?)";
 
 		public static Object[] mapForInsertPassenger(InputFlightReservationDTO reservation, int flightId) {

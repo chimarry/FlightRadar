@@ -12,10 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import pro.artse.user.util.Pages;
+import pro.artse.user.util.Validator;
+import pro.artse.dal.dto.AccountRole;
+import pro.artse.dal.dto.InputFlightReservationDTO;
+import pro.artse.dal.errorhandling.DbResultMessage;
+import pro.artse.dal.services.FlightService;
 import pro.artse.dal.services.IFlightReservationService;
 import pro.artse.dal.services.ServiceFactory;
 import pro.artse.user.mapper.FlightReservationMapper;
+import pro.artse.user.util.AlertManager;
 import pro.artse.user.util.HttpSessionUtil;
+import pro.artse.user.util.Messages;
 
 @WebServlet("/FlightReservationController")
 @MultipartConfig
@@ -53,16 +60,17 @@ public class FlightReservationController extends HttpServlet {
 		if (!HttpSessionUtil.isLoggedIn(session)) {
 			HttpSessionUtil.turnOnGuestMode(session);
 		} else {
-			setFlightReservationService(request);
-			FlightReservationMapper.mapFromRequest(request,
-					HttpSessionUtil.getAccountInfo(request.getSession()).getRole());
+			AccountRole role = HttpSessionUtil.getAccountInfo(request.getSession()).getRole();
+			setFlightReservationService(request, role);
+			InputFlightReservationDTO dto = FlightReservationMapper.mapFromRequest(request, role);
+			DbResultMessage<Boolean> created = flightReservationService.create(dto, role);
+			AlertManager.addToRequest(request, created, Messages.FAILED_RESERVATION);
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}
 
-	private void setFlightReservationService(HttpServletRequest request) {
-		flightReservationService = ServiceFactory
-				.getFlightReservationService(HttpSessionUtil.getAccountInfo(request.getSession()).getRole());
+	private void setFlightReservationService(HttpServletRequest request, AccountRole role) {
+		flightReservationService = ServiceFactory.getFlightReservationService(role);
 	}
 }

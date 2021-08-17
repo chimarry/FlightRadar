@@ -24,6 +24,7 @@ import pro.artse.user.beans.FlightBean;
 import pro.artse.user.mapper.AccountMapper;
 import pro.artse.user.mapper.FlightMapper;
 import pro.artse.user.util.Pages;
+import pro.artse.user.util.AlertManager;
 import pro.artse.user.util.HttpSessionUtil;
 import pro.artse.user.util.Messages;
 
@@ -77,7 +78,7 @@ public class IndexController extends HttpServlet {
 			account.setLoggedIn(true);
 			HttpSessionUtil.logIn(session, account);
 		} else
-			request.setAttribute("errorMessage", Messages.FAILED_LOG_IN);
+			AlertManager.writeErrorMessage(request, Messages.FAILED_LOG_IN);
 
 		// Add arrivals and departures on home page
 		addFlights(response);
@@ -89,7 +90,7 @@ public class IndexController extends HttpServlet {
 	private void addFlights(HttpServletResponse response) throws IOException {
 		List<FlightBean> departureFlightsBean = FlightMapper.mapToBeans(flightService.getFeatured(true), true);
 		List<FlightBean> arrivalFlightsBean = FlightMapper.mapToBeans(flightService.getFeatured(false), false);
-		
+
 		Gson gson = new Gson();
 		JsonArray array = new JsonArray();
 		array.add(gson.toJsonTree(departureFlightsBean));

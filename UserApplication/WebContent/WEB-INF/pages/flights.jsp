@@ -12,6 +12,12 @@
 			</jsp:attribute>
 			<jsp:attribute name="customScript">
 				<script>
+					function changeOnResize() {
+						if (window.innerWidth < 576) {
+							document.querySelector('#prevBtn').textContent = '<<';
+							document.querySelector('#nextBtn').textContent = '>>';
+						}
+					}
 					function get(name) {
 						if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
 							return decodeURIComponent(name[1]);
@@ -36,16 +42,16 @@
 							loadData()
 						}, 60000); // refresh every 1min
 					});
-
+					window.addEventListener('resize', changeOnResize);
 				</script>
 			</jsp:attribute>
 			<jsp:body>
 				<div class='container-fluid --main-table-container'>
 					<div class='row'>
 						<div class='col-12 --flights-filter'>
-							<button>&lt;&lt; &nbsp;Previous</button>
+							<button id='prevBtn'>&lt;&lt; &nbsp;Previous</button>
 							<p>15-08-2021</p>
-							<button>Next &nbsp;&gt;&gt;</button>
+							<button id='nextBtn'>Next &nbsp;&gt;&gt;</button>
 						</div>
 					</div>
 					<div class='row'>

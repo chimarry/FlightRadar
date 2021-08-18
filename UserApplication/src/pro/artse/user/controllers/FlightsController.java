@@ -40,11 +40,13 @@ public class FlightsController extends HttpServlet {
 		String address = Pages.FLIGHTS;
 		String action = request.getParameter("action");
 		String isDeparture = request.getParameter("isDeparture");
+		String date = request.getParameter("date");
+		LocalDate dayToGet = date != null ? LocalDate.parse(date) : LocalDate.now();
 
 		if (NOT_DEPARTURE.equals(isDeparture))
-			flights = getFlights(false);
+			flights = getFlights(false, dayToGet);
 		else
-			flights = getFlights(true);
+			flights = getFlights(true, dayToGet);
 
 		String json = new Gson().toJson(flights);
 		response.setContentType("application/json");
@@ -58,12 +60,11 @@ public class FlightsController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
-	private List<FlightBean> getFlights(boolean isDeparture) {
-		List<FlightDTO> flights = flightService.getAll(LocalDate.of(2021, 8, 15), isDeparture);
+	private List<FlightBean> getFlights(boolean isDeparture, LocalDate dayToGet) {
+		List<FlightDTO> flights = flightService.getAll(dayToGet, isDeparture);
 		return FlightMapper.mapToBeans(flights, isDeparture);
 	}
 }

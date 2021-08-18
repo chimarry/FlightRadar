@@ -22,8 +22,35 @@
 						if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
 							return decodeURIComponent(name[1]);
 					}
-					function loadData() {
-						$.get("FlightsController?action=refresh&isDeparture=" + get('isDeparture'), function (responseJson) {
+					function formatDate(date) {
+						var d = new Date(date),
+							month = '' + (d.getMonth() + 1),
+							day = '' + d.getDate(),
+							year = d.getFullYear();
+
+						if (month.length < 2)
+							month = '0' + month;
+						if (day.length < 2)
+							day = '0' + day;
+
+						return [year, month, day].join('-');
+					}
+
+					function prevDate(date) {
+						var currentDate = Date.parse(document.getElementById('date').innerHTML);
+						const yesterday = new Date(currentDate);
+						yesterday.setDate(yesterday.getDate() - 1);
+						return formatDate(yesterday);
+					}
+					function nextDate(date) {
+						var currentDate = Date.parse(document.getElementById('date').innerHTML);
+						const next = new Date(currentDate);
+						next.setDate(next.getDate() + 1);
+						return formatDate(next);
+					}
+					function loadData(date) {
+						document.getElementById('date').innerHTML = date;
+						$.get("FlightsController?action=refresh&isDeparture=" + get('isDeparture') + "&date=" + date, function (responseJson) {
 							$("#tableBody").find("td").remove();
 							$("#tableBody").find("tr").remove();
 							$.each(responseJson, function (index, flight) {
@@ -37,9 +64,9 @@
 						});
 					}
 					$(document).ready(function () {
-						loadData();
+						loadData(formatDate(new Date()));
 						setInterval(function () {
-							loadData()
+							loadData(document.getElementById('date').innerHTML)
 						}, 60000); // refresh every 1min
 					});
 					window.addEventListener('resize', changeOnResize);
@@ -49,9 +76,9 @@
 				<div class='container-fluid --main-table-container'>
 					<div class='row'>
 						<div class='col-12 --flights-filter'>
-							<button id='prevBtn'>&lt;&lt; &nbsp;Previous</button>
-							<p>15-08-2021</p>
-							<button id='nextBtn'>Next &nbsp;&gt;&gt;</button>
+							<button id='prevBtn' onclick='loadData(prevDate())'>&lt;&lt; &nbsp;Previous</button>
+							<p id='date'></p>
+							<button id='nextBtn' onclick='loadData(nextDate())'>Next &nbsp;&gt;&gt;</button>
 						</div>
 					</div>
 					<div class='row'>

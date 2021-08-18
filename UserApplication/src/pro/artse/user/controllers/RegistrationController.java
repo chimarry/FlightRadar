@@ -14,6 +14,7 @@ import pro.artse.dal.errorhandling.DbResultMessage;
 import pro.artse.dal.services.IAccountService;
 import pro.artse.dal.services.ServiceFactory;
 import pro.artse.user.beans.CountriesBean;
+import pro.artse.user.mapper.AccountMapper;
 import pro.artse.user.util.AlertManager;
 import pro.artse.user.util.Messages;
 import pro.artse.user.util.Pages;
@@ -46,17 +47,7 @@ public class RegistrationController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String address = Pages.INDEX;
 
-		AccountDTO accountDTO = new AccountDTO();
-		accountDTO.setName(request.getParameter("name"));
-		accountDTO.setLastName(request.getParameter("lastName"));
-		accountDTO.setUsername(request.getParameter("username"));
-		accountDTO.setCountry(request.getParameter("country"));
-		accountDTO.setEmail(request.getParameter("email"));
-		accountDTO.setAddress(request.getParameter("address"));
-
-		boolean isPassenger = request.getParameter("passenger") != null
-				&& request.getParameter("passenger").equals("on");
-		accountDTO.setRole(isPassenger ? AccountRole.Passenger : AccountRole.Transport);
+		AccountDTO accountDTO = AccountMapper.mapFromRequest(request);
 		String password = request.getParameter("password");
 		
 		DbResultMessage<Boolean> isRegistered = accountService.register(accountDTO, password);

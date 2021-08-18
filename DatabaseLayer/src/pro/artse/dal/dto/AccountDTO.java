@@ -12,7 +12,6 @@ public class AccountDTO {
 	private AccountRole role;
 
 	public AccountDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public AccountDTO(int accountId, String name, String lastName, String email, String username, String country,

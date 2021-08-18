@@ -27,7 +27,7 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="well well-sm">
-										<form class="form-horizontal" action="" method="post">
+										<form class="form-horizontal" action="MessageController" method="post">
 											<fieldset>
 												<h4 class="text-center">Contact us</h4>
 												<!-- Name input-->
@@ -35,7 +35,7 @@
 													<label class="col-4 control-label" for="name">Name</label>
 													<div class="col-8">
 														<input id="name" name="name" type="text" placeholder="Your name"
-															class="form-control">
+															class="form-control" required>
 													</div>
 												</div>
 												<!-- Email input-->
@@ -44,7 +44,7 @@
 														E-mail</label>
 													<div class="col-8">
 														<input id="email" name="email" type="text"
-															placeholder="Your email" class="form-control">
+															placeholder="Your email" class="form-control" required>
 													</div>
 												</div>
 												<!-- Message body -->
@@ -52,16 +52,16 @@
 													<label class="col-4 control-label" for="message">Your
 														message</label>
 													<div class="col-8">
-														<textarea class="form-control" id="message" name="message"
+														<textarea class="form-control" id="text" name="text"
 															placeholder="Please enter your message here..."
-															rows="5"></textarea>
+															rows="5" required></textarea>
 													</div>
 												</div>
 												<!-- Form actions -->
 												<div class="form-group">
 													<div class="col-12 text-right">
 														<button type="submit"
-															class="btn --send-message-button">Submit</button>
+															class="btn --send-message-button">Send</button>
 													</div>
 												</div>
 											</fieldset>

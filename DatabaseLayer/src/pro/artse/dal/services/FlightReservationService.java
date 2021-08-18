@@ -4,14 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import pro.artse.dal.database.ConnectionPool;
 import pro.artse.dal.database.ServiceUtil;
+import pro.artse.dal.database.SqlDateTimeConvertor;
 import pro.artse.dal.dto.AccountRole;
 import pro.artse.dal.dto.FlightReservationDTO;
 import pro.artse.dal.dto.FlightReservationStatus;
@@ -41,7 +40,7 @@ public abstract class FlightReservationService implements IFlightReservationServ
 			// Find appropriate flight
 			PreparedStatement getStatement = ServiceUtil.prepareStatement(connection,
 					FlightReservationSqlExtension.SELECT_FLIGHT_ON_DATE,
-					FlightReservationSqlExtension.formatDate(reservation.getDepartureDate()), role.name(),
+					SqlDateTimeConvertor.toDbDate(reservation.getDepartureDate()), role.name(),
 					reservation.getDepartureCityId(), reservation.getArrivalCityId());
 			ResultSet rs = getStatement.executeQuery();
 			if (rs.next())
@@ -115,13 +114,11 @@ public abstract class FlightReservationService implements IFlightReservationServ
 		try {
 			connectionPool = ConnectionPool.getInstance();
 			connection = connectionPool.checkOut();
-			String escapedUri = uri;
-			ps = ServiceUtil.prepareStatement(connection, FlightReservationSqlExtension.CHECK_ACCOUNT, escapedUri,
-					accountId);
+			ps = ServiceUtil.prepareStatement(connection, FlightReservationSqlExtension.CHECK_ACCOUNT, uri, accountId);
 			ResultSet rs = ps.executeQuery();
-			if(ServiceUtil.isEmpty(rs))
+			if (ServiceUtil.isEmpty(rs))
 				throw new ForbiddenAccessException();
-			byte[] data =  FileUtil.downloadFile(uri);
+			byte[] data = FileUtil.downloadFile(uri);
 			return data;
 		} catch (Exception ex) {
 			ErrorHandler.handle(ex);
@@ -134,8 +131,7 @@ public abstract class FlightReservationService implements IFlightReservationServ
 	protected static class FlightReservationSqlExtension {
 		public static final String SELECT_WITH_ACCOUNT_ID = "SELECT accountRole FROM accounts WHERE accountId=%d";
 		public static final String SELECT_FLIGHT_ON_DATE = "SELECT flightId FROM flights WHERE DATE(departureOn)=%s AND type=%s AND departureCityId=%d AND arrivalCityId=%d";
-		public static final String MYSQL_DATE_FORMAT = "YYYY-MM-dd";
-		public static final String MYSQL_DATETIME_FORMAT = "YYYY-MM-dd hh:mm:ss";
+
 		public static final String INSERT_FLIGHT_RESERVATION_PASSENGER = "INSERT INTO flightReservations(accountId, flightId, seatNumber, status, createdOn)"
 				+ " VALUES(?,?,?,?,?)";
 		public static final String INSERT_FLIGHT_RESERVATION_TRANSPORT = "INSERT INTO flightReservations(accountId, flightId, description, fileSpecificationUri, status, createdOn)"
@@ -153,13 +149,13 @@ public abstract class FlightReservationService implements IFlightReservationServ
 		public static final String CHECK_ACCOUNT = "SELECT * FROM flightReservations WHERE fileSpecificationUri=%s AND accountId=%d";
 
 		public static Object[] mapForInsertPassenger(InputFlightReservationDTO reservation, int flightId) {
-			String createdOn = LocalDateTime.now().format(DateTimeFormatter.ofPattern(MYSQL_DATETIME_FORMAT));
+			String createdOn = SqlDateTimeConvertor.toDbDateTime(LocalDateTime.now());
 			return new Object[] { reservation.getAccountId(), flightId, reservation.getSeatNumber(),
 					FlightReservationStatus.New.name(), createdOn };
 		}
 
 		public static Object[] mapForInsertTransport(InputFlightReservationDTO reservation, int flightId) {
-			String createdOn = LocalDateTime.now().format(DateTimeFormatter.ofPattern(MYSQL_DATETIME_FORMAT));
+			String createdOn = SqlDateTimeConvertor.toDbDateTime(LocalDateTime.now());
 			return new Object[] { reservation.getAccountId(), flightId, reservation.getCargoDescription(),
 					FileUtil.DirectoryStructureBuilder.buildPathForFile(reservation.getFileSpecificationName()),
 					FlightReservationStatus.New.name(), createdOn };
@@ -167,17 +163,12 @@ public abstract class FlightReservationService implements IFlightReservationServ
 
 		public static final FlightReservationDTO mapFromSelect(ResultSet rs) throws SQLException {
 			return new FlightReservationDTO(rs.getInt("accountId"), rs.getInt("flightReservationId"),
-					rs.getTimestamp("arrivalOn").toLocalDateTime(), rs.getTimestamp("departureOn").toLocalDateTime(),
+					SqlDateTimeConvertor.toLocalDateTime(rs, "departureOn"), SqlDateTimeConvertor.toLocalDateTime(rs, "arrivalOn"),
 					rs.getString("arrivalCityName"), rs.getString("arrivalCountryName"),
 					rs.getString("departureCityName"), rs.getString("departureCountryName"),
 					FlightReservationStatus.valueOf(rs.getString("status")),
-					rs.getTimestamp("createdOn").toLocalDateTime(), rs.getInt("seatNumber"),
+					SqlDateTimeConvertor.toLocalDateTime(rs, "createdOn"), rs.getInt("seatNumber"),
 					rs.getString("description"), rs.getString("fileSpecificationUri"));
-		}
-
-		public static final String formatDate(LocalDate date) {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(MYSQL_DATE_FORMAT);
-			return formatter.format(date);
 		}
 	}
 }

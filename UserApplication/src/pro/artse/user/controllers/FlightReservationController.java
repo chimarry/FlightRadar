@@ -1,9 +1,7 @@
 package pro.artse.user.controllers;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -35,7 +33,6 @@ import pro.artse.user.util.Messages;
 @MultipartConfig
 public class FlightReservationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SHOW_ALL_RESERVATIONS = "all";
 	private static final String SHOW_RESERVATION_FORM = "form";
 	private static final String DOWNLOAD_FILE = "download";
 	private static final String CHANGE_STATUS = "change";
@@ -129,10 +126,7 @@ public class FlightReservationController extends HttpServlet {
 					HttpSessionUtil.getAccountId(request));
 			response.setContentLength(fileData.length);
 			response.setBufferSize(fileData.length+100);
-			BufferedOutputStream output = null;
 			try {
-				// Open streams.
-				output = new BufferedOutputStream(response.getOutputStream(), fileData.length+100);
 				out.write(fileData, 0, fileData.length);
 				out.flush();
 			} finally {

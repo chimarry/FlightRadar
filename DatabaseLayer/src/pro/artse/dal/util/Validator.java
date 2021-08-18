@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import pro.artse.dal.dto.AccountDTO;
 import pro.artse.dal.dto.AccountRole;
 import pro.artse.dal.dto.InputFlightReservationDTO;
+import pro.artse.dal.dto.MessageDTO;
 
 public final class Validator {
 
@@ -63,5 +64,10 @@ public final class Validator {
 		else if (role == AccountRole.Transport)
 			return dto.getCargoDescription() == null || dto.getFileSpecification() == null;
 		return false;
+	}
+
+	public static boolean isInvalidMessage(MessageDTO message) {
+		return areNullOrEmpty(message.getEmail(), message.getName(), message.getText())
+				|| !Pattern.matches(EMAIL_VERIFICATION_REGEX, message.getEmail());
 	}
 }

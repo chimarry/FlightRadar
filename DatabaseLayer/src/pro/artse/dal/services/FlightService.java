@@ -7,8 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import pro.artse.dal.database.ConnectionPool;
-import pro.artse.dal.database.ServiceUtil;
+import pro.artse.dal.database.*;
 import pro.artse.dal.dto.FlightDTO;
 import pro.artse.dal.dto.FlightType;
 import pro.artse.dal.errorhandling.ErrorHandler;
@@ -76,8 +75,8 @@ public class FlightService implements IFlightService {
 
 		public static FlightDTO mapFromSelect(ResultSet rs) throws SQLException {
 			FlightDTO flight = new FlightDTO(rs.getInt("flightId"), rs.getInt("arrivalCityId"),
-					rs.getInt("departureCityId"), rs.getTimestamp("arrivalOn").toLocalDateTime(),
-					rs.getTimestamp("departureOn").toLocalDateTime(), rs.getString("arrivalCityName"),
+					rs.getInt("departureCityId"), SqlDateTimeConvertor.toLocalDateTime(rs, "arrivalOn"),
+					SqlDateTimeConvertor.toLocalDateTime(rs, "departureOn"), rs.getString("arrivalCityName"),
 					rs.getString("departureCityName"), FlightType.valueOf(rs.getString("type")));
 			flight.setStatusBasedOnTime();
 			return flight;

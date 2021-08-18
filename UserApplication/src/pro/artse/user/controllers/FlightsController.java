@@ -1,6 +1,7 @@
 package pro.artse.user.controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class FlightsController extends HttpServlet {
 	}
 
 	private List<FlightBean> getFlights(boolean isDeparture) {
-		List<FlightDTO> flights = flightService.getAll(isDeparture);
+		List<FlightDTO> flights = flightService.getAll(LocalDate.of(2021, 8, 15), isDeparture);
 		return FlightMapper.mapToBeans(flights, isDeparture);
 	}
 }

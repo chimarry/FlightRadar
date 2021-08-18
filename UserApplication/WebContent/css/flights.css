@@ -1,0 +1,25 @@
+@charset "ISO-8859-1";
+.--flights-filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin-bottom: 1em;
+}
+
+.--flights-filter button {
+    background-color: var(--ternary-color);
+    color: var(--ternary-font-color);
+    outline: none;
+    border: none;
+    margin:0 2em;
+    width: 10em;
+    max-height: 2em;
+}
+
+.--flights-filter p {
+    font-size: 2em;
+    color: var(--main-font-color);
+    margin: 0;
+    padding: 0;
+}

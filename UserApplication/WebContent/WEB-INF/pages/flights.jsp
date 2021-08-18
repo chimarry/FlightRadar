@@ -23,7 +23,7 @@
 							$.each(responseJson, function (index, flight) {
 								$('#tableBody').append('<tr>');
 								$('#tableBody').append('<td>' + flight.departureCityName + '</td>');
-								$('#tableBody').append('<td>' + flight.arrivalCityName  + '</td>');
+								$('#tableBody').append('<td>' + flight.arrivalCityName + '</td>');
 								$('#tableBody').append('<td>' + flight.time + '</td>');
 								$('#tableBody').append('<td>' + flight.status + '</td>');
 								$('#tableBody').append('<td>' + flight.type + '</td></tr>');
@@ -41,19 +41,30 @@
 			</jsp:attribute>
 			<jsp:body>
 				<div class='container-fluid --main-table-container'>
-					<table id="#flightsTable" class="table table-sm --main-table">
-						<thead>
-							<tr>
-								<th scope="col">Start location</th>
-								<th scope="col">Destination</th>
-								<th scope="col">Time of departure</th>
-								<th scope="col">Status</th>
-								<th scope="col">Flight type</th>
-							</tr>
-						</thead>
-						<tbody id="tableBody">
-						</tbody>
-					</table>
+					<div class='row'>
+						<div class='col-12 --flights-filter'>
+							<button>&lt;&lt; &nbsp;Previous</button>
+							<p>15-08-2021</p>
+							<button>Next &nbsp;&gt;&gt;</button>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-12'>
+							<table id="#flightsTable" class="table table-sm --main-table">
+								<thead>
+									<tr>
+										<th scope="col">Start location</th>
+										<th scope="col">Destination</th>
+										<th scope="col">Time of departure</th>
+										<th scope="col">Status</th>
+										<th scope="col">Flight type</th>
+									</tr>
+								</thead>
+								<tbody id="tableBody">
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</jsp:body>
 		</l:layout>

@@ -26,6 +26,7 @@
 <link rel="stylesheet" href='css/flightReservation.css'>
 <link rel="stylesheet" href='css/mainTable.css'>
 <link rel="stylesheet" href='css/notAuthenticated.css'>
+<link rel="stylesheet" href='css/flights.css'>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

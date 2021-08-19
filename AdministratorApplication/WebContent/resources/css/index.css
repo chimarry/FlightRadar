@@ -1,0 +1,27 @@
+@charset "ISO-8859-1";
+
+.--login-container{
+	height: 90vh;
+}
+
+.--login-form-container{
+	background-color: var(--ternary-color);
+	color: var(--ternary-font-color);
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	z-index: 200;
+	min-height: 50vh;
+	box-sizing: border-box;
+	padding: 2.5%;
+}
+
+.--separator{
+	background-color: var(--ternary-font-color);
+}
+
+.--login-button {
+    background-color: var(--ternary-font-color);
+    color: var(--ternary-color);
+    outline: none;
+    border: none;
+    width: 100px;
+}

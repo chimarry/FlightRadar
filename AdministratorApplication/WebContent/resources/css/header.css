@@ -1,0 +1,43 @@
+@charset "ISO-8859-1";
+.--header-container {
+    background-color: var(--ternary-color);
+    min-height: fit-content;
+    width: 100%;
+    font-size: 1.2rem;
+    justify-self: center;
+    padding: 0 2.5%;
+    font-family: 'Monoton', cursive;
+}
+
+.--header-logo-container {
+    max-height: 15vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    vertical-align: middle;
+}
+
+.--header-logo-container>p {
+    font-size: 2.5em;
+    color: var(--ternary-font-color);
+    font-family: 'Monoton', cursive;
+    margin: 0;
+    padding: 0;
+}
+
+.--header-logo-container img {
+    max-height: 15vh;
+    width: auto;
+}
+
+.--header-logo-container>a:hover {
+    transform: none;
+    transition: none;
+}
+
+
+@media screen and (max-width:992px){
+    .--account-info {
+        margin-bottom: 20px;
+    }
+}

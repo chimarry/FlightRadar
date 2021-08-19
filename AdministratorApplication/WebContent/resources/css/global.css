@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'Monoton';
+    src: url("#{resource['Monoton/Monoton-Regular.ttf']}");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 17px;
+    font-family: 'Frank Ruhl Libre', serif;
+}
+
+a {
+    color: var(--secondary-font-color);
+    text-decoration: none;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: var(--secondary-font-color);
+    text-decoration: none;
+}
+
+:root {
+    --main-color: white;
+    --secondary-color: #7b98b8;
+    --ternary-color: #4d6a88;
+    --main-font-color: #253a58;
+    --secondary-font-color: white;
+    --ternary-font-color: white;
+    --quat-color: #253a58;
+    --quat-font-color: white;
+}
+
+@media (max-width: 900px) {
+    * {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    * {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 300px) {
+    * {
+        font-size: 10px;
+    }
+}

@@ -1,37 +1,24 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<meta name="description" content="" />
-	<meta name="author" content="" />
-
-	<title>JSF Bootstrap Tutorial</title>
-
-	<!-- Bootstrap core CSS -->
-	<h:outputStylesheet name="css/bootstrap.css" />
-	<h:outputStylesheet  name="css/bootstrap.min.css" />
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<f:verbatim>
-		<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	</f:verbatim>
-	<ui:insert name="head" />
+	<title>Administrator application</title>
+	<h:outputStylesheet name="css/bootstrap/bootstrap.css" />
+	<h:outputScript name="js/bootstrap/bootstrap.js" />
+	<h:outputScript name="js/jquery.min.js"/>
+	<h:outputStylesheet name="font-awesome/css/font-awesome.css" />
+	<h:outputStylesheet name="font-awesome/css/font-awesome.min.css" />
+	<h:outputStylesheet name="css/global.css"/>
+	<h:outputStylesheet name="css/header.css"/>
+	<h:outputStylesheet name="css/footer.css"/>
+	<h:outputStylesheet name="css/index.css"/>
 </h:head>
 <h:body>
+	<ui:insert name="header" />
+	<ui:insert name="navmenu"/>
 	<ui:insert name="body" />
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<h:outputScript target='head' name="js/bootstrap.min.js" />
+	<ui:insert name="footer" />
 </h:body>
 </html>

@@ -7,6 +7,7 @@ import pro.artse.dal.dto.AccountDTO;
 import pro.artse.dal.dto.AccountRole;
 import pro.artse.dal.dto.InputFlightReservationDTO;
 import pro.artse.dal.dto.MessageDTO;
+import pro.artse.dal.dto.UserDTO;
 
 public final class Validator {
 
@@ -52,7 +53,7 @@ public final class Validator {
 		return !((date1 == null) || (date2 == null) || (date1.compareTo(date2) > 0));
 	}
 
-	public static boolean isInvalidAccount(AccountDTO account) {
+	public static boolean isInvalidUser(UserDTO account) {
 		return areNullOrEmpty(account.getUsername(), account.getName(), account.getLastName(), account.getEmail(),
 				account.getCountry(), account.getAddress())
 				|| !Pattern.matches(EMAIL_VERIFICATION_REGEX, account.getEmail());

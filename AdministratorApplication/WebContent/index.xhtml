@@ -1,0 +1,12 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head />
+<h:body>
+	<h:form>
+		<h:inputText id="name" value="#{testBean.name}"></h:inputText>
+		<h:commandButton value="Write" action="#{testBean.writeName}"></h:commandButton>
+		<h:outputLabel id="message" value="#{testBean.message}"></h:outputLabel>
+	</h:form>
+</h:body>
+</html>

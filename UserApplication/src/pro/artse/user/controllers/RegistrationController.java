@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import pro.artse.dal.dto.AccountDTO;
 import pro.artse.dal.dto.AccountRole;
+import pro.artse.dal.dto.UserDTO;
 import pro.artse.dal.errorhandling.DbResultMessage;
 import pro.artse.dal.services.IAccountService;
 import pro.artse.dal.services.ServiceFactory;
@@ -47,7 +48,7 @@ public class RegistrationController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String address = Pages.INDEX;
 
-		AccountDTO accountDTO = AccountMapper.mapFromRequest(request);
+		UserDTO accountDTO = AccountMapper.mapFromRequest(request);
 		String password = request.getParameter("password");
 		
 		DbResultMessage<Boolean> isRegistered = accountService.register(accountDTO, password);

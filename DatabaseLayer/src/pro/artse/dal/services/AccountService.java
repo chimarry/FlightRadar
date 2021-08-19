@@ -10,6 +10,7 @@ import pro.artse.dal.database.ConnectionPool;
 import pro.artse.dal.database.ServiceUtil;
 import pro.artse.dal.dto.AccountDTO;
 import pro.artse.dal.dto.AccountRole;
+import pro.artse.dal.dto.UserDTO;
 import pro.artse.dal.errorhandling.DbResultMessage;
 import pro.artse.dal.errorhandling.DbStatus;
 import pro.artse.dal.errorhandling.ErrorHandler;
@@ -18,12 +19,13 @@ import pro.artse.dal.util.Validator;
 
 public class AccountService implements IAccountService {
 	@Override
-	public DbResultMessage<Boolean> register(AccountDTO account, String password) {
+	public DbResultMessage<Boolean> register(UserDTO user, String password) {
 		ConnectionPool connectionPool = null;
 		Connection connection = null;
 		PreparedStatement ps = null;
+		PreparedStatement insertUser = null;
 
-		if (Validator.isInvalidAccount(account))
+		if (Validator.isInvalidUser(user))
 			return new DbResultMessage<Boolean>(DbStatus.INVALID_DATA);
 
 		byte[] passwordHash = Security.computePasswordHash(password);
@@ -31,27 +33,41 @@ public class AccountService implements IAccountService {
 		try {
 			connectionPool = ConnectionPool.getInstance();
 			connection = connectionPool.checkOut();
-			
+
 			// Check if a user with the specified username already exists
 			PreparedStatement psExists = ServiceUtil.prepareStatement(connection,
-					AccountSqlExtension.SQL_SELECT_WITH_USERNAME, account.getUsername());
+					AccountSqlExtension.SQL_SELECT_WITH_USERNAME, user.getUsername());
 			ResultSet rs = psExists.executeQuery();
 			if (rs.next())
 				return new DbResultMessage<Boolean>(DbStatus.EXISTS,
-						"Account with " + account.getUsername() + " already exists.");
+						"Account with " + user.getUsername() + " already exists.");
 			psExists.close();
 
-			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_INSERT, false,
-					AccountSqlExtension.mapForInsert(account, passwordHash));
+			// Insert into the parent table - account
+			int accountId = 0;
+			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_INSERT, true,
+					AccountSqlExtension.mapForInsertAccount(user, passwordHash));
 			ps.executeUpdate();
+			ResultSet generatedKeys = ps.getGeneratedKeys();
+			if (generatedKeys.next())
+				accountId = generatedKeys.getInt(1);
 			if (!ServiceUtil.isSuccess(ps))
 				return new DbResultMessage<Boolean>(false, DbStatus.UNKNOWN_ERROR, "Registration failed.");
-
+			ps.close();
+			
+			// Save user data
+			insertUser = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_INSERT_USER, false,
+					AccountSqlExtension.mapForInsertUser(user, accountId));
+			insertUser.executeUpdate();
+			
+			if(!ServiceUtil.isSuccess(insertUser))
+				return new DbResultMessage<Boolean>(false, DbStatus.UNKNOWN_ERROR, "Registration failed.");
+			
 			return new DbResultMessage<Boolean>(true);
 		} catch (Exception ex) {
 			return ErrorHandler.handle(ex);
 		} finally {
-			ServiceUtil.finish(connectionPool, connection, ps);
+			ServiceUtil.finish(connectionPool, connection, insertUser);
 		}
 	}
 
@@ -87,17 +103,21 @@ public class AccountService implements IAccountService {
 
 	private final static class AccountSqlExtension {
 		public static final String SQL_SELECT_WITH_USERNAME = "SELECT * FROM accounts WHERE username=%s";
-		public static final String SQL_INSERT = "INSERT INTO accounts (name, lastname, username, password, email, country, address, accountrole) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		public static final String SQL_INSERT = "INSERT INTO accounts (name, lastname, username, password, accountrole) VALUES (?, ?, ?, ?, ?)";
+		public static final String SQL_INSERT_USER = "INSERT INTO users (accountId, email, country, address) VALUES (?, ?, ?, ?)";
 
-		public static Object[] mapForInsert(AccountDTO account, byte[] password) {
+		public static Object[] mapForInsertAccount(AccountDTO account, byte[] password) {
 			return new Object[] { account.getName(), account.getLastName(), account.getUsername(), password,
-					account.getEmail(), account.getCountry(), account.getAddress(), account.getRole().name() };
+					account.getRole().name() };
+		}
+
+		public static Object[] mapForInsertUser(UserDTO user, int accountId) {
+			return new Object[] { accountId, user.getEmail(), user.getCountry(), user.getAddress() };
 		}
 
 		public static AccountDTO mapFromSelect(ResultSet rs) throws SQLException {
 			return new AccountDTO(rs.getInt("accountId"), rs.getString("name"), rs.getString("lastname"),
-					rs.getString("email"), rs.getString("username"), rs.getString("country"), rs.getString("address"),
-					AccountRole.valueOf(rs.getString("accountRole")));
+					rs.getString("username"), AccountRole.valueOf(rs.getString("accountRole")));
 		}
 	}
 }

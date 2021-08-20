@@ -1,12 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head />
+<ui:composition>
+	<nav class="navbar navbar-expand-md --navmenu">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<i class="fa fa-bars --navbar-icon"></i>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				<h:outputLink styleClass="nav-item nav-link active" value="/WEB-INF/pages/countries.xhtml">Countries</h:outputLink>
+				<h:outputLink styleClass="nav-item nav-link">Cities</h:outputLink>
+				<h:outputLink styleClass="nav-item nav-link">Employees</h:outputLink>
+				<h:outputLink styleClass="nav-item nav-link">Users</h:outputLink>
+			</div>
+		</div>
+	</nav>
+</ui:composition>
 </html>

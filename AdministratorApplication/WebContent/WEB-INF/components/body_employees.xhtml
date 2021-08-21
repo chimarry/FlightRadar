@@ -1,0 +1,89 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:prime="http://primefaces.prime.com.tr/ui">
+<h:head />
+<ui:composition>
+	<div class="container-fluid --main-table-container">
+		<prime:accordionPanel activeIndex="1">
+			<prime:tab title="Register new employee">
+				<div class="container-fluid --form">
+					<h:form>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<h:outputLabel>Name</h:outputLabel>
+								<h:inputText styleClass="form-control --form-control"
+									value="#{employeesBean.newEmployee.name}" />
+							</div>
+							<div class="form-group col-md-6">
+								<h:outputLabel>Last name</h:outputLabel>
+								<h:inputText styleClass="form-control --form-control"
+									value="#{employeesBean.newEmployee.lastName}" />
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<h:outputLabel>Username</h:outputLabel>
+								<h:inputText styleClass="form-control --form-control"
+									value="#{employeesBean.newEmployee.username}" />
+							</div>
+							<div class="form-group col-md-6">
+								<h:outputLabel>Password</h:outputLabel>
+								<h:inputSecret styleClass="form-control --form-control"
+									value="#{employeesBean.password}" />
+							</div>
+						</div>
+						<h:commandButton styleClass="btn --form-button" value="Save"
+							action="#{employeesBean.add}" />
+					</h:form>
+				</div>
+			</prime:tab>
+			<prime:tab title="Show all">
+				<h:form>
+					<h:dataTable value="#{employeesBean.employees}"
+						var="selectedEmployee" styleClass="table table-sm --main-table">
+						<h:column>
+							<f:facet name="header">Name</f:facet>
+							<h:inputText value="#{selectedEmployee.name}"
+								styleClass="--main-table-input" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Last name</f:facet>
+							<h:inputText value="#{selectedEmployee.lastName}"
+								styleClass="--main-table-input" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Username</f:facet>
+							<h:inputText value="#{selectedEmployee.username}"
+								styleClass="--main-table-input" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Password</f:facet>
+							<h:inputSecret value="#{employeesBean.password}"
+								styleClass="--main-table-input" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Actions</f:facet>
+							<h:commandLink styleClass="btn --main-table-warning-button"
+								action="#{employeesBean.delete}">
+								<i class="fa fa-trash fa-lg" />
+								<f:setPropertyActionListener
+									target="#{employeesBean.selectedEmployee}"
+									value="#{selectedEmployee}" />
+							</h:commandLink>
+							<h:commandLink styleClass="btn --main-table-option-button"
+								action="#{employeesBean.update}">
+								<i class="fa fa-edit fa-lg" />
+								<f:setPropertyActionListener
+									target="#{employeesBean.selectedEmployee}"
+									value="#{selectedEmployee}" />
+							</h:commandLink>
+						</h:column>
+					</h:dataTable>
+				</h:form>
+			</prime:tab>
+		</prime:accordionPanel>
+	</div>
+</ui:composition>
+</html>

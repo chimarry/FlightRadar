@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import pro.artse.admin.util.Pages;
 import pro.artse.dal.dto.CountryDTO;
@@ -11,6 +12,7 @@ import pro.artse.dal.services.ILocationService;
 import pro.artse.dal.services.ServiceFactory;
 
 @ManagedBean(name = "countriesBean")
+@ViewScoped
 public class CountriesBean implements Serializable {
 
 	private static final long serialVersionUID = -5388807456410608388L;

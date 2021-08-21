@@ -6,8 +6,7 @@
 <h:head />
 <ui:composition>
 	<div class="container-fluid --main-table-container">
-		<prime:accordionPanel dynamic="true" cache="true" multiple="true"
-			widgetVar="ondemand" activeIndex="1">
+		<prime:accordionPanel activeIndex="1">
 			<prime:tab title="Add new country">
 				<div class="container-fluid --form">
 					<h:form>
@@ -34,10 +33,11 @@
 						</h:column>
 						<h:column>
 							<f:facet name="header">Cities</f:facet>
-							<h:commandLink styleClass="btn --main-table-option-button"
-								action="#{countriesBean.update}">
+							<h:outputLink styleClass="btn --main-table-option-button"
+								value="cities.xhtml">
 								<i class="fa fa-info-circle fa-lg" />
-							</h:commandLink>
+								<f:param name="countryId" value="#{selectedCountry.countryId}" />
+							</h:outputLink>
 						</h:column>
 						<h:column>
 							<f:facet name="header">Action</f:facet>

@@ -1,7 +1,7 @@
 @charset "ISO-8859-1";
 
 .--main-table-container {
-	padding: 5%;
+	padding: 2.5%;
 	font-size: 1rem;
 	min-height: 80vh;
 	overflow-x: auto;
@@ -55,5 +55,5 @@
 }
 
 .ui-accordion .ui-accordion-header .ui-icon {
-    display: none;
+   	display: none;
 }

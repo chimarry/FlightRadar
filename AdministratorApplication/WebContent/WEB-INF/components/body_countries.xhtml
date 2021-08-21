@@ -6,18 +6,19 @@
 <h:head />
 <ui:composition>
 	<div class="container-fluid --main-table-container">
-		<prime:accordionPanel>
+		<prime:accordionPanel dynamic="true" cache="true" multiple="true"
+			widgetVar="ondemand" activeIndex="1">
 			<prime:tab title="Add new country">
-				<div class="container-fluid --register-form">
+				<div class="container-fluid --form">
 					<h:form>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<h:outputText value="Name" />
-								<h:inputText styleClass="form-control --register-control"
+								<h:inputText styleClass="form-control --form-control"
 									value="#{countriesBean.country.name}" />
 							</div>
 						</div>
-						<h:commandButton styleClass="btn --register-button" value="Save"
+						<h:commandButton styleClass="btn --form-button" value="Save"
 							action="#{countriesBean.add}" />
 					</h:form>
 				</div>
@@ -43,6 +44,9 @@
 							<h:commandLink styleClass="btn --main-table-warning-button"
 								action="#{countriesBean.delete}">
 								<i class="fa fa-trash fa-lg" />
+								<f:setPropertyActionListener
+									target="#{countriesBean.selectedCountry}"
+									value="#{selectedCountry}" />
 							</h:commandLink>
 							<h:commandLink styleClass="btn --main-table-option-button"
 								action="#{countriesBean.update}">

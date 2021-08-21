@@ -48,11 +48,13 @@ public class CountriesBean implements Serializable {
 	public String add() {
 		locationService.addCountry(newCountry);
 		newCountry = new CountryDTO();
-		return Pages.COUNTRIES_PAGE;
+		setCountries(getAll());
+		return Pages.SAME_PAGE;
 	}
 
 	public String update() {
-		locationService.updateCountry(selectedCountry);
+		if (selectedCountry != null)
+			locationService.updateCountry(selectedCountry);
 		setCountries(getAll());
 		return Pages.SAME_PAGE;
 	}
@@ -62,7 +64,9 @@ public class CountriesBean implements Serializable {
 	}
 
 	public String delete() {
-		locationService.deleteCountry(selectedCountry.getCountryId());
-		return Pages.COUNTRIES_PAGE;
+		if (selectedCountry != null)
+			locationService.deleteCountry(selectedCountry.getCountryId());
+		setCountries(getAll());
+		return Pages.SAME_PAGE;
 	}
 }

@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:prime="http://primefaces.prime.com.tr/ui">
+<h:head />
+<ui:composition>
+	<div class="container-fluid --main-table-container">
+		<prime:accordionPanel>
+			<prime:tab title="Add new country">
+				<div class="container-fluid --register-form">
+					<h:form>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<h:outputText value="Name" />
+								<h:inputText styleClass="form-control --register-control"
+									value="#{countriesBean.country.name}" />
+							</div>
+						</div>
+						<h:commandButton styleClass="btn --register-button" value="Save"
+							action="#{countriesBean.add}" />
+					</h:form>
+				</div>
+			</prime:tab>
+			<prime:tab title="Show all">
+				<h:form>
+					<h:dataTable value="#{countriesBean.countries}"
+						var="selectedCountry" styleClass="table table-sm --main-table">
+						<h:column>
+							<f:facet name="header">Name</f:facet>
+							<h:inputText value="#{selectedCountry.name}"
+								styleClass="--main-table-input" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Cities</f:facet>
+							<h:commandLink styleClass="btn --main-table-option-button"
+								action="#{countriesBean.update}">
+								<i class="fa fa-info-circle fa-lg" />
+							</h:commandLink>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Action</f:facet>
+							<h:commandLink styleClass="btn --main-table-warning-button"
+								action="#{countriesBean.delete}">
+								<i class="fa fa-trash fa-lg" />
+							</h:commandLink>
+							<h:commandLink styleClass="btn --main-table-option-button"
+								action="#{countriesBean.update}">
+								<i class="fa fa-edit fa-lg" />
+								<f:setPropertyActionListener
+									target="#{countriesBean.selectedCountry}"
+									value="#{selectedCountry}" />
+							</h:commandLink>
+						</h:column>
+					</h:dataTable>
+				</h:form>
+			</prime:tab>
+		</prime:accordionPanel>
+	</div>
+</ui:composition>
+</html>

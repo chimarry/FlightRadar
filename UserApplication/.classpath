@@ -13,10 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/HP/Desktop/Internet programiranje/Biblioteke/database-layer.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="C:/Users/HP/Desktop/Internet programiranje/Biblioteke/database-layer.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -94,7 +94,7 @@ public class UsersBean implements Serializable {
 		if (selectedUser != null) {
 			if (password == null || password.isBlank())
 				setPassword(null);
-			accountService.updateUser(selectedUser, getPassword());
+			accountService.updateUser(selectedUser, password);
 		}
 		setUsers(getAll());
 		setPassword(null);
@@ -103,7 +103,7 @@ public class UsersBean implements Serializable {
 
 	public String delete() {
 		if (selectedUser != null) {
-			accountService.deleteEmployee(selectedUser.getAccountId());
+			accountService.deleteUser(selectedUser.getAccountId());
 		}
 		setUsers(getAll());
 		return Pages.SAME_PAGE;

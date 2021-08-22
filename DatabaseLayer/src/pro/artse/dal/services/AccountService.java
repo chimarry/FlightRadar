@@ -163,8 +163,8 @@ public class AccountService implements IAccountService, Serializable {
 			connection = connectionPool.checkOut();
 
 			// Check if a accountId exists
-			PreparedStatement psFound = ServiceUtil.prepareStatement(connection,
-					AccountSqlExtension.SQL_SELECT_WITH_ID, account.getAccountId());
+			PreparedStatement psFound = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_SELECT_WITH_ID,
+					account.getAccountId());
 			ResultSet rsFound = psFound.executeQuery();
 			if (rsFound.next())
 				passwordHash = password == null ? rsFound.getBytes("password") : Security.computePasswordHash(password);
@@ -196,11 +196,21 @@ public class AccountService implements IAccountService, Serializable {
 		if (Validator.isInvalidUser(user))
 			return new DbResultMessage<Boolean>(DbStatus.INVALID_DATA);
 
-		byte[] passwordHash = Security.computePasswordHash(password);
+		byte[] passwordHash = null;
 
 		try {
 			connectionPool = ConnectionPool.getInstance();
 			connection = connectionPool.checkOut();
+
+			// Check if a accountId exists
+			PreparedStatement psFound = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_SELECT_WITH_ID,
+					user.getAccountId());
+			ResultSet rsFound = psFound.executeQuery();
+			if (rsFound.next())
+				passwordHash = password == null ? rsFound.getBytes("password") : Security.computePasswordHash(password);
+			else
+				return new DbResultMessage<Boolean>(DbStatus.NOT_FOUND);
+			psFound.close();
 
 			// Update row in parent table - account
 			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_UPDATE_ACCOUNT, false,
@@ -238,25 +248,24 @@ public class AccountService implements IAccountService, Serializable {
 			connectionPool = ConnectionPool.getInstance();
 			connection = connectionPool.checkOut();
 
-			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_DELETE_ACCOUNT, false,
-					new Object[] { accountId });
-			ps.executeUpdate();
-
-			if (!ServiceUtil.isSuccess(ps))
-				return new DbResultMessage<Boolean>(false, DbStatus.UNKNOWN_ERROR, "Deleting employee failed.");
-			ps.close();
-
 			deleteUser = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_DELETE_USER, false,
 					new Object[] { accountId });
 			deleteUser.executeUpdate();
+			if (!ServiceUtil.isSuccess(deleteUser))
+				return new DbResultMessage<Boolean>(false, DbStatus.UNKNOWN_ERROR, "Deleting user failed.");
+			deleteUser.close();
+			
+			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_DELETE_ACCOUNT, false,
+					new Object[] { accountId });
+			ps.executeUpdate();
 			if (!ServiceUtil.isSuccess(ps))
-				return new DbResultMessage<Boolean>(false, DbStatus.UNKNOWN_ERROR, "Deleting employee failed.");
+				return new DbResultMessage<Boolean>(false, DbStatus.UNKNOWN_ERROR, "Deleting user failed.");
 
 			return new DbResultMessage<Boolean>(true);
 		} catch (Exception ex) {
 			return ErrorHandler.handle(ex);
 		} finally {
-			ServiceUtil.finish(connectionPool, connection, deleteUser);
+			ServiceUtil.finish(connectionPool, connection, ps);
 		}
 	}
 
@@ -354,8 +363,8 @@ public class AccountService implements IAccountService, Serializable {
 		}
 
 		public static Object[] mapForUpdateAccount(AccountDTO account, byte[] password) {
-			return new Object[] { account.getName(), account.getLastName(), account.getUsername(), password, account.getRole().name(),
-					account.getAccountId() };
+			return new Object[] { account.getName(), account.getLastName(), account.getUsername(), password,
+					account.getRole().name(), account.getAccountId() };
 		}
 
 		public static Object[] mapForUpdateUser(UserDTO user) {

@@ -2,12 +2,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:prime="http://primefaces.prime.com.tr/ui">
+	xmlns:p="http://primefaces.org/ui">
 <h:head />
 <ui:composition>
 	<div class="container-fluid --main-table-container">
-		<prime:accordionPanel activeIndex="1">
-			<prime:tab title="Add new city">
+		<p:accordionPanel activeIndex="1">
+			<p:tab title="Add new city">
 				<div class="container-fluid --form">
 					<h:form>
 						<div class="form-row">
@@ -21,8 +21,8 @@
 							action="#{citiesBean.add}" />
 					</h:form>
 				</div>
-			</prime:tab>
-			<prime:tab title="Show all">
+			</p:tab>
+			<p:tab title="Show all">
 				<h:form>
 					<h:dataTable value="#{citiesBean.cities}" var="selectedCity"
 						styleClass="table table-sm --main-table">
@@ -51,8 +51,8 @@
 						</h:column>
 					</h:dataTable>
 				</h:form>
-			</prime:tab>
-		</prime:accordionPanel>
+			</p:tab>
+		</p:accordionPanel>
 	</div>
 </ui:composition>
 </html>

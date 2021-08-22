@@ -22,8 +22,12 @@ public final class ServiceFactory {
 	public static ILocationService getLocationService() {
 		return new LocationService();
 	}
-	
+
 	public static IMessageService getMessageService() {
 		return new MessageService();
+	}
+
+	public static IAppVisitService getAppVisitService() {
+		return new AppVisitService();
 	}
 }

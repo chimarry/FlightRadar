@@ -3,12 +3,16 @@ package pro.artse.user.util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import pro.artse.dal.services.ServiceFactory;
 import pro.artse.user.beans.AccountBean;
 
 public final class HttpSessionUtil {
 
 	public static final void logIn(HttpSession session, AccountBean account) {
 		session.setAttribute(SessionBeans.ACCOUNT_BEAN, account);
+		
+		// Count visits
+		ServiceFactory.getIVisitService().add();
 	}
 
 	public static final boolean isLoggedIn(HttpSession session) {
@@ -21,7 +25,7 @@ public final class HttpSessionUtil {
 	public static final AccountBean getAccountInfo(HttpSession session) {
 		return (AccountBean) session.getAttribute(SessionBeans.ACCOUNT_BEAN);
 	}
-	
+
 	public static final int getAccountId(HttpServletRequest request) {
 		return getAccountInfo(request.getSession()).getAccountId();
 	}

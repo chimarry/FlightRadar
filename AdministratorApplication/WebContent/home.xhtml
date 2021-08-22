@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <h:head />
 <h:body>
 	<ui:composition template="/WEB-INF/templates/template.xhtml">
@@ -12,13 +13,10 @@
 			<ui:include src="/WEB-INF/components/navmenu.xhtml" />
 		</ui:define>
 		<ui:define name="body">
-			<div
-				class="container-fluid --login-container align-items-center justify-content-center">
+			<div class="container-fluid --home-container align-items-center justify-content-center">
 				<div class="row h-100 w-100 justify-content-center">
-					<div class='col-md-6 col-9 my-auto --login-form-container'>
-						<div class="row justify-content-center">#{accountBean.name}
-						</div>
-					</div>
+					<p:chart type="line" responsive="true"
+						model="#{appVisitsBean.lineModel}" style="min-width:80vw; min-height:50vh;"/>
 				</div>
 			</div>
 		</ui:define>

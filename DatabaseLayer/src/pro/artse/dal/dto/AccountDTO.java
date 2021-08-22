@@ -1,7 +1,10 @@
 package pro.artse.dal.dto;
 
-public class AccountDTO {
+import java.io.Serializable;
 
+public class AccountDTO implements Serializable{
+
+	private static final long serialVersionUID = 9024074550274695954L;
 	private int accountId;
 	private String name;
 	private String lastName;

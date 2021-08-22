@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head />
+<h:body>
+	<ui:composition template="/WEB-INF/templates/template.xhtml">
+		<ui:define name="header">
+			<ui:include src="/WEB-INF/components/header.xhtml" />
+		</ui:define>
+		<ui:define name="navmenu">
+			<ui:include src="/WEB-INF/components/navmenu.xhtml" />
+		</ui:define>
+		<ui:define name="body">
+			<ui:include src="/WEB-INF/components/body_users.xhtml" />
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/WEB-INF/components/footer.xhtml" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

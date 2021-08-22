@@ -6,7 +6,7 @@
 <h:head />
 <ui:composition>
 	<div class="container-fluid --main-table-container">
-		<prime:accordionPanel  activeIndex="1">
+		<prime:accordionPanel activeIndex="1">
 			<prime:tab title="Add new city">
 				<div class="container-fluid --form">
 					<h:form>
@@ -32,16 +32,19 @@
 								styleClass="--main-table-input" />
 						</h:column>
 						<h:column>
-							<f:facet name="header">Action</f:facet>
-							<h:commandLink styleClass="btn --main-table-warning-button"
-								action="#{citiesBean.delete}">
-								<i class="fa fa-trash fa-lg" />
-								<f:setPropertyActionListener target="#{citiesBean.selectedCity}"
-									value="#{selectedCity}" />
-							</h:commandLink>
+							<f:facet name="header">Edit</f:facet>
 							<h:commandLink styleClass="btn --main-table-option-button"
 								action="#{citiesBean.update}">
 								<i class="fa fa-edit fa-lg" />
+								<f:setPropertyActionListener target="#{citiesBean.selectedCity}"
+									value="#{selectedCity}" />
+							</h:commandLink>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Delete</f:facet>
+							<h:commandLink styleClass="btn --main-table-warning-button"
+								action="#{citiesBean.delete}">
+								<i class="fa fa-trash fa-lg" />
 								<f:setPropertyActionListener target="#{citiesBean.selectedCity}"
 									value="#{selectedCity}" />
 							</h:commandLink>

@@ -57,9 +57,9 @@ public final class ServiceUtil {
 	public static boolean isEmpty(ResultSet resultSet) throws SQLException {
 		if (resultSet.next()) {
 			resultSet.beforeFirst();
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	public static boolean hasMany(ResultSet resultSet) throws SQLException {

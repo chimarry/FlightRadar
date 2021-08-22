@@ -40,17 +40,20 @@
 							</h:outputLink>
 						</h:column>
 						<h:column>
-							<f:facet name="header">Action</f:facet>
-							<h:commandLink styleClass="btn --main-table-warning-button"
-								action="#{countriesBean.delete}">
-								<i class="fa fa-trash fa-lg" />
+							<f:facet name="header">Edit</f:facet>
+							<h:commandLink styleClass="btn --main-table-option-button"
+								action="#{countriesBean.update}">
+								<i class="fa fa-edit fa-lg" />
 								<f:setPropertyActionListener
 									target="#{countriesBean.selectedCountry}"
 									value="#{selectedCountry}" />
 							</h:commandLink>
-							<h:commandLink styleClass="btn --main-table-option-button"
-								action="#{countriesBean.update}">
-								<i class="fa fa-edit fa-lg" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Delete</f:facet>
+							<h:commandLink styleClass="btn --main-table-warning-button"
+								action="#{countriesBean.delete}">
+								<i class="fa fa-trash fa-lg" />
 								<f:setPropertyActionListener
 									target="#{countriesBean.selectedCountry}"
 									value="#{selectedCountry}" />

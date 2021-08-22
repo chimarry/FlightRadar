@@ -1,10 +1,15 @@
 package pro.artse.dal.dto;
 
-public class UserDTO extends AccountDTO{
+public class UserDTO extends AccountDTO {
+	private static final long serialVersionUID = -5885653312829409615L;
 	private String email;
 	private String country;
 	private String address;
-	
+
+	public UserDTO() {
+		super();
+	}
+
 	public UserDTO(int accountId, String name, String lastName, String username, AccountRole role, String email,
 			String country, String address) {
 		super(accountId, name, lastName, username, role);
@@ -35,7 +40,7 @@ public class UserDTO extends AccountDTO{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getCountry() {
 		return country;
 	}

@@ -1,5 +1,6 @@
 package pro.artse.dal.services;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,9 @@ import pro.artse.dal.errorhandling.ErrorHandler;
 import pro.artse.dal.util.Security;
 import pro.artse.dal.util.Validator;
 
-public class AccountService implements IAccountService {
+public class AccountService implements IAccountService, Serializable {
+
+	private static final long serialVersionUID = 3423591543934156409L;
 
 	@Override
 	public DbResultMessage<Boolean> register(UserDTO user, String password) {
@@ -153,22 +156,23 @@ public class AccountService implements IAccountService {
 				|| account.getRole() != AccountRole.Employee)
 			return new DbResultMessage<Boolean>(DbStatus.INVALID_DATA);
 
-		byte[] passwordHash = Security.computePasswordHash(password);
+		byte[] passwordHash = null;
 
 		try {
 			connectionPool = ConnectionPool.getInstance();
 			connection = connectionPool.checkOut();
 
-			// Check if a user with the specified username already exists
-			PreparedStatement psExists = ServiceUtil.prepareStatement(connection,
-					AccountSqlExtension.SQL_SELECT_WITH_USERNAME, account.getUsername());
-			ResultSet rs = psExists.executeQuery();
-			if (rs.next())
-				return new DbResultMessage<Boolean>(DbStatus.EXISTS,
-						"Account with username:" + account.getUsername() + " already exists.");
-			psExists.close();
+			// Check if a accountId exists
+			PreparedStatement psFound = ServiceUtil.prepareStatement(connection,
+					AccountSqlExtension.SQL_SELECT_WITH_ID, account.getAccountId());
+			ResultSet rsFound = psFound.executeQuery();
+			if (rsFound.next())
+				passwordHash = password == null ? rsFound.getBytes("password") : Security.computePasswordHash(password);
+			else
+				return new DbResultMessage<Boolean>(DbStatus.NOT_FOUND);
+			psFound.close();
 
-			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_UPDATE_ACCOUNT, true,
+			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_UPDATE_ACCOUNT, false,
 					AccountSqlExtension.mapForUpdateAccount(account, passwordHash));
 			ps.executeUpdate();
 			if (!ServiceUtil.isSuccess(ps))
@@ -197,15 +201,6 @@ public class AccountService implements IAccountService {
 		try {
 			connectionPool = ConnectionPool.getInstance();
 			connection = connectionPool.checkOut();
-
-			// Check if a user with the specified username already exists
-			PreparedStatement psExists = ServiceUtil.prepareStatement(connection,
-					AccountSqlExtension.SQL_SELECT_WITH_USERNAME, user.getUsername());
-			ResultSet rs = psExists.executeQuery();
-			if (rs.next())
-				return new DbResultMessage<Boolean>(DbStatus.EXISTS,
-						"Account with username:" + user.getUsername() + " already exists.");
-			psExists.close();
 
 			// Update row in parent table - account
 			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_UPDATE_ACCOUNT, false,
@@ -289,12 +284,7 @@ public class AccountService implements IAccountService {
 		}
 	}
 
-	@Override
-	public List<? extends AccountDTO> getAll(AccountDTO account, AccountRole role) {
-		return role == AccountRole.Employee ? getEmployees() : getUsers();
-	}
-
-	private List<AccountDTO> getEmployees() {
+	public List<AccountDTO> getEmployees() {
 		List<AccountDTO> accounts = new ArrayList<AccountDTO>();
 		ConnectionPool connectionPool = null;
 		Connection connection = null;
@@ -303,7 +293,7 @@ public class AccountService implements IAccountService {
 		try {
 			connectionPool = ConnectionPool.getInstance();
 			connection = connectionPool.checkOut();
-			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_SELECT_ACCOUNTS);
+			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_SELECT_EMPLOYEES);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next())
@@ -316,10 +306,9 @@ public class AccountService implements IAccountService {
 		} finally {
 			ServiceUtil.finish(connectionPool, connection, ps);
 		}
-		return accounts;
 	}
 
-	private List<UserDTO> getUsers() {
+	public List<UserDTO> getUsers() {
 		List<UserDTO> accounts = new ArrayList<UserDTO>();
 		ConnectionPool connectionPool = null;
 		Connection connection = null;
@@ -341,19 +330,19 @@ public class AccountService implements IAccountService {
 		} finally {
 			ServiceUtil.finish(connectionPool, connection, ps);
 		}
-		return accounts;
 	}
 
 	private final static class AccountSqlExtension {
 		public static final String SQL_SELECT_WITH_USERNAME = "SELECT * FROM accounts WHERE username=%s";
+		public static final String SQL_SELECT_WITH_ID = "SELECT * FROM accounts WHERE accountId=%d";
 		public static final String SQL_INSERT = "INSERT INTO accounts (name, lastname, username, password, accountrole) VALUES (?, ?, ?, ?, ?)";
 		public static final String SQL_INSERT_USER = "INSERT INTO users (accountId, email, country, address) VALUES (?, ?, ?, ?)";
 		public static final String SQL_UPDATE_ACCOUNT = "UPDATE accounts SET name=?, lastName=?, username=?, password=?, accountRole=? WHERE accountId=?";
 		public static final String SQL_UPDATE_USER = "UPDATE users SET email=?, country=?, address=? WHERE accountId=?";
 		public static final String SQL_DELETE_ACCOUNT = "DELETE FROM accounts WHERE accountId=?";
 		public static final String SQL_DELETE_USER = "DELETE FROM users WHERE accountId=?";
-		public static final String SQL_SELECT_ACCOUNTS = "SELECT * FROM accounts";
-		public static final String SQL_SELECT_USERS = "SELECT a.accountId, a.name, a.lastname, a.username, a.accountRole, u.email, u.country, u.address FROM accounts a INNER JOIN users u ON u.accountId=a.accountId";
+		public static final String SQL_SELECT_EMPLOYEES = "SELECT * FROM accounts WHERE accountRole='Employee'";
+		public static final String SQL_SELECT_USERS = "SELECT a.accountId, a.name, a.lastname, a.username, a.accountRole, u.email, u.country, u.address FROM accounts a INNER JOIN users u ON u.accountId=a.accountId WHERE accountRole in('Passenger', 'Transport')";
 
 		public static Object[] mapForInsertAccount(AccountDTO account, byte[] password) {
 			return new Object[] { account.getName(), account.getLastName(), account.getUsername(), password,
@@ -365,7 +354,7 @@ public class AccountService implements IAccountService {
 		}
 
 		public static Object[] mapForUpdateAccount(AccountDTO account, byte[] password) {
-			return new Object[] { account.getName(), account.getLastName(), account.getUsername(), password,
+			return new Object[] { account.getName(), account.getLastName(), account.getUsername(), password, account.getRole().name(),
 					account.getAccountId() };
 		}
 

@@ -3,7 +3,6 @@ package pro.artse.dal.util;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
-import pro.artse.dal.dto.AccountDTO;
 import pro.artse.dal.dto.AccountRole;
 import pro.artse.dal.dto.InputFlightReservationDTO;
 import pro.artse.dal.dto.MessageDTO;

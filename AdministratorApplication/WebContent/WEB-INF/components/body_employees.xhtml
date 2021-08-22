@@ -64,17 +64,20 @@
 								styleClass="--main-table-input" />
 						</h:column>
 						<h:column>
-							<f:facet name="header">Actions</f:facet>
-							<h:commandLink styleClass="btn --main-table-warning-button"
-								action="#{employeesBean.delete}">
-								<i class="fa fa-trash fa-lg" />
+							<f:facet name="header">Edit</f:facet>
+							<h:commandLink styleClass="btn --main-table-option-button"
+								action="#{employeesBean.update}">
+								<i class="fa fa-edit fa-lg" />
 								<f:setPropertyActionListener
 									target="#{employeesBean.selectedEmployee}"
 									value="#{selectedEmployee}" />
 							</h:commandLink>
-							<h:commandLink styleClass="btn --main-table-option-button"
-								action="#{employeesBean.update}">
-								<i class="fa fa-edit fa-lg" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Delete</f:facet>
+							<h:commandLink styleClass="btn --main-table-warning-button"
+								action="#{employeesBean.delete}">
+								<i class="fa fa-trash fa-lg" />
 								<f:setPropertyActionListener
 									target="#{employeesBean.selectedEmployee}"
 									value="#{selectedEmployee}" />

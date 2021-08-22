@@ -1,6 +1,9 @@
 package pro.artse.dal.dto;
 
-public class CityDTO {
+import java.io.Serializable;
+
+public class CityDTO implements Serializable {
+	private static final long serialVersionUID = -1339002464083041366L;
 	private int cityId;
 	private String name;
 	private int countryId;

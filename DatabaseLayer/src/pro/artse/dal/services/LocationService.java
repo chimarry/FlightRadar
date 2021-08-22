@@ -1,5 +1,6 @@
 package pro.artse.dal.services;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,9 @@ import pro.artse.dal.errorhandling.DbStatus;
 import pro.artse.dal.errorhandling.ErrorHandler;
 import pro.artse.dal.util.Validator;
 
-public class LocationService implements ILocationService {
+public class LocationService implements ILocationService, Serializable {
+
+	private static final long serialVersionUID = 7674554067333904271L;
 
 	@Override
 	public List<CountryDTO> getCountries() {
@@ -159,7 +162,7 @@ public class LocationService implements ILocationService {
 		Connection connection = null;
 		PreparedStatement ps = null;
 
-		if (Validator.isNullOrEmpty(city.getName()) || Validator.isNull(city.getCountryId()))
+		if (Validator.isNullOrEmpty(city.getName()))
 			return new DbResultMessage<Boolean>(DbStatus.INVALID_DATA);
 
 		try {
@@ -260,7 +263,7 @@ public class LocationService implements ILocationService {
 		public static final String DELETE_COUNTRY = "DELETE FROM countries WHERE countryId=?";
 		public static final String DELETE_CITY = "DELETE FROM cities WHERE cityId=?";
 		public static final String UPDATE_COUNTRY = "UPDATE countries SET name=? WHERE countryId=?";
-		public static final String UPDATE_CITY = "UPDATE city SET name=?, countryId=? WHERE cityId=?";
+		public static final String UPDATE_CITY = "UPDATE cities SET name=?, countryId=? WHERE cityId=?";
 		public static final String INSERT_COUNTRY = "INSERT INTO countries(name) VALUES (?)";
 		public static final String INSERT_CITY = "INSERT INTO cities(countryId, name) VALUES (?, ?)";
 
@@ -269,7 +272,7 @@ public class LocationService implements ILocationService {
 		}
 
 		public static CityDTO mapCityFromSelect(ResultSet rs) throws SQLException {
-			return new CityDTO(rs.getInt("cityId"), rs.getString("name"));
+			return new CityDTO(rs.getInt("countryId"), rs.getInt("cityId"), rs.getString("name"));
 		}
 
 		public static Object[] mapCountryInsert(CountryDTO country) {
@@ -281,7 +284,7 @@ public class LocationService implements ILocationService {
 		}
 
 		public static Object[] mapCityInsert(CityDTO city) {
-			return new Object[] { city.getName(), city.getCountryId() };
+			return new Object[] { city.getCountryId(), city.getName() };
 		}
 
 		public static Object[] mapCityUpdate(CityDTO city) {

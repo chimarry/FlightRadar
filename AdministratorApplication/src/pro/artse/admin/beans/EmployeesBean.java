@@ -1,9 +1,7 @@
 package pro.artse.admin.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -51,8 +49,7 @@ public class EmployeesBean implements Serializable {
 	}
 
 	public List<AccountDTO> getAll() {
-		return accountService.getAll(AccountRole.Employee).stream().map(x -> (AccountDTO) (x))
-				.collect(Collectors.toCollection(ArrayList::new));
+		return accountService.getEmployees();
 	}
 
 	public String getPassword() {
@@ -66,7 +63,7 @@ public class EmployeesBean implements Serializable {
 	public String add() {
 		if (newEmployee != null && password != null) {
 			newEmployee.setRole(AccountRole.Employee);
-			accountService.addEmployee(newEmployee, password).getStatus();
+			accountService.addEmployee(newEmployee, password);
 			newEmployee = new AccountDTO();
 		}
 		setEmployees(getAll());
@@ -78,7 +75,7 @@ public class EmployeesBean implements Serializable {
 		if (selectedEmployee != null) {
 			if (password == null || password.isBlank())
 				setPassword(null);
-			accountService.updateEmployee(selectedEmployee, getPassword()).getStatus();
+			accountService.updateEmployee(selectedEmployee, getPassword());
 		}
 		setEmployees(getAll());
 		setPassword(null);

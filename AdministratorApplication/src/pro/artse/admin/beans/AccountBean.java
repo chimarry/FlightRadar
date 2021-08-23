@@ -1,9 +1,12 @@
 package pro.artse.admin.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import pro.artse.admin.util.AlertManager;
 import pro.artse.admin.util.Pages;
@@ -74,6 +77,13 @@ public class AccountBean implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void checkIfLoggedIn() throws IOException {
+		if (!isLoggedIn()) {
+			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+			ec.redirect(Pages.INDEX_PAGE);
+		}
 	}
 
 	public String logIn() {

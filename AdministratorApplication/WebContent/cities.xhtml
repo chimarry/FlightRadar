@@ -2,6 +2,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
+<f:metadata>
+	<f:event listener="#{accountBean.checkIfLoggedIn}" type="preRenderView"></f:event>
+</f:metadata>
 <h:head />
 <h:body>
 	<ui:composition template="/WEB-INF/templates/template.xhtml">

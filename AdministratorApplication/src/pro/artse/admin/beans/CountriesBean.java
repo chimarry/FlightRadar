@@ -50,15 +50,13 @@ public class CountriesBean implements Serializable {
 	public String add() {
 		locationService.addCountry(newCountry);
 		newCountry = new CountryDTO();
-		setCountries(getAll());
-		return Pages.SAME_PAGE;
+		return refresh();
 	}
 
 	public String update() {
 		if (selectedCountry != null)
 			locationService.updateCountry(selectedCountry);
-		setCountries(getAll());
-		return Pages.SAME_PAGE;
+		return refresh();
 	}
 
 	public List<CountryDTO> getAll() {
@@ -68,6 +66,10 @@ public class CountriesBean implements Serializable {
 	public String delete() {
 		if (selectedCountry != null)
 			locationService.deleteCountry(selectedCountry.getCountryId());
+		return refresh();
+	}
+
+	private String refresh() {
 		setCountries(getAll());
 		return Pages.SAME_PAGE;
 	}

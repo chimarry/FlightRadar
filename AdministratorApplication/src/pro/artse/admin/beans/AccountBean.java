@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import pro.artse.admin.util.AlertManager;
 import pro.artse.admin.util.Pages;
 import pro.artse.dal.dto.AccountDTO;
 import pro.artse.dal.dto.AccountRole;
@@ -77,8 +78,10 @@ public class AccountBean implements Serializable {
 
 	public String logIn() {
 		DbResultMessage<AccountDTO> isLoggedIn = accountService.login(username, password);
-		if (!isLoggedIn.isSuccess() || isLoggedIn.getResult() == null)
-			return Pages.INDEX_PAGE;
+		if (!isLoggedIn.isSuccess() || isLoggedIn.getResult() == null) {
+			AlertManager.alert(isLoggedIn);
+			return Pages.SAME_PAGE;
+		}
 
 		AccountDTO account = isLoggedIn.getResult();
 		setName(account.getName());

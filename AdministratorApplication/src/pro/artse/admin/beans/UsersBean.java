@@ -6,9 +6,11 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import pro.artse.admin.util.AlertManager;
 import pro.artse.admin.util.Pages;
 import pro.artse.dal.dto.AccountRole;
 import pro.artse.dal.dto.UserDTO;
+import pro.artse.dal.errorhandling.DbResultMessage;
 import pro.artse.dal.services.IAccountService;
 import pro.artse.dal.services.ServiceFactory;
 
@@ -82,30 +84,35 @@ public class UsersBean implements Serializable {
 
 	public String add() {
 		if (newUser != null && password != null && password.equals(confirmPassword)) {
-			accountService.register(newUser, password);
+			DbResultMessage<Boolean> account = accountService.register(newUser, password);
+			AlertManager.alert(account);
 			newUser = new UserDTO();
 		}
-		setUsers(getAll());
-		setPassword(null);
-		return Pages.SAME_PAGE;
+		return refresh();
 	}
 
 	public String update() {
 		if (selectedUser != null) {
-			if (password == null || password.isBlank())
+			// TODO: Move this to DB layer
+			if (password.isBlank())
 				setPassword(null);
-			accountService.updateUser(selectedUser, password);
+			DbResultMessage<Boolean> updated = accountService.updateUser(selectedUser, password);
+			AlertManager.alert(updated);
 		}
-		setUsers(getAll());
-		setPassword(null);
-		return Pages.SAME_PAGE;
+		return refresh();
 	}
 
 	public String delete() {
 		if (selectedUser != null) {
-			accountService.deleteUser(selectedUser.getAccountId());
+			DbResultMessage<Boolean> deleted = accountService.deleteUser(selectedUser.getAccountId());
+			AlertManager.alert(deleted);
 		}
+		return refresh();
+	}
+
+	private String refresh() {
 		setUsers(getAll());
+		setPassword(null);
 		return Pages.SAME_PAGE;
 	}
 }

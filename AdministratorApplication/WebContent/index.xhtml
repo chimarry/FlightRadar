@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <h:head />
 <h:body>
 	<ui:composition template="/WEB-INF/templates/template.xhtml">
@@ -22,12 +23,16 @@
 										<div class="form-group">
 											<label for="username">Username:</label><br />
 											<h:inputText id="username" value="#{accountBean.username}"
-												styleClass='form-control' />
+												styleClass='form-control' required="true">
+											</h:inputText>
+											<h:message for="username" style="color:red" />
 										</div>
 										<div class="form-group">
 											<label for="password">Password:</label><br />
 											<h:inputSecret id="password" value="#{accountBean.password}"
-												styleClass='form-control' />
+												styleClass='form-control' required="true">
+											</h:inputSecret>
+											<h:message for="password" style="color:red" />
 										</div>
 										<div class="form-group">
 											<h:commandButton value="Log in"

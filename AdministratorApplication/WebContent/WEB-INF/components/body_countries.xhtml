@@ -13,8 +13,11 @@
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<h:outputText value="Name" />
-								<h:inputText styleClass="form-control --form-control"
-									value="#{countriesBean.country.name}" />
+								<h:inputText id="name" styleClass="form-control --form-control"
+									value="#{countriesBean.country.name}" required="true">
+									<f:validateLength minimum="2" maximum="10" />
+								</h:inputText>
+								<h:message for="name" style="color:red" />
 							</div>
 						</div>
 						<h:commandButton styleClass="btn --form-button" value="Save"

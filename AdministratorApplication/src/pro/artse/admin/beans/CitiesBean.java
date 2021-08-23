@@ -30,8 +30,7 @@ public class CitiesBean implements Serializable {
 		Map<String, String> reqMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		if (reqMap.containsKey("countryId"))
 			countryId = Integer.parseInt(reqMap.get("countryId"));
-		System.out.println(countryId);
-		setCities(getAll());
+		refresh();
 	}
 
 	public int getCountryId() {
@@ -71,32 +70,31 @@ public class CitiesBean implements Serializable {
 	}
 
 	public String add() {
-		if (newCity != null) {
-			newCity.setCountryId(countryId);
-			System.out.println(locationService.addCity(newCity).getStatus());
-			newCity = new CityDTO();
-		}
-		setCities(getAll());
-		return Pages.SAME_PAGE;
+		newCity.setCountryId(countryId);
+		newCity = new CityDTO();
+		return refresh();
 	}
 
 	public String update() {
 		if (selectedCity != null)
 			locationService.updateCity(selectedCity);
 
-		setCities(getAll());
-		return Pages.SAME_PAGE;
+		return refresh();
 	}
 
 	public String delete() {
 		if (selectedCity != null)
 			locationService.deleteCity(selectedCity.getCityId());
 
-		setCities(getAll());
-		return Pages.SAME_PAGE;
+		return refresh();
 	}
 
 	public String goBack() {
 		return Pages.COUNTRIES_PAGE;
+	}
+
+	public String refresh() {
+		setCities(getAll());
+		return Pages.SAME_PAGE;
 	}
 }

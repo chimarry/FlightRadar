@@ -61,14 +61,12 @@ public class EmployeesBean implements Serializable {
 	}
 
 	public String add() {
-		if (newEmployee != null && password != null) {
+		if (password != null) {
 			newEmployee.setRole(AccountRole.Employee);
 			accountService.addEmployee(newEmployee, password);
 			newEmployee = new AccountDTO();
 		}
-		setEmployees(getAll());
-		setPassword(null);
-		return Pages.SAME_PAGE;
+		return refresh();
 	}
 
 	public String update() {
@@ -77,17 +75,19 @@ public class EmployeesBean implements Serializable {
 				setPassword(null);
 			accountService.updateEmployee(selectedEmployee, getPassword());
 		}
-		setEmployees(getAll());
-		setPassword(null);
-		return Pages.SAME_PAGE;
+
+		return refresh();
 	}
 
 	public String delete() {
-		if (selectedEmployee != null) {
-			System.out.println(selectedEmployee.getAccountId());
+		if (selectedEmployee != null)
 			accountService.deleteEmployee(selectedEmployee.getAccountId());
-		}
+		return refresh();
+	}
+
+	private String refresh() {
 		setEmployees(getAll());
+		setPassword(null);
 		return Pages.SAME_PAGE;
 	}
 }

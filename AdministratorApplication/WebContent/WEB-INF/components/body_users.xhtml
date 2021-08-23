@@ -13,49 +13,74 @@
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<h:outputLabel>Name</h:outputLabel>
-								<h:inputText styleClass="form-control --form-control"
-									value="#{usersBean.newUser.name}" />
+								<h:inputText id="name" styleClass="form-control --form-control"
+									value="#{usersBean.newUser.name}" required="true">
+									<f:validateLength minimum="2" maximum="10" />
+								</h:inputText>
+								<h:message for="name" style="color:red" />
 							</div>
 							<div class="form-group col-md-6">
 								<h:outputLabel>Last name</h:outputLabel>
-								<h:inputText styleClass="form-control --form-control"
-									value="#{usersBean.newUser.lastName}" />
+								<h:inputText id="lastname"
+									styleClass="form-control --form-control"
+									value="#{usersBean.newUser.lastName}" required="true">
+									<f:validateLength minimum="2" maximum="15" />
+								</h:inputText>
+								<h:message for="lastname" style="color:red" />
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<h:outputLabel>Username</h:outputLabel>
-								<h:inputText styleClass="form-control --form-control"
-									value="#{usersBean.newUser.username}" />
+								<h:inputText id="username"
+									styleClass="form-control --form-control"
+									value="#{usersBean.newUser.username}" required="true">
+									<f:validateLength minimum="2" maximum="10" />
+								</h:inputText>
+								<h:message for="username" style="color:red" />
 							</div>
 							<div class="form-group col-md-6">
 								<h:outputLabel>Email</h:outputLabel>
-								<h:inputText styleClass="form-control --form-control"
-									value="#{usersBean.newUser.email}" />
+								<h:inputText id="email" styleClass="form-control --form-control"
+									value="#{usersBean.newUser.email}" required="true">
+									<f:validateRegex
+										pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" />
+								</h:inputText>
+								<h:message for="email" style="color:red" />
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<h:outputLabel>Password</h:outputLabel>
-								<h:inputSecret styleClass="form-control --form-control"
-									value="#{usersBean.password}" />
+								<h:inputSecret id="password"
+									styleClass="form-control --form-control"
+									value="#{usersBean.password}" required="true" />
+								<h:message for="password" style="color:red" />
 							</div>
 							<div class="form-group col-md-6">
 								<h:outputLabel>Confirm password</h:outputLabel>
-								<h:inputSecret styleClass="form-control --form-control"
-									value="#{usersBean.confirmPassword}" />
+								<h:inputSecret id="confirmPassword"
+									styleClass="form-control --form-control"
+									value="#{usersBean.confirmPassword}" required="true" />
+								<h:message for="confirmPassword" style="color:red" />
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<h:outputLabel>Address</h:outputLabel>
-								<h:inputText styleClass="form-control --form-control"
-									value="#{usersBean.newUser.address}" />
+								<h:inputText id="address"
+									styleClass="form-control --form-control"
+									value="#{usersBean.newUser.address}" required="true">
+									<f:validateLength minimum="2" maximum="10" />
+								</h:inputText>
+								<h:message for="address" style="color:red" />
 							</div>
 							<div class="form-group col-md-6">
 								<h:outputLabel>Country</h:outputLabel>
-								<h:inputText styleClass="form-control --form-control"
-									value="#{usersBean.newUser.country}" />
+								<h:inputText id="country"
+									styleClass="form-control --form-control"
+									value="#{usersBean.newUser.country}" required="true" />
+								<h:message for="country" style="color:red" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -70,17 +95,19 @@
 			</p:tab>
 			<p:tab title="Show all">
 				<h:form>
-					<h:dataTable value="#{usersBean.users}" var="selectedUser"
-						styleClass="table table-xs --main-table">
+					<h:dataTable id="usersTable" value="#{usersBean.users}"
+						var="selectedUser" styleClass="table table-xs --main-table">
 						<h:column>
 							<f:facet name="header">Name</f:facet>
 							<h:inputText value="#{selectedUser.name}"
-								styleClass="--main-table-input" />
+								styleClass="--main-table-input">
+							</h:inputText>
 						</h:column>
 						<h:column>
 							<f:facet name="header">Last name</f:facet>
 							<h:inputText value="#{selectedUser.lastName}"
-								styleClass="--main-table-input" />
+								styleClass="--main-table-input">
+							</h:inputText>
 						</h:column>
 						<h:column>
 							<f:facet name="header">Username</f:facet>

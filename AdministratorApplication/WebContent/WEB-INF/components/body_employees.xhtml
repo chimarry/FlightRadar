@@ -14,24 +14,39 @@
 							<div class="form-group col-md-6">
 								<h:outputLabel>Name</h:outputLabel>
 								<h:inputText styleClass="form-control --form-control"
-									value="#{employeesBean.newEmployee.name}" />
+									value="#{employeesBean.newEmployee.name}" required="true">
+									<f:validateLength minimum="2" maximum="10" />
+								</h:inputText>
+								<h:message for="name" style="color:red" />
 							</div>
 							<div class="form-group col-md-6">
 								<h:outputLabel>Last name</h:outputLabel>
-								<h:inputText styleClass="form-control --form-control"
-									value="#{employeesBean.newEmployee.lastName}" />
+								<h:inputText id="lastname"
+									styleClass="form-control --form-control"
+									value="#{employeesBean.newEmployee.lastName}" required="true">
+									<f:validateLength minimum="2" maximum="10" />
+								</h:inputText>
+								<h:message for="lastname" style="color:red" />
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<h:outputLabel>Username</h:outputLabel>
-								<h:inputText styleClass="form-control --form-control"
-									value="#{employeesBean.newEmployee.username}" />
+								<h:inputText id="username"
+									styleClass="form-control --form-control"
+									value="#{employeesBean.newEmployee.username}" required="true">
+									<f:validateLength minimum="2" maximum="10" />
+								</h:inputText>
+								<h:message for="username" style="color:red" />
 							</div>
 							<div class="form-group col-md-6">
 								<h:outputLabel>Password</h:outputLabel>
-								<h:inputSecret styleClass="form-control --form-control"
-									value="#{employeesBean.password}" />
+								<h:inputSecret id="password"
+									styleClass="form-control --form-control"
+									value="#{employeesBean.password}" required="true">
+									<f:validateLength minimum="2" maximum="10" />
+								</h:inputSecret>
+								<h:message for="password" style="color:red" />
 							</div>
 						</div>
 						<h:commandButton styleClass="btn --form-button" value="Save"

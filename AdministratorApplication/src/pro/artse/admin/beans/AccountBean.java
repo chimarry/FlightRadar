@@ -8,7 +8,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import pro.artse.admin.util.AlertManager;
 import pro.artse.admin.util.Pages;
 import pro.artse.dal.dto.AccountDTO;
 import pro.artse.dal.dto.AccountRole;
@@ -89,7 +88,6 @@ public class AccountBean implements Serializable {
 	public String logIn() {
 		DbResultMessage<AccountDTO> isLoggedIn = accountService.login(username, password);
 		if (!isLoggedIn.isSuccess() || isLoggedIn.getResult() == null) {
-			AlertManager.alert(isLoggedIn);
 			return Pages.SAME_PAGE;
 		}
 
@@ -99,5 +97,10 @@ public class AccountBean implements Serializable {
 		setAccountRole(account.getRole());
 		setLoggedIn(true);
 		return Pages.HOME_PAGE;
+	}
+
+	public String logOut() {
+		setLoggedIn(false);
+		return Pages.INDEX_PAGE;
 	}
 }

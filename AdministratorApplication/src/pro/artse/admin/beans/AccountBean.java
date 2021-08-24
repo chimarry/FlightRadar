@@ -27,6 +27,8 @@ public class AccountBean implements Serializable {
 	private String name;
 	private String lastName;
 	private AccountRole accountRole;
+	
+	private String message;
 
 	private boolean isLoggedIn;
 
@@ -76,6 +78,14 @@ public class AccountBean implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	public void checkIfLoggedIn() throws IOException {

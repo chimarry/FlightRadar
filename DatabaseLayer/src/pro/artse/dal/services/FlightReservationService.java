@@ -142,7 +142,7 @@ public abstract class FlightReservationService implements IFlightReservationServ
 				+ "ON f.flightId=fr.flightId " + "INNER JOIN cities a " + "ON f.arrivalCityId=a.cityId "
 				+ "INNER JOIN countries ac " + "ON ac.countryId=a.countryId " + "INNER JOIN cities d "
 				+ "ON f.departureCityId=d.cityId " + "INNER JOIN countries dc " + "ON dc.countryId=d.countryId "
-				+ "WHERE fr.accountId=%d" + " ORDER BY fr.createdOn";
+				+ "WHERE fr.accountId=%d" + " ORDER BY fr.createdOn DESC";
 
 		public static final String UPDATE_STATUS = "UPDATE flightReservations SET status=%s WHERE flightReservationId=%d AND accountId=%d";
 

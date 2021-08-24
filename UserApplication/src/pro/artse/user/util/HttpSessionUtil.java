@@ -12,7 +12,7 @@ public final class HttpSessionUtil {
 		session.setAttribute(SessionBeans.ACCOUNT_BEAN, account);
 		
 		// Count visits
-		ServiceFactory.getIVisitService().add();
+		ServiceFactory.getAppVisitService().add();
 	}
 
 	public static final boolean isLoggedIn(HttpSession session) {

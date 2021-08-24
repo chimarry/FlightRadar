@@ -33,9 +33,7 @@ public class RegistrationController extends HttpServlet {
 			throws ServletException, IOException {
 		String address = Pages.REGISTRATION_FORM;
 
-		CountriesBean bean = new CountriesBean();
-		bean.setCountries(RestApiUtil.getCountries());
-		request.setAttribute("countriesBean", bean);
+		setCountries(request);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
@@ -48,11 +46,22 @@ public class RegistrationController extends HttpServlet {
 
 		UserDTO accountDTO = AccountMapper.mapFromRequest(request);
 		String password = request.getParameter("password");
-		
+
 		DbResultMessage<Boolean> isRegistered = accountService.register(accountDTO, password);
 		AlertManager.addToRequest(request, isRegistered, Messages.FAILED_REGISTER);
 
+		if (!isRegistered.isSuccess()) {
+			setCountries(request);
+			address = Pages.REGISTRATION_FORM;
+		}
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
+	}
+
+	private void setCountries(HttpServletRequest request) {
+		CountriesBean bean = new CountriesBean();
+		bean.setCountries(RestApiUtil.getCountries());
+		request.setAttribute("countriesBean", bean);
 	}
 }

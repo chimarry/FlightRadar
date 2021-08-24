@@ -73,12 +73,13 @@ public class FlightReservationController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String address = Pages.INDEX;
+		String address = Pages.FLIGHT_RESERVATION_FORM;
 		HttpSession session = request.getSession();
 		if (!HttpSessionUtil.isLoggedIn(session)) {
 			HttpSessionUtil.turnOnGuestMode(session);
 		} else {
 			AccountRole role = getRole(request);
+			request.setAttribute("accountRole", getRole(request));
 			setFlightReservationService(request);
 
 			InputFlightReservationDTO dto = FlightReservationMapper.mapFromRequest(request, role);
@@ -86,6 +87,8 @@ public class FlightReservationController extends HttpServlet {
 
 			DbResultMessage<Boolean> created = flightReservationService.create(dto, role);
 			AlertManager.addToRequest(request, created, Messages.FAILED_RESERVATION);
+			if(created.isSuccess())
+				address = Pages.INDEX;
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);

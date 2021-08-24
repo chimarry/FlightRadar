@@ -7,19 +7,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public final class SqlDateTimeConvertor {
-	public static final String MYSQL_DATE_FORMAT = "YYYY-MM-dd";
-	public static final String MYSQL_DATETIME_FORMAT = "YYYY-MM-dd hh:mm:ss";
-	
+	public static final String MYSQL_DATE_FORMAT = "yyyy-MM-dd";
+	public static final String MYSQL_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
 	public static String toDbDateTime(LocalDateTime dateTime) {
-		return  dateTime.format(DateTimeFormatter.ofPattern(MYSQL_DATETIME_FORMAT));
+		return dateTime.format(DateTimeFormatter.ofPattern(MYSQL_DATETIME_FORMAT));
 	}
-	
+
 	public static final String toDbDate(LocalDate date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(MYSQL_DATE_FORMAT);
 		return formatter.format(date);
 	}
-	
+
 	public static final LocalDateTime toLocalDateTime(ResultSet rs, String columnName) throws SQLException {
-		return rs.getTimestamp(columnName).toLocalDateTime();
+		var formatter = DateTimeFormatter.ofPattern(MYSQL_DATETIME_FORMAT);
+		return LocalDateTime.parse(rs.getString(columnName), formatter);
 	}
 }

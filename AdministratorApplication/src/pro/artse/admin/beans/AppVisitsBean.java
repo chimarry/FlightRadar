@@ -42,7 +42,7 @@ public class AppVisitsBean implements Serializable {
 		lineModel.getAxis(AxisType.Y).setLabel("Total number of visits");
 		DateAxis axis = new DateAxis("Dates");
 		axis.setTickAngle(-50);
-		axis.setMax(LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
+		axis.setMax(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		axis.setTickFormat("%b %#d, %y");
 		lineModel.getAxes().put(AxisType.X, axis);
 	}

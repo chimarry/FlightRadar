@@ -71,6 +71,8 @@ public class CitiesBean implements Serializable {
 
 	public String add() {
 		newCity.setCountryId(countryId);
+		locationService.addCity(newCity);
+		
 		newCity = new CityDTO();
 		return refresh();
 	}

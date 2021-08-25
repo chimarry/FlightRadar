@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class='row --login-container justify-content-center align-items-center'>
+        <div class='col-6 justify-content-center align-items-center'>
+            <form [formGroup]="form" class="--login-form">
+                <h3>Prijava na sistem</h3>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="username" required autocomplete="off"
+                        placeholder="Korisnicko ime" />
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="password" formControlName="password" required autocomplete="off"
+                        placeholder="Lozinka" />
+                </mat-form-field>
+                <button mat-button class='btn --login-button' [disabled]="form.invalid" (click)="login(form)">Prijavi
+                    se</button>
+            </form>
+        </div>
+    </div>
+</div>

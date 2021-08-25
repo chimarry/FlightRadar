@@ -1,0 +1,17 @@
+.--login-container {
+    height: 100vh;
+    color: var(--secondary-font-color);
+}
+
+.--login-form {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10%;
+    background-color: var(--secondary-color);
+}
+
+.--login-button {
+    background-color: var(--secondary-font-color);
+    color: var(--secondary-color);
+}

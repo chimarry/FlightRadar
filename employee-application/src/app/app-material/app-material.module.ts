@@ -27,6 +27,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 const materialModules = [
   CdkTreeModule,
@@ -57,7 +58,8 @@ const materialModules = [
   OverlayModule,
   PortalModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  FlexLayoutModule
 ];
 
 @NgModule({

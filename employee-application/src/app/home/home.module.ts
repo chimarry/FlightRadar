@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { NavmenuComponent } from './navmenu/navmenu.component';
 
 
 
@@ -14,7 +15,8 @@ import { HeaderComponent } from './header/header.component';
   declarations: [
     HomeComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    NavmenuComponent
   ],
   imports: [
     BrowserModule,

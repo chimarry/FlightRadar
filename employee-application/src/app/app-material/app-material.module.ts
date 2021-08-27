@@ -59,7 +59,7 @@ const materialModules = [
   PortalModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  FlexLayoutModule
+  FlexLayoutModule,
 ];
 
 @NgModule({

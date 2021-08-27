@@ -1,0 +1,31 @@
+<div fxLayout="column" class="--content-container">
+    <mat-toolbar class="--options-menu" fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>Messages</h3>
+        <button mat-icon-button (click)="add()"> 
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-toolbar>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 --messages-table">
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="text">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Text </th>
+            <td mat-cell *matCellDef="let element"> {{element.text}} </td>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="delete(element)">
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

@@ -1,0 +1,10 @@
+@charset "ISO-8859-1";
+.--footer {
+    background-color: var(--quat-color);
+    color: var(--quat-font-color);
+    height: 5vh;
+}
+
+.--margin-top {
+	margin-top:20px;
+}

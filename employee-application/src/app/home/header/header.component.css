@@ -1,0 +1,28 @@
+@charset "ISO-8859-1";
+.--header-logo-container {
+    background-color: var(--quat-color);
+    height: 15vh;
+    width: 100%;
+    padding: 0 5%;
+    font-size: 1.2rem;
+    font-family: 'Monoton', cursive;
+}
+
+.--header-logo-container>p {
+    font-size: 2.5em;
+    color: var(--quat-font-color);
+    font-family: 'Monoton', cursive;
+    margin: 0;
+    padding: 0;
+}
+
+.--header-logo-container>a:hover {
+    transform: none;
+    transition: none;
+}
+
+@media screen and (max-width:576px) {
+    .--header-container {
+        font-size: 0.8rem;
+    }
+}

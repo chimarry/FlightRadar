@@ -1,6 +1,5 @@
 .--login-container {
     height: 100vh;
-    color: var(--secondary-font-color);
 }
 
 .--login-form {

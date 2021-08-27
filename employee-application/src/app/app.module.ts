@@ -9,6 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HomeModule } from './home/home.module';
 import { AuthModule } from './auth/auth.module';
+import { ReservationsModule } from './reservations/reservations.module';
+import { MessagesModule } from './messages/messages.module';
+import { FlightsModule } from './flights/flights.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { AuthModule } from './auth/auth.module';
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
-    HomeModule
+    HomeModule,
+    ReservationsModule,
+    MessagesModule,
+    FlightsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

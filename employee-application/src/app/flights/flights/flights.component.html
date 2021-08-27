@@ -1,0 +1,30 @@
+<div mat-dialog-container>
+    <h1 mat-dialog-title>Novi događaj</h1>
+    <div mat-dialog-content class="create-form">
+        <form [formGroup]="form">
+            <mat-form-field>
+                <input matInput placeholder="Naziv" required formControlName="name" autocomplete="off" />
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Opis" required formControlName="description" autocomplete="off" />
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Slika" formControlName="image" autocomplete="off" />
+            </mat-form-field>
+            <div class="row">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Datum" formControlName="date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Vrijeme" required formControlName="time" autocomplete="off" />
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="close()">Odustani</button>
+        <button mat-button [disabled]="form.invalid" type="submit" (click)="save(form)">Sacuvaj</button>
+    </div>
+</div>

@@ -65,6 +65,6 @@ public class FlightsController extends HttpServlet {
 
 	private List<FlightBean> getFlights(boolean isDeparture, LocalDate dayToGet) {
 		List<FlightDTO> flights = flightService.getAll(dayToGet, isDeparture);
-		return FlightMapper.mapToBeans(flights, isDeparture);
+		return FlightMapper.mapToBeans(flights);
 	}
 }

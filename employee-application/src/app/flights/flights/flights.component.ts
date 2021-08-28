@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Flight } from 'src/app/models/flight';
 import { FlightService } from '../services/flight.service';
@@ -17,8 +16,7 @@ export class FlightsComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder, //formBuilder sluzi za kreiranje forme
     private service: FlightService, //service koristimo za cuvanje podataka
-    private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<FlightsComponent>) {
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -38,11 +36,8 @@ export class FlightsComponent implements OnInit {
       this.snackBar.open("Podaci su sacuvani", undefined, { //i prikazemo poruku koja nestaje nakon 2s
         duration: 2000,
       });
-      this.close();
     }
   }
-
   close() {
-    this.dialogRef.close();
   }
 }

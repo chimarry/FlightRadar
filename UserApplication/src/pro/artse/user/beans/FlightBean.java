@@ -13,8 +13,7 @@ public class FlightBean implements Serializable {
 	private int flightId;
 	private int arrivalCityId;
 	private int departureCityId;
-	private LocalDateTime arrivalOn;
-	private LocalDateTime departureOn;
+	private LocalDateTime airportDateTime;
 	private String arrivalCityName;
 	private String departureCityName;
 	private FlightType type;
@@ -25,32 +24,30 @@ public class FlightBean implements Serializable {
 		super();
 	}
 
-	public FlightBean(int flightId, int arrivalCityId, int departureCityId, LocalDateTime arrivalOn,
-			LocalDateTime departureOn, String arrivalCityName, String departureCityName, FlightType type) {
-		this(arrivalCityId, departureCityId, arrivalOn, departureOn, arrivalCityName, departureCityName, type);
+	public FlightBean(int flightId, int arrivalCityId, int departureCityId, LocalDateTime airportDateTime,
+			String arrivalCityName, String departureCityName, FlightType type) {
+		this(arrivalCityId, departureCityId, airportDateTime, arrivalCityName, departureCityName, type);
 		this.flightId = flightId;
 	}
 
-	public FlightBean(int arrivalCityId, int departureCityId, LocalDateTime arrivalOn, LocalDateTime departureOn,
-			String arrivalCityName, String departureCityName, FlightType type) {
-		this(arrivalCityId, departureCityId, arrivalOn, departureOn, type);
+	public FlightBean(int arrivalCityId, int departureCityId, LocalDateTime airportDateTime, String arrivalCityName,
+			String departureCityName, FlightType type) {
+		this(arrivalCityId, departureCityId, airportDateTime, type);
 		this.arrivalCityName = arrivalCityName;
 		this.departureCityName = departureCityName;
 	}
 
-	public FlightBean(int flightId, int arrivalCityId, int departureCityId, LocalDateTime arrivalOn,
-			LocalDateTime departureOn, FlightType type) {
-		this(arrivalCityId, departureCityId, arrivalOn, departureOn, type);
+	public FlightBean(int flightId, int arrivalCityId, int departureCityId, LocalDateTime aiportDateTime,
+			FlightType type) {
+		this(arrivalCityId, departureCityId, aiportDateTime, type);
 		this.flightId = flightId;
 	}
 
-	public FlightBean(int toCityId, int fromCityId, LocalDateTime arrivalOn, LocalDateTime departureOn,
-			FlightType type) {
+	public FlightBean(int toCityId, int fromCityId, LocalDateTime aiportDateTime, FlightType type) {
 		this();
 		this.arrivalCityId = toCityId;
 		this.departureCityId = fromCityId;
-		this.arrivalOn = arrivalOn;
-		this.departureOn = departureOn;
+		this.airportDateTime = aiportDateTime;
 		this.type = type;
 	}
 
@@ -78,20 +75,12 @@ public class FlightBean implements Serializable {
 		this.departureCityId = departureCityId;
 	}
 
-	public LocalDateTime getArrivalOn() {
-		return arrivalOn;
+	public LocalDateTime getAirportDateTime() {
+		return airportDateTime;
 	}
 
-	public void setArrivalOn(LocalDateTime arrivalOn) {
-		this.arrivalOn = arrivalOn;
-	}
-
-	public LocalDateTime getDepartureOn() {
-		return departureOn;
-	}
-
-	public void setDepartureOn(LocalDateTime departureOn) {
-		this.departureOn = departureOn;
+	public void setAirportDateTime(LocalDateTime arrivalOn) {
+		this.airportDateTime = arrivalOn;
 	}
 
 	public String getArrivalCityName() {
@@ -106,11 +95,8 @@ public class FlightBean implements Serializable {
 		return departureCityName;
 	}
 
-	public void calculateAndSetTime(boolean isDeparture) {
-		if (isDeparture)
-			this.time = String.format("%d:%d", departureOn.getHour(), departureOn.getMinute());
-		else
-			this.time = String.format("%d:%d", arrivalOn.getHour(), arrivalOn.getMinute());
+	public void calculateAndSetTime() {
+		this.time = String.format("%d:%d", airportDateTime.getHour(), airportDateTime.getMinute());
 	}
 
 	public FlightType getType() {

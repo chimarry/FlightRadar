@@ -130,14 +130,14 @@ public abstract class FlightReservationService implements IFlightReservationServ
 
 	protected static class FlightReservationSqlExtension {
 		public static final String SELECT_WITH_ACCOUNT_ID = "SELECT accountRole FROM accounts WHERE accountId=%d";
-		public static final String SELECT_FLIGHT_ON_DATE = "SELECT flightId FROM flights WHERE DATE(departureOn)=%s AND type=%s AND departureCityId=%d AND arrivalCityId=%d";
+		public static final String SELECT_FLIGHT_ON_DATE = "SELECT flightId FROM flights WHERE DATE(airportDateTime)=%s AND type=%s AND departureCityId=%d AND arrivalCityId=%d";
 
 		public static final String INSERT_FLIGHT_RESERVATION_PASSENGER = "INSERT INTO flightReservations(accountId, flightId, seatNumber, status, createdOn)"
 				+ " VALUES(?,?,?,?,?)";
 		public static final String INSERT_FLIGHT_RESERVATION_TRANSPORT = "INSERT INTO flightReservations(accountId, flightId, description, fileSpecificationUri, status, createdOn)"
 				+ " VALUES(?,?,?,?,?,?)";
 		public static final String SELECT_ALL_RELATED_TO_ACCOUNT = "SELECT fr.flightReservationId, fr.status, fr.createdOn, fr.accountId, ac.name AS arrivalCountryName, a.name AS arrivalCityName,"
-				+ "dc.name AS departureCountryName, d.name AS departureCityName, f.departureOn, f.arrivalOn, fr.seatNumber, "
+				+ "dc.name AS departureCountryName, d.name AS departureCityName, f.airportDateTime, fr.seatNumber, "
 				+ "fr.description, fr.fileSpecificationUri FROM flightReservations fr " + "INNER JOIN flights f "
 				+ "ON f.flightId=fr.flightId " + "INNER JOIN cities a " + "ON f.arrivalCityId=a.cityId "
 				+ "INNER JOIN countries ac " + "ON ac.countryId=a.countryId " + "INNER JOIN cities d "
@@ -163,10 +163,9 @@ public abstract class FlightReservationService implements IFlightReservationServ
 
 		public static final FlightReservationDTO mapFromSelect(ResultSet rs) throws SQLException {
 			return new FlightReservationDTO(rs.getInt("accountId"), rs.getInt("flightReservationId"),
-					SqlDateTimeConvertor.toLocalDateTime(rs, "departureOn"), SqlDateTimeConvertor.toLocalDateTime(rs, "arrivalOn"),
-					rs.getString("arrivalCityName"), rs.getString("arrivalCountryName"),
-					rs.getString("departureCityName"), rs.getString("departureCountryName"),
-					FlightReservationStatus.valueOf(rs.getString("status")),
+					SqlDateTimeConvertor.toLocalDateTime(rs, "airportDateTime"), rs.getString("arrivalCityName"),
+					rs.getString("arrivalCountryName"), rs.getString("departureCityName"),
+					rs.getString("departureCountryName"), FlightReservationStatus.valueOf(rs.getString("status")),
 					SqlDateTimeConvertor.toLocalDateTime(rs, "createdOn"), rs.getInt("seatNumber"),
 					rs.getString("description"), rs.getString("fileSpecificationUri"));
 		}

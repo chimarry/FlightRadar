@@ -1,6 +1,5 @@
-<div mat-dialog-container>
-    <h1 mat-dialog-title>Novi događaj</h1>
-    <div mat-dialog-content class="create-form">
+<div fxLayout='column' fxLayoutAlign="center center">
+    <div class="create-form">
         <form [formGroup]="form">
             <mat-form-field>
                 <input matInput placeholder="Naziv" required formControlName="name" autocomplete="off" />
@@ -22,8 +21,6 @@
                 </mat-form-field>
             </div>
         </form>
-    </div>
-    <div mat-dialog-actions>
         <button mat-button (click)="close()">Odustani</button>
         <button mat-button [disabled]="form.invalid" type="submit" (click)="save(form)">Sacuvaj</button>
     </div>

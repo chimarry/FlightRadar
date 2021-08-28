@@ -27,8 +27,7 @@
 			<%
 			}
 			%>
-			<th scope="col">Departure on</th>
-			<th scope="col">Arrival on</th>
+			<th scope="col">Date time</th>
 			<th scope="col">Created on</th>
 			<th scope="col">Status</th>
 			<th scope="col">Change status</th>
@@ -60,14 +59,10 @@
 				<%
 				}
 				%>
-				<td><fmt:parseDate value="${item.getDepartureOn()}"
-						pattern="yyyy-MM-dd'T'HH:mm" var="parsedDepartureOnTime" type="both" />
-					<fmt:formatDate pattern="dd.MM.yyyy HH:mm"
-						value="${parsedDepartureOnTime }" /></td>
-				<td><fmt:parseDate value="${item.getArrivalOn()}"
-						pattern="yyyy-MM-dd'T'HH:mm" var="parsedArrivalOnTime" type="both" />
-					<fmt:formatDate pattern="dd.MM.yyyy HH:mm"
-						value="${parsedArrivalOnTime }" /></td>
+				<td><fmt:parseDate value="${item.getAirportDateTime()}"
+						pattern="yyyy-MM-dd'T'HH:mm" var="parsedAirportDateTime"
+						type="both" /> <fmt:formatDate pattern="dd.MM.yyyy HH:mm"
+						value="${parsedAirportDateTime }" /></td>
 				<td><fmt:parseDate value="${item.getCreatedOn()}"
 						pattern="yyyy-MM-dd'T'HH:mm" var="parsedCreatedOnTime" type="both" />
 					<fmt:formatDate pattern="dd.MM.yyyy HH:mm"

@@ -5,14 +5,13 @@ import java.time.LocalDateTime;
 
 import pro.artse.dal.dto.FlightReservationStatus;
 
-public class FlightReservationBean implements Serializable{
+public class FlightReservationBean implements Serializable {
 
 	private static final long serialVersionUID = -1782171914069334882L;
-	
+
 	private int accountId;
 	private int flightReservationId;
-	private LocalDateTime departureOn;
-	private LocalDateTime arrivalOn;
+	private LocalDateTime airportDateTime;
 	private String arrivalCityName;
 	private String arrivalCountryName;
 	private String departureCityName;
@@ -23,15 +22,14 @@ public class FlightReservationBean implements Serializable{
 	private String cargoDescription;
 	private String fileSpecificationName;
 
-	public FlightReservationBean(int accountId, int flightReservationId, LocalDateTime departureOn,
-			LocalDateTime arrivalOn, String arrivalCityName, String arrivalCountryName, String depatureCityName,
-			String departureCountryName, FlightReservationStatus status, LocalDateTime createdOn, int seatNumber,
-			String cargoDescription, String fileSpecificationName) {
+	public FlightReservationBean(int accountId, int flightReservationId, LocalDateTime airportDateTime,
+			String arrivalCityName, String arrivalCountryName, String depatureCityName, String departureCountryName,
+			FlightReservationStatus status, LocalDateTime createdOn, int seatNumber, String cargoDescription,
+			String fileSpecificationName) {
 		super();
 		this.accountId = accountId;
 		this.flightReservationId = flightReservationId;
-		this.departureOn = departureOn;
-		this.arrivalOn = arrivalOn;
+		this.airportDateTime = airportDateTime;
 		this.arrivalCityName = arrivalCityName;
 		this.arrivalCountryName = arrivalCountryName;
 		this.departureCityName = depatureCityName;
@@ -59,20 +57,12 @@ public class FlightReservationBean implements Serializable{
 		this.flightReservationId = flightReservationId;
 	}
 
-	public LocalDateTime getDepartureOn() {
-		return departureOn;
+	public LocalDateTime getAirportDateTime() {
+		return airportDateTime;
 	}
 
-	public void setDepartureOn(LocalDateTime departureOn) {
-		this.departureOn = departureOn;
-	}
-
-	public LocalDateTime getArrivalOn() {
-		return arrivalOn;
-	}
-
-	public void setArrivalOn(LocalDateTime arrivalOn) {
-		this.arrivalOn = arrivalOn;
+	public void setAirportDateTime(LocalDateTime airportDateTime) {
+		this.airportDateTime = airportDateTime;
 	}
 
 	public String getArrivalCityName() {

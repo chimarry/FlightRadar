@@ -59,15 +59,15 @@ public class FlightService implements IFlightService {
 
 	private static class FlightSqlExtensions {
 
-		private static final String SELECT_FLIGHTS = "select a.name as arrivalCityName, d.name as departureCityName, f.arrivalCityId, f.departureCityId, f.flightId, f.arrivalOn, f.departureOn, f.type  ";
+		private static final String SELECT_FLIGHTS = "select a.name as arrivalCityName, d.name as departureCityName, f.arrivalCityId, f.departureCityId, f.flightId, f.airportDateTime, f.type  ";
 
 		private static final String SELECT_DEPARTURES = SELECT_FLIGHTS + " from cities d " + "left join flights f "
 				+ "on d.cityId=f.departureCityId " + "left join cities a on a.cityId=f.arrivalCityId "
-				+ " WHERE d.name=%s AND date(f.departureOn)=%s";
+				+ " WHERE d.name=%s AND date(f.airportDateTime)=%s";
 
 		private static final String SELECT_ARRIVALS = SELECT_FLIGHTS + " from cities a " + "left join flights f "
 				+ "on a.cityId=f.arrivalCityId " + "left join cities d on d.cityId=f.departureCityId "
-				+ " WHERE a.name=%s AND date(f.departureOn)=%s";
+				+ " WHERE a.name=%s AND date(f.airportDateTime)=%s";
 
 		static final String SELECT_FEATURED_ARRIVALS = SELECT_ARRIVALS + " LIMIT "
 				+ ConfigurationUtil.getNumber("featured");
@@ -77,9 +77,9 @@ public class FlightService implements IFlightService {
 
 		public static FlightDTO mapFromSelect(ResultSet rs) throws SQLException {
 			FlightDTO flight = new FlightDTO(rs.getInt("flightId"), rs.getInt("arrivalCityId"),
-					rs.getInt("departureCityId"), SqlDateTimeConvertor.toLocalDateTime(rs, "arrivalOn"),
-					SqlDateTimeConvertor.toLocalDateTime(rs, "departureOn"), rs.getString("arrivalCityName"),
-					rs.getString("departureCityName"), FlightType.valueOf(rs.getString("type")));
+					rs.getInt("departureCityId"), SqlDateTimeConvertor.toLocalDateTime(rs, "airportDateTime"),
+					rs.getString("arrivalCityName"), rs.getString("departureCityName"),
+					FlightType.valueOf(rs.getString("type")));
 			flight.setStatusBasedOnTime();
 			return flight;
 		}

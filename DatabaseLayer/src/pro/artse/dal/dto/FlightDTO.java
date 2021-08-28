@@ -2,51 +2,49 @@ package pro.artse.dal.dto;
 
 import java.time.LocalDateTime;
 
+import pro.artse.dal.util.ConfigurationUtil;
+
 public class FlightDTO {
 	private int flightId;
 	private int arrivalCityId;
 	private int departureCityId;
-	private LocalDateTime arrivalOn;
-	private LocalDateTime departureOn;
+	private LocalDateTime airportDateTime;
 	private String arrivalCityName;
 	private String departureCityName;
 	private FlightType type;
 	private FlightStatus status;
-	
+
 	public FlightDTO() {
 		super();
 	}
-	
-	public FlightDTO(int flightId, int arrivalCityId, int departureCityId, LocalDateTime arrivalOn,
-			LocalDateTime departureOn, String arrivalCityName, String departureCityName, FlightType type) {
-		this(arrivalCityId, departureCityId, arrivalOn, departureOn, arrivalCityName, departureCityName, type);
+
+	public FlightDTO(int flightId, int arrivalCityId, int departureCityId, LocalDateTime airportDateTime,
+			String arrivalCityName, String departureCityName, FlightType type) {
+		this(arrivalCityId, departureCityId, airportDateTime, arrivalCityName, departureCityName, type);
 		this.flightId = flightId;
 	}
 
-	public FlightDTO(int arrivalCityId, int departureCityId, LocalDateTime arrivalOn, LocalDateTime departureOn,
-			String arrivalCityName, String departureCityName, FlightType type) {
-		this(arrivalCityId, departureCityId, arrivalOn, departureOn, type);
+	public FlightDTO(int arrivalCityId, int departureCityId, LocalDateTime airportDateTime, String arrivalCityName,
+			String departureCityName, FlightType type) {
+		this(arrivalCityId, departureCityId, airportDateTime, type);
 		this.arrivalCityName = arrivalCityName;
 		this.departureCityName = departureCityName;
 	}
 
-	public FlightDTO(int flightId, int arrivalCityId, int departureCityId, LocalDateTime arrivalOn, LocalDateTime departureOn,
+	public FlightDTO(int flightId, int arrivalCityId, int departureCityId, LocalDateTime airportDateTime,
 			FlightType type) {
-		this(arrivalCityId, departureCityId, arrivalOn, departureOn, type);
+		this(arrivalCityId, departureCityId, airportDateTime, type);
 		this.flightId = flightId;
 	}
 
-	public FlightDTO(int toCityId, int fromCityId, LocalDateTime arrivalOn, LocalDateTime departureOn,
-			FlightType type) {
+	public FlightDTO(int toCityId, int fromCityId, LocalDateTime airportDateTime, FlightType type) {
 		this();
 		this.arrivalCityId = toCityId;
 		this.departureCityId = fromCityId;
-		this.arrivalOn = arrivalOn;
-		this.departureOn = departureOn;
+		this.airportDateTime = airportDateTime;
 		this.type = type;
 	}
 
-	
 	public String getArrivalCityName() {
 		return arrivalCityName;
 	}
@@ -87,20 +85,12 @@ public class FlightDTO {
 		this.departureCityId = fromCityId;
 	}
 
-	public LocalDateTime getArrivalOn() {
-		return arrivalOn;
+	public LocalDateTime getAirportDateTime() {
+		return this.airportDateTime;
 	}
 
-	public void setArrivalOn(LocalDateTime arrivalOn) {
-		this.arrivalOn = arrivalOn;
-	}
-
-	public LocalDateTime getDepartureOn() {
-		return departureOn;
-	}
-
-	public void setDepartureOn(LocalDateTime departureOn) {
-		this.departureOn = departureOn;
+	public void setAirportDateTime(LocalDateTime airportDateTime) {
+		this.airportDateTime = airportDateTime;
 	}
 
 	public FlightType getType() {
@@ -120,11 +110,15 @@ public class FlightDTO {
 	}
 
 	public void setStatusBasedOnTime() {
+		boolean isDeparture = true;
+		if(arrivalCityId == ConfigurationUtil.getNumber("cityId"))
+			isDeparture = false;
 		LocalDateTime currentDateTime = LocalDateTime.now();
-		if (currentDateTime.isAfter(arrivalOn))
-			status = FlightStatus.Arrived;
-		else if (currentDateTime.isAfter(departureOn))
+			
+		if (isDeparture && currentDateTime.isAfter(airportDateTime))
 			status = FlightStatus.Departured;
+		else if (!isDeparture && currentDateTime.isAfter(airportDateTime))
+			status = FlightStatus.Arrived;
 		else
 			status = FlightStatus.Waiting;
 	}

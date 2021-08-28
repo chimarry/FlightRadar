@@ -9,17 +9,15 @@ import pro.artse.user.beans.FlightBean;
 
 public final class FlightMapper {
 
-	public static final FlightBean mapToBean(FlightDTO dto, boolean isDeparture) {
+	public static final FlightBean mapToBean(FlightDTO dto) {
 		FlightBean bean = new FlightBean(dto.getFlightId(), dto.getArrivalCityId(), dto.getDepartureCityId(),
-				dto.getArrivalOn(), dto.getDepartureOn(), dto.getArrivalCityName(), dto.getDepartureCityName(),
-				dto.getType());
+				dto.getAirportDateTime(), dto.getArrivalCityName(), dto.getDepartureCityName(), dto.getType());
 		bean.setStatus(dto.getStatus());
-		bean.calculateAndSetTime(isDeparture);
+		bean.calculateAndSetTime();
 		return bean;
 	}
 
-	public static final ArrayList<FlightBean> mapToBeans(List<FlightDTO> flights, boolean isDeparture) {
-		return flights.stream().map(x -> FlightMapper.mapToBean(x, isDeparture))
-				.collect(Collectors.toCollection(ArrayList::new));
+	public static final ArrayList<FlightBean> mapToBeans(List<FlightDTO> flights) {
+		return flights.stream().map(x -> FlightMapper.mapToBean(x)).collect(Collectors.toCollection(ArrayList::new));
 	}
 }

@@ -33,6 +33,6 @@ public class Test {
 		List<FlightReservationDTO> flightReservationDTOs = reservationService.getAll(1);
 		for (var f : flightReservationDTOs)
 			System.out.println(f.getArrivalCityName() + f.getArrivalCountryName() + f.getSeatNumber() + " "
-					+ f.getAccountId() + f.getArrivalOn());
+					+ f.getAccountId() + f.getAirportDateTime());
 	}
 }

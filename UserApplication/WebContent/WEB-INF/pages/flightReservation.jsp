@@ -136,7 +136,7 @@
                                         <!-- Date input -->
                                         <label class="control-label" for="departureDate">Departure date</label>
                                         <input class="form-control" id="departureDate" name="departureDate" required
-                                            placeholder="MM/DD/YYY" type="text" />
+                                            placeholder="MM/DD/YYYY" type="text" />
                                     </div>
                                 </div>
                                 ${roleBasedContent}

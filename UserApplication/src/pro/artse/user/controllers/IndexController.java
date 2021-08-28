@@ -88,8 +88,8 @@ public class IndexController extends HttpServlet {
 	}
 
 	private void addFlights(HttpServletResponse response) throws IOException {
-		List<FlightBean> departureFlightsBean = FlightMapper.mapToBeans(flightService.getFeatured(true), true);
-		List<FlightBean> arrivalFlightsBean = FlightMapper.mapToBeans(flightService.getFeatured(false), false);
+		List<FlightBean> departureFlightsBean = FlightMapper.mapToBeans(flightService.getFeatured(true));
+		List<FlightBean> arrivalFlightsBean = FlightMapper.mapToBeans(flightService.getFeatured(false));
 
 		Gson gson = new Gson();
 		JsonArray array = new JsonArray();

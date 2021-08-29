@@ -1,27 +1,62 @@
-<div fxLayout='column' fxLayoutAlign="center center">
-    <div class="create-form">
-        <form [formGroup]="form">
+<div class='--flight-form-container' fxLayout="row" fxLayoutAlign="center center">
+    <form [formGroup]="form">
+        <div fxLayout="row" fxLayout.lt-sm="column">
             <mat-form-field>
-                <input matInput placeholder="Naziv" required formControlName="name" autocomplete="off" />
+                <mat-label>Departure country</mat-label>
+                <mat-select formControlName="departureCountry" required>
+                    <mat-option *ngFor="let departureCountry of countries" [value]="departureCountry">
+                        {{departureCountry.name}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Opis" required formControlName="description" autocomplete="off" />
+                <mat-label>Departure city</mat-label>
+                <mat-select formControlName="departureCity" required>
+                    <mat-option *ngFor="let departureCity of cities" [value]="departureCity.cityId">
+                        {{departureCity.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayout.lt-sm="column">
+            <mat-form-field>
+                <mat-label>Arrival country</mat-label>
+                <mat-select formControlName="arrivalCountry" required>
+                    <mat-option *ngFor="let arrivalCountry of countries" [value]="arrivalCountry">
+                        {{arrivalCountry.name}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Slika" formControlName="image" autocomplete="off" />
+                <mat-label>Arrival city</mat-label>
+                <mat-select formControlName="arrivalCity" required>
+                    <mat-option *ngFor="let arrivalCity of cities" [value]="arrivalCity.cityId">
+                        {{arrivalCity.name}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
-            <div class="row">
-                <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Datum" formControlName="date">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Vrijeme" required formControlName="time" autocomplete="off" />
-                </mat-form-field>
-            </div>
-        </form>
-        <button mat-button (click)="close()">Odustani</button>
-        <button mat-button [disabled]="form.invalid" type="submit" (click)="save(form)">Sacuvaj</button>
-    </div>
+        </div>
+        <mat-form-field>
+            <mat-label>Flight type</mat-label>
+            <mat-select formControlName="flightType" required>
+                <mat-option *ngFor="let type of flightTypes" [value]="type">
+                    {{type}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div fxLayout="row" fxLayout.lt-sm="column">
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Airport date" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Time" required formControlName="time" autocomplete="off" />
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayout.lt-sm="column">
+            <button mat-button (click)="close()">Cancel</button>
+            <button mat-button [disabled]="form.invalid" type="submit" (click)="save(form)">Save</button>
+        </div>
+    </form>
 </div>

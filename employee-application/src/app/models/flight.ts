@@ -1,17 +1,18 @@
+import { FlightType } from "./flight-type";
+
 export class Flight {
-    id: number | null;
-    name: string | null;
-    description: string | null;
-    image: string | null;
+    flightId: number | null;
+    arrivalCityId: number | null;
+    departureCityId: number | null;
+    type: FlightType | FlightType.Passenger;
     date: Date | null;
     time: string | null;
 
-    constructor(id?: number, name?: string, description?: string, image?: string,
-        date?: Date, time?: string) {
-        this.id = id || null;
-        this.name = name || null;
-        this.description = description || null;
-        this.image = image || null;
+    constructor(flightId?: number, arrivalCityId?: number, departureCityId?: number, type?: FlightType, date?: Date, time?: string) {
+        this.type = type || FlightType.Passenger;
+        this.flightId = flightId || null;
+        this.arrivalCityId = arrivalCityId || null;
+        this.departureCityId = departureCityId || null;
         this.date = date || null;
         this.time = time || null;
     }

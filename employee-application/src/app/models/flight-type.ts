@@ -1,3 +1,3 @@
 export enum FlightType {
-    Passenger, Transport
+    Passenger = "Passenger", Transport = "Transport"
 }

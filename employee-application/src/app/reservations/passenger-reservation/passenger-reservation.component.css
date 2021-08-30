@@ -1,0 +1,24 @@
+.--passenger-details-form {
+    width: 600px;
+    padding: 20px;
+}
+
+.--passenger-details-form * {
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-size: 20px;
+    min-height: 30px;
+    background-color: white;
+    font-family: 'Frank Ruhl Libre', serif;
+}
+
+@media screen and (max-width:576px) {
+    .--passenger-details-form {
+        width: 200px;
+    }
+    .--passenger-details-form * {
+        margin-top: 20px;
+        font-size: 12px;
+        min-height: 20px;
+    }
+}

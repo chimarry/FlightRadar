@@ -1,0 +1,14 @@
+<div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>Transport flight reservation for user: {{reservation.username}}</h3>
+        <button mat-icon-button (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content class="--transport-details-form" fxLayout="column" fxLayoutAlign="flex-start">
+        <p><b>Departure location:</b> {{reservation.arrivalCityName}} {{reservation.arrivalCountryName}}</p>
+        <p><b>Destination:</b> {{reservation.departureCityName}} {{reservation.departureCountryName}}</p>
+        <p><b>Airport datetime:</b> {{reservation.airportDateTime}}</p>
+        <p><b>Created on:</b> {{reservation.createdOn}}</p>
+    </div>
+</div>

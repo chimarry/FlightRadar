@@ -1,0 +1,27 @@
+.--reservations-table {
+    width: 100%;
+}
+
+.--margin-top {
+    margin-top: 20px;
+}
+
+.--options-menu {
+    background-color: var(--opacity-quat-color);
+    color: var(--opacity-quat-font-color);
+    min-height: fit-content;
+    font-size: 1.2rem;
+    padding: 0.5em;
+}
+
+.--filter-tag {
+    font-size: 10px;
+    background-color: var(--secondary-font-color) !important;
+    color: var(--secondary-color) !important;
+}
+
+.--filter-tag-add {
+    font-size: 10px;
+    background-color: var(--secondary-color) !important;
+    color: var(--secondary-font-color) !important;
+}

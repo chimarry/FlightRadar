@@ -1,0 +1,22 @@
+.--input-control {
+    margin: 0 20px;
+    min-width: 300px;
+}
+
+.--margin-top {
+    margin-top: 30px;
+}
+
+.--cancel-button {
+    background-color: var(--warn-color);
+    width: 100px;
+    color: var(--warn-font-color);
+    margin: 0 20px;
+}
+
+.--save-button {
+    background-color: var(--ternary-color);
+    color: var(--ternary-font-color);
+    width: 100px;
+    margin: 0 20px;
+}

@@ -1,9 +1,20 @@
-<mat-toolbar class="--options-menu" fxLayout="row" fxLayoutAlign="space-between center">
+<div class="--options-menu" fxLayout="row" fxLayoutAlign="space-between center">
     <h3>Messages</h3>
+    <mat-chip-list #selectedFiltersList fxLayout="row" fxLayout.lt-sm="column">
+        <mat-chip *ngFor="let selectedFilter of selectedFilters" (removed)="removeFilter(selectedFilter)"
+            class='--filter-tag'>
+            {{selectedFilter}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <mat-chip *ngFor="let availableFilter of availableFilters" class='--filter-tag-add'>
+            {{availableFilter}}
+            <mat-icon matChipRemove (click)="applyFilter(availableFilter)">add_circle</mat-icon>
+        </mat-chip>
+    </mat-chip-list>
     <button mat-icon-button (click)="add()">
         <mat-icon>add</mat-icon>
     </button>
-</mat-toolbar>
+</div>
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 --messages-table">
     <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </th>
@@ -17,10 +28,11 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Text </th>
         <td mat-cell *matCellDef="let element"> {{element.text}} </td>
     </ng-container>
-    <ng-container matColumnDef="delete">
+    <ng-container matColumnDef="see">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="delete(element)">
+                <mat-icon>preview</mat-icon>
             </button>
         </td>
     </ng-container>

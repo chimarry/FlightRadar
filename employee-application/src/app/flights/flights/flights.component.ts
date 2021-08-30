@@ -21,6 +21,8 @@ export class FlightsComponent implements OnInit {
   public cities: Array<City> = [new City(1, 1, "Banja Luka"), new City(2, 2, "Beograd"), new City(3, 2, "Nis")];
   public flightTypes: Array<FlightType> = [FlightType.Passenger, FlightType.Transport];
 
+  public dates: Array<Date> = [new Date()];
+
   constructor(public formBuilder: FormBuilder, //formBuilder sluzi za kreiranje forme
     private service: FlightService, //service koristimo za cuvanje podataka
     private snackBar: MatSnackBar) {
@@ -31,10 +33,16 @@ export class FlightsComponent implements OnInit {
     this.form = this.formBuilder.group({
       arrivalCity: [this.flight.arrivalCityId, Validators.required],
       departureCity: [this.flight.departureCityId, Validators.required],
-      type: [this.flight.type, Validators.required],
+      flightType: [this.flight.type, Validators.required],
       date: [this.flight.date, Validators.required],
       time: [this.flight.time, Validators.required],
+      departureCountry: [this.countries[0], Validators.required],
+      arrivalCountry: [this.countries[1], Validators.required]
     });
+  }
+
+  addDate(event: any): void {
+    this.dates.push(event);
   }
 
   save({ value, valid }: { value: Flight, valid: boolean }) {

@@ -18,11 +18,6 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none;
 }
 
-.--content-container {
-    min-height: 80vh;
-    padding: 2%;
-}
-
 :root {
     --main-color: white;
     --secondary-color: #7b98b8;
@@ -34,6 +29,8 @@ a:link, a:visited, a:hover, a:active {
     --quat-font-color: white;
     --opacity-quat-color: #516179;
     --opacity-quat-font-color: white;
+    --warn-color: darkred;
+    --warn-font-color: white;
 }
 
 ::-webkit-scrollbar {

@@ -1,0 +1,24 @@
+.--message-details-form {
+    width: 600px;
+    padding: 20px;
+}
+
+.--message-details-form * {
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-size: 20px;
+    min-height: 30px;
+    background-color: white;
+    font-family: 'Frank Ruhl Libre', serif;
+}
+
+@media screen and (max-width:576px) {
+    .--message-details-form {
+        width: 200px;
+    }
+    .--message-details-form * {
+        margin-top: 20px;
+        font-size: 12px;
+        min-height: 20px;
+    }
+}

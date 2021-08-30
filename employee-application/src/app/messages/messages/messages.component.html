@@ -11,9 +11,6 @@
             <mat-icon matChipRemove (click)="applyFilter(availableFilter)">add_circle</mat-icon>
         </mat-chip>
     </mat-chip-list>
-    <button mat-icon-button (click)="add()">
-        <mat-icon>add</mat-icon>
-    </button>
 </div>
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 --messages-table">
     <ng-container matColumnDef="email">
@@ -31,7 +28,7 @@
     <ng-container matColumnDef="see">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="delete(element)">
+            <button mat-icon-button (click)="showDetails(element)">
                 <mat-icon>preview</mat-icon>
             </button>
         </td>

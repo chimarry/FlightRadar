@@ -4,6 +4,8 @@ import { Message } from 'src/app/models/message';
 import { MatTableDataSource } from '@angular/material/table';
 import { MessageStatus } from 'src/app/models/message-status';
 import { MatChipEvent, MatChipSelectionChange } from '@angular/material/chips';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageDetailsComponent } from '../message-details/message-details.component';
 
 @Component({
   selector: 'app-messages',
@@ -19,7 +21,7 @@ export class MessagesComponent implements OnInit {
   public availableFilters: MessageStatus[] = [MessageStatus.Read, MessageStatus.NotRead];
   public selectedFilters: MessageStatus[] = [];
 
-  constructor(private service: MessageService) {
+  constructor(private service: MessageService, private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -52,7 +54,10 @@ export class MessagesComponent implements OnInit {
     //   });
   }
 
-  delete(element: any) {
+  showDetails(element: Message) {
+    this.dialog.open(MessageDetailsComponent, {
+      data: element
+    })
     //   this.dialog.open(ConfirmModalComponent, {
     //     width: '300px'
     //   })

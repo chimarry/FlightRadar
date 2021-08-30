@@ -1,0 +1,12 @@
+<div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>{{message.name}}</h3>
+        <button mat-icon-button (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content class="--message-details-form" fxLayout="column" fxLayoutAlign="flex-start">
+        <p>Email: {{message.email}}</p>
+        <p>Text: {{message.text}}</p>
+    </div>
+</div>

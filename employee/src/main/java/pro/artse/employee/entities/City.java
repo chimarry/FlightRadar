@@ -32,12 +32,12 @@ public class City implements Serializable {
 
 	@JsonIgnore
 	@OneToMany
-	@JoinColumn(name = "cityId")
+	@JoinColumn(name = "departureCityId")
 	private List<Flight> departureFlights;
 
 	@JsonIgnore
 	@OneToMany
-	@JoinColumn(name = "cityId")
+	@JoinColumn(name = "arrivalCityId")
 	private List<Flight> arrivalFlights;
 
 	public int getCityId() {
@@ -62,5 +62,21 @@ public class City implements Serializable {
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+	public List<Flight> getDepartureFlights() {
+		return departureFlights;
+	}
+
+	public void setDepartureFlights(List<Flight> departureFlights) {
+		this.departureFlights = departureFlights;
+	}
+
+	public List<Flight> getArrivalFlights() {
+		return arrivalFlights;
+	}
+
+	public void setArrivalFlights(List<Flight> arrivalFlights) {
+		this.arrivalFlights = arrivalFlights;
 	}
 }

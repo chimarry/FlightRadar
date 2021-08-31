@@ -1,8 +1,9 @@
 package pro.artse.employee.repositories;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class FlightReservationRepository {
+import pro.artse.employee.entities.FlightReservation;
+
+public interface FlightReservationRepository extends JpaRepository<FlightReservation, Integer>{
 
 }

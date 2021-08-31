@@ -1,6 +1,5 @@
 package pro.artse.employee.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class MessageService {
 	private MessageRepository messageRepository;
 	
 	public List<Message> getAll(boolean read){
-		List<Message> messages = new ArrayList<Message>();
-		return messages;
-	}
+		return read ? messageRepository.findByReadOnIsNotNullOrderByCreatedOnDesc()
+				: messageRepository.findByReadOnIsNullOrderByCreatedOnDesc();
+	} 
 }

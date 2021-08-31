@@ -24,4 +24,22 @@ public class FlightReservationService {
 			filters.forEach(filter -> reservations.addAll(flightReservationRepository.findByStatus(filter)));
 		return reservations;
 	}
+
+	public Boolean cancel(int flightReservationId) {
+		FlightReservation entity = flightReservationRepository.findById(flightReservationId).get();
+		if (entity == null)
+			return false;
+		entity.setStatus(FlightReservationStatus.Canceled);
+		flightReservationRepository.saveAndFlush(entity);
+		return true;
+	}
+	
+	public Boolean confirm(int flightReservationId) {
+		FlightReservation entity = flightReservationRepository.findById(flightReservationId).get();
+		if (entity == null)
+			return false;
+		entity.setStatus(FlightReservationStatus.Confirmed);
+		flightReservationRepository.saveAndFlush(entity);
+		return true;
+	}
 }

@@ -5,8 +5,6 @@ import { AppMaterialModule } from '../app-material/app-material.module';
 import { MessageDetailsComponent } from './message-details/message-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
   declarations: [
     MessagesComponent,

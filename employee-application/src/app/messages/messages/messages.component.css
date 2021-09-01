@@ -14,6 +14,23 @@
     padding: 0.5em;
 }
 
+.--search-input {
+    background-color: transparent;
+    height: inherit;
+    outline: none;
+    border: none;
+    border-bottom: solid 1px white;
+    margin-right: 20px;
+    color:white;
+}
+
+.--part-text {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
 .--filter-tag {
     font-size: 10px;
     background-color: var(--secondary-font-color) !important;

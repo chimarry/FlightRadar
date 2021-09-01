@@ -3,7 +3,6 @@ import { MessageService } from '../services/message.service';
 import { Message } from 'src/app/models/message';
 import { MatTableDataSource } from '@angular/material/table';
 import { MessageStatus } from 'src/app/models/message-status';
-import { MatChipEvent, MatChipSelectionChange } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageDetailsComponent } from '../message-details/message-details.component';
 
@@ -21,12 +20,15 @@ export class MessagesComponent implements OnInit {
   public availableFilters: MessageStatus[] = [MessageStatus.Read, MessageStatus.NotRead];
   public selectedFilters: MessageStatus[] = [];
 
+  public searchText: string = "";
+
   constructor(private service: MessageService, private dialog: MatDialog) {
   }
 
   ngOnInit() {
-    this.dataSource.data = this.service.getAll();
-    //  this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate =
+      (data: Message, filter: string) => !filter || (data.text?.includes(filter) ?? true);
+    this.refresh();
   }
 
   applyFilter(status: MessageStatus): void {
@@ -34,6 +36,7 @@ export class MessagesComponent implements OnInit {
     if (index >= 0)
       this.availableFilters.splice(index, 1);
     this.selectedFilters.push(status);
+    this.refresh();
   }
 
   removeFilter(status: MessageStatus): void {
@@ -42,6 +45,13 @@ export class MessagesComponent implements OnInit {
       this.selectedFilters.splice(index, 1);
 
     this.availableFilters.push(status);
+    this.refresh();
+  }
+
+  refresh() {
+    this.service.getAll(this.selectedFilters).subscribe(
+      responseData => this.dataSource.data = responseData, error => console.log(error)
+    );
   }
 
   add() {

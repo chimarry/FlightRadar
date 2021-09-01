@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { ReservationsModule } from './reservations/reservations.module';
 import { MessagesModule } from './messages/messages.module';
 import { FlightsModule } from './flights/flights.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FlightsModule } from './flights/flights.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     AppMaterialModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     AuthModule,

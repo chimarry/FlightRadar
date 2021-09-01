@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pro.artse.employee.entities.FlightReservation;
 import pro.artse.employee.entities.FlightReservationStatus;
+import pro.artse.employee.entities.FlightType;
 import pro.artse.employee.mapper.IFlightReservationMapper;
 import pro.artse.employee.services.FlightReservationService;
 import pro.artse.employee.wrapper.FlightReservationWrapper;
@@ -28,7 +29,7 @@ public class FlightReservationController {
 
 	@Autowired
 	private IFlightReservationMapper mapper;
-	
+
 	@GetMapping
 	public ResponseEntity<List<FlightReservationWrapper>> getAll(
 
@@ -37,6 +38,16 @@ public class FlightReservationController {
 				.map(x -> mapper.toWrapper(x)).collect(Collectors.toCollection(ArrayList::new));
 
 		return ResponseEntity.ok(data);
+	}
+
+	@GetMapping("/{flightReservationId}")
+	public ResponseEntity<FlightReservationWrapper> getDetails(@PathVariable int flightReservationId,
+			@RequestParam FlightType flightType) {
+		FlightReservation reservation = flightReservationService.getDetails(flightReservationId);
+		if (flightType == FlightType.Passenger)
+			return ResponseEntity.ok(mapper.toPassengerWrapper(reservation));
+		else
+			return ResponseEntity.ok(mapper.toTransportWrapper(reservation));
 	}
 
 	@PutMapping("/cancel/{flightReservationId}")

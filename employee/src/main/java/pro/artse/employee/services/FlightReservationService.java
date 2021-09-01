@@ -25,6 +25,10 @@ public class FlightReservationService {
 		return reservations;
 	}
 
+	public FlightReservation getDetails(int flightReservationId) {
+		return flightReservationRepository.findById(flightReservationId).get();
+	}
+	
 	public Boolean cancel(int flightReservationId) {
 		FlightReservation entity = flightReservationRepository.findById(flightReservationId).get();
 		if (entity == null)

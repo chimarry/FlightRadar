@@ -9,19 +9,19 @@ import pro.artse.employee.entities.FlightType;
 
 public class FlightReservationWrapper implements Serializable{
 	
-	private static final long serialVersionUID = -7580440658968938074L;
+	protected static final long serialVersionUID = -7580440658968938074L;
 	
-	private int accountId;
-	private int flightReservationId;
-	private LocalDateTime airportDateTime;
-	private String arrivalCityName;
-	private String arrivalCountryName;
-	private String departureCityName;
-	private String departureCountryName;
-	private LocalDateTime createdOn;
-	private FlightReservationStatus status;
-	private FlightType flightType;
-	private String username;
+	protected int accountId;
+	protected int flightReservationId;
+	protected LocalDateTime airportDateTime;
+	protected String arrivalCityName;
+	protected String arrivalCountryName;
+	protected String departureCityName;
+	protected String departureCountryName;
+	protected LocalDateTime createdOn;
+	protected FlightReservationStatus status;
+	protected FlightType flightType;
+	protected String username;
 	
 	public int getAccountId() {
 		return accountId;

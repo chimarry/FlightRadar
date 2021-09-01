@@ -8,7 +8,9 @@
     <div mat-dialog-content class="--transport-details-form" fxLayout="column" fxLayoutAlign="flex-start">
         <p><b>Departure location:</b> {{reservation.arrivalCityName}} {{reservation.arrivalCountryName}}</p>
         <p><b>Destination:</b> {{reservation.departureCityName}} {{reservation.departureCountryName}}</p>
-        <p><b>Airport datetime:</b> {{reservation.airportDateTime}}</p>
-        <p><b>Created on:</b> {{reservation.createdOn}}</p>
+        <p><b>Airport datetime:</b> {{reservation.airportDateTime | date:'MMM d, y, H:mm'}}</p>
+        <p><b>Created on:</b> {{reservation.createdOn | date:'MMM d, y, H:mm'}}</p>
+        <p><b>Cargo description:</b> {{reservation.cargoDescription}}</p>
+        <p><b>File specification:</b> <button>Download</button></p>
     </div>
 </div>

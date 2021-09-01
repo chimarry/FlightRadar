@@ -80,6 +80,14 @@ export class ReservationsComponent implements OnInit {
     //     });*/
   }
 
+  confirm(element: FlightReservation) {
+    this.service.confirmReservation(element.flightReservationId ?? 1).subscribe(() => { this.refresh() });
+  }
+
+  cancel(element: FlightReservation) {
+    this.service.cancelReservation(element.flightReservationId ?? 1).subscribe(() => { this.refresh() });
+  }
+
   refresh() {
     this.service.getAll(this.selectedFilters)
       .subscribe(responseData => this.dataSource.data = responseData);

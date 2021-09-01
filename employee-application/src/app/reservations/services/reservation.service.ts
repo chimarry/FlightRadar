@@ -26,4 +26,12 @@ export class ReservationService {
   public downloadFile(flightReservationId: number) {
     window.location.href = "http://localhost:8080/api/v0.1/reservations/download/" + flightReservationId;
   }
+
+  public cancelReservation(flightReservationId: number): Observable<Boolean> {
+    return this.httpClient.put<Boolean>("http://localhost:8080/api/v0.1/reservations/cancel/" + flightReservationId, null);
+  }
+
+  public confirmReservation(flightReservationId: number): Observable<Boolean> {
+    return this.httpClient.put<Boolean>("http://localhost:8080/api/v0.1/reservations/confirm/" + flightReservationId, null);
+  }
 }

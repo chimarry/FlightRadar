@@ -28,4 +28,8 @@ export class TransportReservationComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
+
+  downloadFile() {
+    this.reservationService.downloadFile(this.reservation.flightReservationId ?? 0);
+  }
 }

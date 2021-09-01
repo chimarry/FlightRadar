@@ -20,7 +20,6 @@ import pro.artse.dal.dto.AccountRole;
 import pro.artse.dal.dto.FlightReservationStatus;
 import pro.artse.dal.dto.InputFlightReservationDTO;
 import pro.artse.dal.errorhandling.DbResultMessage;
-import pro.artse.dal.errorhandling.ForbiddenAccessException;
 import pro.artse.dal.services.IFlightReservationService;
 import pro.artse.dal.services.ServiceFactory;
 import pro.artse.user.beans.FlightReservationsBean;
@@ -87,7 +86,7 @@ public class FlightReservationController extends HttpServlet {
 
 			DbResultMessage<Boolean> created = flightReservationService.create(dto, role);
 			AlertManager.addToRequest(request, created, Messages.FAILED_RESERVATION);
-			if(created.isSuccess())
+			if (created.isSuccess())
 				address = Pages.INDEX;
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
@@ -124,20 +123,14 @@ public class FlightReservationController extends HttpServlet {
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
 
 		byte[] fileData = null;
+		fileData = flightReservationService.downloadSpecificationFile(fileUri, HttpSessionUtil.getAccountId(request));
+		response.setContentLength(fileData.length);
+		response.setBufferSize(fileData.length + 100);
 		try {
-			fileData = flightReservationService.downloadSpecificationFile(fileUri,
-					HttpSessionUtil.getAccountId(request));
-			response.setContentLength(fileData.length);
-			response.setBufferSize(fileData.length+100);
-			try {
-				out.write(fileData, 0, fileData.length);
-				out.flush();
-			} finally {
-				out.close();
-			}
-
-		} catch (ForbiddenAccessException e) {
-			AlertManager.writeErrorMessage(request, Messages.FORBIDDEN_ACCESS_EXCEPTION);
+			out.write(fileData, 0, fileData.length);
+			out.flush();
+		} finally {
+			out.close();
 		}
 	}
 

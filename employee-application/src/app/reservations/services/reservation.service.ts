@@ -22,4 +22,8 @@ export class ReservationService {
     let params = new HttpParams().set("flightType", type);
     return this.httpClient.get("http://localhost:8080/api/v0.1/reservations/" + flightReservationId, { params: params });
   }
+
+  public downloadFile(flightReservationId: number) {
+    window.location.href = "http://localhost:8080/api/v0.1/reservations/download/" + flightReservationId;
+  }
 }

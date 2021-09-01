@@ -24,7 +24,7 @@ public class FlightReservation implements Serializable{
 	private int flightReservationId;
 	
 	@Column(name="seatnumber")
-	private int seatNumber;
+	private Integer seatNumber = 0;
 
 	@Column(name="description")
 	private String cargoDescription;
@@ -54,11 +54,11 @@ public class FlightReservation implements Serializable{
 		this.flightReservationId = flightReservationId;
 	}
 
-	public int getSeatNumber() {
+	public Integer getSeatNumber() {
 		return seatNumber;
 	}
 
-	public void setSeatNumber(int seatNumber) {
+	public void setSeatNumber(Integer seatNumber) {
 		this.seatNumber = seatNumber;
 	}
 

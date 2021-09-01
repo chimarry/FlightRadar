@@ -7,7 +7,6 @@ import pro.artse.dal.dto.FlightReservationDTO;
 import pro.artse.dal.dto.FlightReservationStatus;
 import pro.artse.dal.dto.InputFlightReservationDTO;
 import pro.artse.dal.errorhandling.DbResultMessage;
-import pro.artse.dal.errorhandling.ForbiddenAccessException;
 
 public interface IFlightReservationService {
 	
@@ -17,5 +16,5 @@ public interface IFlightReservationService {
 	
 	public List<FlightReservationDTO> getAll(int accountId);
 	
-	public byte[] downloadSpecificationFile(String uri, int accountId) throws ForbiddenAccessException;
+	public byte[] downloadSpecificationFile(String uri, int accountId);
 }

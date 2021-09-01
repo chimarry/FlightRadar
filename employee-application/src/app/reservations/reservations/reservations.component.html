@@ -8,7 +8,7 @@
         </mat-chip>
         <mat-chip *ngFor="let availableFilter of availableFilters" class='--filter-tag-add'>
             {{availableFilter}}
-            <mat-icon matChipRemove (click)="applyFilter(availableFilter)">add_circle</mat-icon>
+            <mat-icon matChipRemove (click)="applyFilter(availableFilter)">check_circle</mat-icon>
         </mat-chip>
     </mat-chip-list>
 </div>

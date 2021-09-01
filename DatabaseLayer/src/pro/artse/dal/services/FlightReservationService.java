@@ -18,7 +18,6 @@ import pro.artse.dal.dto.InputFlightReservationDTO;
 import pro.artse.dal.errorhandling.DbResultMessage;
 import pro.artse.dal.errorhandling.DbStatus;
 import pro.artse.dal.errorhandling.ErrorHandler;
-import pro.artse.dal.errorhandling.ForbiddenAccessException;
 import pro.artse.dal.util.FileUtil;
 import pro.artse.dal.util.Validator;
 
@@ -107,17 +106,14 @@ public abstract class FlightReservationService implements IFlightReservationServ
 		}
 	}
 
-	public byte[] downloadSpecificationFile(String uri, int accountId) throws ForbiddenAccessException {
+	public byte[] downloadSpecificationFile(String uri, int accountId) {
 		ConnectionPool connectionPool = null;
 		Connection connection = null;
 		PreparedStatement ps = null;
 		try {
 			connectionPool = ConnectionPool.getInstance();
 			connection = connectionPool.checkOut();
-			ps = ServiceUtil.prepareStatement(connection, FlightReservationSqlExtension.CHECK_ACCOUNT, uri, accountId);
-			ResultSet rs = ps.executeQuery();
-			if (ServiceUtil.isEmpty(rs))
-				throw new ForbiddenAccessException();
+		
 			byte[] data = FileUtil.downloadFile(uri);
 			return data;
 		} catch (Exception ex) {

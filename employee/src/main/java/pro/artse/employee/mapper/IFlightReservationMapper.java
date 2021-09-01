@@ -7,7 +7,7 @@ import org.mapstruct.Mappings;
 import pro.artse.employee.entities.FlightReservation;
 import pro.artse.employee.wrapper.FlightReservationWrapper;
 
-@Mapper
+@Mapper(componentModel="spring")
 public interface IFlightReservationMapper {
 
 	@Mappings({ @Mapping(target = "arrivalCityName", source = "entity.flight.arrivalCity.name"),
@@ -16,6 +16,8 @@ public interface IFlightReservationMapper {
 			@Mapping(target = "departureCityName", source = "entity.flight.departureCity.name"),
 			@Mapping(target = "username", source = "entity.account.username"),
 			@Mapping(target = "accountId", source = "entity.account.accountId"),
-			@Mapping(target = "flightType", source = "entity.flight.type") })
+			@Mapping(target = "flightType", source = "entity.flight.type"),
+			@Mapping(target = "airportDateTime", source = "entity.flight.airportDateTime"),
+			@Mapping(target = "createdOn", source="entity.createdOn")})
 	public FlightReservationWrapper toWrapper(FlightReservation entity);
 }

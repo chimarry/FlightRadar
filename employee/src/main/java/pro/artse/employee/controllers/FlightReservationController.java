@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import pro.artse.employee.entities.FlightReservation;
 import pro.artse.employee.entities.FlightReservationStatus;
+import pro.artse.employee.mapper.IFlightReservationMapper;
 import pro.artse.employee.services.FlightReservationService;
 import pro.artse.employee.wrapper.FlightReservationWrapper;
 
@@ -24,14 +26,15 @@ public class FlightReservationController {
 	@Autowired
 	private FlightReservationService flightReservationService;
 
+	@Autowired
+	private IFlightReservationMapper mapper;
+	
 	@GetMapping
 	public ResponseEntity<List<FlightReservationWrapper>> getAll(
 
 			@RequestParam(required = false) List<FlightReservationStatus> filters) {
-		List<FlightReservationWrapper> data = null;
-		// flightReservationService.getAll(filters).stream().map(x ->
-		// mapper.sourceToDestination(x))
-		// .collect(Collectors.toCollection(ArrayList::new));
+		List<FlightReservationWrapper> data = flightReservationService.getAll(filters).stream()
+				.map(x -> mapper.toWrapper(x)).collect(Collectors.toCollection(ArrayList::new));
 
 		return ResponseEntity.ok(data);
 	}

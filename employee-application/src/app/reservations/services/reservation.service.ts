@@ -15,6 +15,6 @@ export class ReservationService {
 
   public getAll(filters: FlightReservationStatus[]): Observable<FlightReservation[]> {
     let params = this.restUtil.getParams(filters);
-    return this.httpClient.get<FlightReservation[]>("http://localhost:8080/reservations", { params: params });
+    return this.httpClient.get<FlightReservation[]>("http://localhost:8080/api/v0.1/reservations", { params: params });
   }
 }

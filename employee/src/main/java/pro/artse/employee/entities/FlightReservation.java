@@ -1,6 +1,7 @@
 package pro.artse.employee.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +34,9 @@ public class FlightReservation implements Serializable{
 	
 	@Enumerated(EnumType.STRING)
 	private FlightReservationStatus status;
+	
+	@Column(name="createdOn")
+	private LocalDateTime createdOn;
 	
 	@ManyToOne
 	@JoinColumn(name = "accountId")
@@ -96,5 +100,13 @@ public class FlightReservation implements Serializable{
 
 	public void setFlight(Flight flight) {
 		this.flight = flight;
+	}
+
+	public LocalDateTime getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(LocalDateTime createdOn) {
+		this.createdOn = createdOn;
 	}
 }

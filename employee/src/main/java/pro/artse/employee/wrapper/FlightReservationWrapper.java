@@ -22,6 +22,7 @@ public class FlightReservationWrapper implements Serializable{
 	private FlightReservationStatus status;
 	private FlightType flightType;
 	private String username;
+	
 	public int getAccountId() {
 		return accountId;
 	}

@@ -29,7 +29,7 @@ export class ReservationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource.data = this.service.getAll();
+    this.refresh();
   }
 
   applyFilter(status: FlightReservationStatus): void {
@@ -37,6 +37,7 @@ export class ReservationsComponent implements OnInit {
     if (index >= 0)
       this.availableFilters.splice(index, 1);
     this.selectedFilters.push(status);
+    this.refresh();
   }
 
   removeFilter(status: FlightReservationStatus): void {
@@ -45,6 +46,7 @@ export class ReservationsComponent implements OnInit {
       this.selectedFilters.splice(index, 1);
 
     this.availableFilters.push(status);
+    this.refresh();
   }
 
   add() {
@@ -76,5 +78,10 @@ export class ReservationsComponent implements OnInit {
     //         this.dataSource.data = this.service.getAll();
     //       }
     //     });*/
+  }
+
+  refresh() {
+    this.service.getAll(this.selectedFilters)
+      .subscribe(responseData => this.dataSource.data = responseData);
   }
 }

@@ -1,5 +1,6 @@
 package pro.artse.employee.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,12 @@ public class MessageService {
 		else if (filters.contains(MessageStatus.Read))
 			return messageRepository.findByReadOnIsNotNullOrderByCreatedOnDesc();
 		return messageRepository.findByReadOnIsNullOrderByCreatedOnDesc();
+	}
+	
+	public Boolean read(int messageId) {
+		Message message = messageRepository.findById(messageId).get();
+		message.setReadOn(LocalDateTime.now());
+		messageRepository.saveAndFlush(message);
+		return true;
 	}
 }

@@ -67,16 +67,13 @@ export class MessagesComponent implements OnInit {
   showDetails(element: Message) {
     this.dialog.open(MessageDetailsComponent, {
       data: element
-    })
-    //   this.dialog.open(ConfirmModalComponent, {
-    //     width: '300px'
-    //   })
-    //     .afterClosed()
-    //     .subscribe(result => {
-    //       if (result) {
-    //         this.service.delete(element.id);
-    //         this.dataSource.data = this.service.getAll();
-    //       }
-    //     });
+    }).afterClosed()
+      .subscribe(() => {
+        this.service.markAsRead(element)
+          .subscribe(() => {
+            this.refresh();
+          }
+          );
+      })
   }
 }

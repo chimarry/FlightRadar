@@ -19,7 +19,7 @@ public class FlightService {
 	private CityRepository cityRepository;
 
 	public Boolean add(FlightWrapper wrapper) {
-		wrapper.getAirportDateTimes().forEach(airportDateTime->{
+		wrapper.getAirportDateTimes().forEach(airportDateTime -> {
 			City arrivalCity = cityRepository.findById(wrapper.getArrivalCityId()).get();
 			City departureCity = cityRepository.findById(wrapper.getDepartureCityId()).get();
 

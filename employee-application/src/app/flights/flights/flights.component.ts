@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { City } from 'src/app/models/city';
 import { Country } from 'src/app/models/country';
+import { DateTime } from 'src/app/models/date-time';
 import { Flight } from 'src/app/models/flight';
 import { FlightType } from 'src/app/models/flight-type';
 import { CityService } from '../services/city.service';
@@ -24,7 +25,7 @@ export class FlightsComponent implements OnInit {
   public arrivalCities: Array<City> = [];
   public flightTypes: Array<FlightType> = [FlightType.Passenger, FlightType.Transport];
 
-  public dates: Array<Date> = [new Date()];
+  public dates: Array<DateTime> = [new DateTime()];
 
   constructor(public formBuilder: FormBuilder,
     private service: FlightService,
@@ -39,15 +40,25 @@ export class FlightsComponent implements OnInit {
       arrivalCity: [this.flight.arrivalCityId, Validators.required],
       departureCity: [this.flight.departureCityId, Validators.required],
       flightType: [this.flight.type, Validators.required],
-      date: [this.flight.date, Validators.required],
-      time: [this.flight.time, Validators.required],
       departureCountry: [null, Validators.required],
       arrivalCountry: [null, Validators.required]
     });
   }
 
-  addDate(event: any): void {
-    this.dates.push(event);
+  addDate(event: any, i: number): void {
+    this.dates[i].date = event.value;
+    this.dates[i].selectable = true;
+  }
+
+  addTime(time: string, i: number) {
+    if (time.length === 5) {
+      this.dates[i].time = time;
+      this.dates[i].selectable = false;
+      let lastDate = this.dates[this.dates.length - 1].date;
+      let lastTime = this.dates[this.dates.length - 1].time;
+      if (lastDate != null && lastTime != null)
+        this.dates.push(new DateTime());
+    }
   }
 
   loadCountries() {
@@ -64,19 +75,30 @@ export class FlightsComponent implements OnInit {
 
   loadArrivalCities(country: any) {
     this.cityService.getAll(country.value.countryId)
-      .subscribe(responseData => this.arrivalCities = responseData, error => console.log(error));
+      .subscribe(responseData => this.arrivalCities = responseData,
+        error => console.log(error));
+  }
+
+  changeDepartureCityId(city: any) {
+    this.flight.departureCityId = city.value;
+  }
+
+  changeArrivalCityId(city: any) {
+    this.flight.arrivalCityId = city.value;
   }
 
   save({ value, valid }: { value: Flight, valid: boolean }) {
-    if (valid) {
-      this.form.reset();
-      this.snackBar.open("Flight is saved.", undefined, {
-        duration: 2000,
-      });
+    if (valid && this.dates.length != 1) {
+      this.dates.pop();
+      this.flight.airportDateTimes = this.dates.map(x => x.getDateWithTime());
+      this.service.add(this.flight)
+        .subscribe(response => { console.log(response) });
+      this.clear();
     }
   }
 
-  close() {
+  clear() {
     this.form.reset();
+    this.dates = [new DateTime()];
   }
 }

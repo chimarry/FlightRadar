@@ -11,7 +11,7 @@
             </mat-form-field>
             <mat-form-field class="--input-control">
                 <mat-label>Departure city</mat-label>
-                <mat-select formControlName="departureCity" required>
+                <mat-select formControlName="departureCity" required (selectionChange)="changeDepartureCityId($event)">
                     <mat-option *ngFor="let departureCity of departureCities" [value]="departureCity.cityId">
                         {{departureCity.name}}
                     </mat-option>
@@ -29,7 +29,7 @@
             </mat-form-field>
             <mat-form-field class="--input-control">
                 <mat-label>Arrival city</mat-label>
-                <mat-select formControlName="arrivalCity" required>
+                <mat-select formControlName="arrivalCity" required (selectionChange)="changeArrivalCityId($event)">
                     <mat-option *ngFor="let arrivalCity of arrivalCities" [value]="arrivalCity.cityId">
                         {{arrivalCity.name}}
                     </mat-option>
@@ -45,21 +45,23 @@
             </mat-select>
         </mat-form-field>
 
-        <div *ngFor='let date of dates'>
+        <div *ngFor='let date of dates; let i = index'>
             <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between">
                 <mat-form-field class="--input-control">
-                    <input matInput [matDatepicker]="picker" placeholder="Airport date" formControlName="date"
-                        (dateChange)="addDate($event)">
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="date.date"
+                        [ngModelOptions]="{standalone: true}" placeholder="Airport date"
+                        (dateChange)="addDate($event, i)">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field class="--input-control">
-                    <input matInput placeholder="Time" required formControlName="time" autocomplete="off" />
+                    <input matInput placeholder="Time" [(ngModel)]="date.time" [ngModelOptions]="{standalone: true}"
+                        required autocomplete="off" (keyup)='addTime(date.time??"", i)' [disabled]="!date.selectable" />
                 </mat-form-field>
             </div>
         </div>
         <div fxLayout="row" class="--margin-top" fxLayoutAlign="flex-start">
-            <button mat-button class="--cancel-button" (click)="close()">Cancel</button>
+            <button mat-button class="--cancel-button" (click)="clear()">Clear</button>
             <button mat-button class="--save-button" [disabled]="form.invalid" type="submit"
                 (click)="save(form)">Save</button>
         </div>

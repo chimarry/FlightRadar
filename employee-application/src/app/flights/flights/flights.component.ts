@@ -6,6 +6,8 @@ import { City } from 'src/app/models/city';
 import { Country } from 'src/app/models/country';
 import { Flight } from 'src/app/models/flight';
 import { FlightType } from 'src/app/models/flight-type';
+import { CityService } from '../services/city.service';
+import { CountryService } from '../services/country.service';
 import { FlightService } from '../services/flight.service';
 
 @Component({
@@ -15,29 +17,32 @@ import { FlightService } from '../services/flight.service';
 })
 export class FlightsComponent implements OnInit {
 
-  public form: FormGroup = new FormGroup({}); //forma
+  public form: FormGroup = new FormGroup({});
   public flight: Flight = new Flight();
-  public countries: Array<Country> = [new Country(1, "BiH"), new Country(2, "Serbia")];
-  public cities: Array<City> = [new City(1, 1, "Banja Luka"), new City(2, 2, "Beograd"), new City(3, 2, "Nis")];
+  public countries: Array<Country> = [];
+  public departureCities: Array<City> = [];
+  public arrivalCities: Array<City> = [];
   public flightTypes: Array<FlightType> = [FlightType.Passenger, FlightType.Transport];
 
   public dates: Array<Date> = [new Date()];
 
-  constructor(public formBuilder: FormBuilder, //formBuilder sluzi za kreiranje forme
-    private service: FlightService, //service koristimo za cuvanje podataka
+  constructor(public formBuilder: FormBuilder,
+    private service: FlightService,
+    private countryService: CountryService,
+    private cityService: CityService,
     private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    //prilikom ucitavanja stranice pravimo formu
+    this.loadCountries();
     this.form = this.formBuilder.group({
       arrivalCity: [this.flight.arrivalCityId, Validators.required],
       departureCity: [this.flight.departureCityId, Validators.required],
       flightType: [this.flight.type, Validators.required],
       date: [this.flight.date, Validators.required],
       time: [this.flight.time, Validators.required],
-      departureCountry: [this.countries[0], Validators.required],
-      arrivalCountry: [this.countries[1], Validators.required]
+      departureCountry: [null, Validators.required],
+      arrivalCountry: [null, Validators.required]
     });
   }
 
@@ -45,14 +50,33 @@ export class FlightsComponent implements OnInit {
     this.dates.push(event);
   }
 
+  loadCountries() {
+    this.countryService.getAll()
+      .subscribe(responseData => {
+        this.countries = responseData;
+      }, error => console.log(error));
+  }
+
+  loadDepartureCities(country: any) {
+    this.cityService.getAll(country.value.countryId)
+      .subscribe(responseData => this.departureCities = responseData, error => console.log(error));
+  }
+
+  loadArrivalCities(country: any) {
+    this.cityService.getAll(country.value.countryId)
+      .subscribe(responseData => this.arrivalCities = responseData, error => console.log(error));
+  }
+
   save({ value, valid }: { value: Flight, valid: boolean }) {
-    if (valid) { //ako su OK
-      this.form.reset(); //ponistimo prethodno unesene podatke
-      this.snackBar.open("Podaci su sacuvani", undefined, { //i prikazemo poruku koja nestaje nakon 2s
+    if (valid) {
+      this.form.reset();
+      this.snackBar.open("Flight is saved.", undefined, {
         duration: 2000,
       });
     }
   }
+
   close() {
+    this.form.reset();
   }
 }

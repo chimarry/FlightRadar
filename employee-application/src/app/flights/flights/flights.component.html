@@ -3,7 +3,7 @@
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between">
             <mat-form-field class="--input-control">
                 <mat-label>Departure country</mat-label>
-                <mat-select formControlName="departureCountry" required>
+                <mat-select formControlName="departureCountry" required (selectionChange)="loadDepartureCities($event)">
                     <mat-option *ngFor="let departureCountry of countries" [value]="departureCountry">
                         {{departureCountry.name}}
                     </mat-option>
@@ -12,7 +12,7 @@
             <mat-form-field class="--input-control">
                 <mat-label>Departure city</mat-label>
                 <mat-select formControlName="departureCity" required>
-                    <mat-option *ngFor="let departureCity of cities" [value]="departureCity.cityId">
+                    <mat-option *ngFor="let departureCity of departureCities" [value]="departureCity.cityId">
                         {{departureCity.name}}
                     </mat-option>
                 </mat-select>
@@ -21,7 +21,7 @@
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between">
             <mat-form-field class="--input-control">
                 <mat-label>Arrival country</mat-label>
-                <mat-select formControlName="arrivalCountry" required>
+                <mat-select formControlName="arrivalCountry" required (selectionChange)="loadArrivalCities($event)">
                     <mat-option *ngFor="let arrivalCountry of countries" [value]="arrivalCountry">
                         {{arrivalCountry.name}}
                     </mat-option>
@@ -30,7 +30,7 @@
             <mat-form-field class="--input-control">
                 <mat-label>Arrival city</mat-label>
                 <mat-select formControlName="arrivalCity" required>
-                    <mat-option *ngFor="let arrivalCity of cities" [value]="arrivalCity.cityId">
+                    <mat-option *ngFor="let arrivalCity of arrivalCities" [value]="arrivalCity.cityId">
                         {{arrivalCity.name}}
                     </mat-option>
                 </mat-select>

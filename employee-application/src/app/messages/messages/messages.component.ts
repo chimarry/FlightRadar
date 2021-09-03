@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MessageStatus } from 'src/app/models/message-status';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageDetailsComponent } from '../message-details/message-details.component';
+import { MessageReplyComponent } from '../message-reply/message-reply.component';
 
 @Component({
   selector: 'app-messages',
@@ -14,7 +15,7 @@ import { MessageDetailsComponent } from '../message-details/message-details.comp
 })
 export class MessagesComponent implements OnInit {
 
-  displayedColumns: string[] = ['email', 'name', 'text', 'see'];
+  displayedColumns: string[] = ['email', 'name', 'text', 'see', 'reply'];
   dataSource = new MatTableDataSource<Message>();
 
   public availableFilters: MessageStatus[] = [MessageStatus.Read, MessageStatus.NotRead];
@@ -54,14 +55,11 @@ export class MessagesComponent implements OnInit {
     );
   }
 
-  add() {
-    // this.dialog.open(EventEditComponent, {
-    //   width: '600px'
-    // })
-    //   .afterClosed()
-    //   .subscribe(result => {
-    //     this.dataSource.data = this.service.getAll();
-    //   });
+  reply(element: Message) {
+    this.dialog.open(MessageReplyComponent, {
+      data: element.email,
+      width: '600px'
+    });
   }
 
   showDetails(element: Message) {

@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Reply to message</h1>
+<form [formGroup]="form">
+    <div mat-dialog-content fxLayout="column">
+        <mat-form-field>
+            <input matInput type="email" placeholder="Email" required formControlName="email" autocomplete="off" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Title" required formControlName="title" autocomplete="off" />
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Content" formControlName="content" autocomplete="off" />
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="close()">Close</button>
+        <button mat-button [disabled]="form.invalid" type="submit" (click)="send(form)">Send</button>
+    </div>
+</form>

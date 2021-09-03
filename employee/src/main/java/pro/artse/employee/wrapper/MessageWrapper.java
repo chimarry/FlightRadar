@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class MessageWrapper implements Serializable{
 	private static final long serialVersionUID = -1373505388357033615L;
 	
+	private int messageId;
 	private String email;
 	private String title;
 	private String content;
@@ -26,5 +27,11 @@ public class MessageWrapper implements Serializable{
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public int getMessageId() {
+		return messageId;
+	}
+	public void setMessageId(int messageId) {
+		this.messageId = messageId;
 	}
 }

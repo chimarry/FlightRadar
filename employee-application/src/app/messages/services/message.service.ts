@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Message } from 'src/app/models/message';
+import { MessageReply } from 'src/app/models/message-reply';
 import { MessageStatus } from 'src/app/models/message-status';
 import { RestUtilService } from 'src/app/util/rest-util.service';
 
@@ -21,5 +22,9 @@ export class MessageService {
 
   public markAsRead(message: Message): Observable<Boolean> {
     return this.httpClient.put<Boolean>("http://localhost:8080/api/v0.1/messages/" + message.messageId, null);
+  }
+
+  public reply(messageReply: MessageReply): Observable<Boolean> {
+    return this.httpClient.post<Boolean>("http://localhost:8080/api/v0.1/messages", messageReply);
   }
 }

@@ -36,6 +36,9 @@ public class Account implements Serializable {
 	private AccountRole role;
 	
 	@JsonIgnore
+	private byte[] password;
+	
+	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name="accountId")
 	private List<FlightReservation> flightReservations;
@@ -86,5 +89,13 @@ public class Account implements Serializable {
 
 	public void setFlightReservations(List<FlightReservation> flightReservations) {
 		this.flightReservations = flightReservations;
+	}
+
+	public byte[] getPassword() {
+		return password;
+	}
+
+	public void setPassword(byte[] password) {
+		this.password = password;
 	}
 }

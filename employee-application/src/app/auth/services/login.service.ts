@@ -1,29 +1,39 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Employee } from 'src/app/models/employee';
+import { RestUtilService } from 'src/app/util/rest-util.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-
-  private users: Array<Employee> = [];
-  public signedIn: boolean = false;
-  public activeUser: Employee | null = null;
-
-  constructor(private router: Router) {
-    this.users.push(new Employee());
+  constructor(private router: Router, private httpClient: HttpClient) {
   }
 
-  public login(username: string, password: string): boolean {
-    this.activeUser = new Employee();
-    this.signedIn = true;
-    return true;;
+  login(username: string, password: string) {
+    return this.httpClient.post(RestUtilService.buildUrl('authentication'), { username, password })
+      .subscribe(responseData => this.saveToken(responseData), error => console.log("Failed login"));
   }
 
-  public logout() {
-    this.activeUser = null;
-    this.signedIn = false;
-    this.router.navigate(['/']);
+  private saveToken(responseData: any) {
+    if (responseData.token != undefined) {
+      localStorage.setItem("token", responseData.token);
+    }
+  }
+
+  logout() {
+    localStorage.removeItem("token");
+  }
+
+  isLoggedIn() {
+    return this.getToken() != null;
+  }
+
+  isLoggedOut() {
+    return !this.isLoggedIn();
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem("token");
   }
 }

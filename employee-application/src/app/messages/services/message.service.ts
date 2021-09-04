@@ -17,14 +17,17 @@ export class MessageService {
 
   public getAll(filters: MessageStatus[]): Observable<Message[]> {
     let params = this.restUtil.getParams(filters);
-    return this.httpClient.get<Message[]>("http://localhost:8080/api/v0.1/messages", { params: params });
+    return this.httpClient.get<Message[]>(RestUtilService.buildUrl("messages"),
+      { params: params, headers: this.restUtil.getHeaders() });
   }
 
   public markAsRead(message: Message): Observable<Boolean> {
-    return this.httpClient.put<Boolean>("http://localhost:8080/api/v0.1/messages/" + message.messageId, null);
+    return this.httpClient.put<Boolean>(RestUtilService.buildUrl("messages/") + message.messageId, null,
+      { headers: this.restUtil.getHeaders() });
   }
 
   public reply(messageReply: MessageReply): Observable<Boolean> {
-    return this.httpClient.post<Boolean>("http://localhost:8080/api/v0.1/messages", messageReply);
+    return this.httpClient.post<Boolean>(RestUtilService.buildUrl("messages"), messageReply,
+      { headers: this.restUtil.getHeaders() });
   }
 }

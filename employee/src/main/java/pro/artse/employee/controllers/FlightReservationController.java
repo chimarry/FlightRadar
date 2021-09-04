@@ -64,6 +64,7 @@ public class FlightReservationController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
 		headers.add("Content-disposition", "attachment; filename=" + fileInfo.getFileName());
+		headers.add("File-name", fileInfo.getFileName());
 		return new ResponseEntity<>(fileInfo.getData(), headers, HttpStatus.OK);
 	}
 

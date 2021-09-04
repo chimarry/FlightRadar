@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   public form: FormGroup = new FormGroup({});
 
   constructor(private loginService: LoginService, private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router, private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -23,6 +24,15 @@ export class LoginComponent implements OnInit {
   }
 
   public login(form: FormGroup) {
-    this.router.navigate(['home']);
+    this.loginService.login(form.value.username, form.value.password).add(() => {
+      if (this.loginService.isLoggedIn())
+        this.router.navigate(['home']);
+      else {
+        this.form.reset();
+        this.snackBar.open("Username or password is invalid", undefined, {
+          duration: 2000
+        });
+      }
+    });
   }
 }

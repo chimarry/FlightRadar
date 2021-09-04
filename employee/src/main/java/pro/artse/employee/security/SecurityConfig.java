@@ -44,15 +44,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors();
-		http.csrf().disable().authorizeRequests().antMatchers("/authenticate").permitAll().
-		// all other requests need to be authenticated
+		http.csrf().disable().authorizeRequests().antMatchers("/api/v0.1/authentication").permitAll().
 				anyRequest().authenticated().and().
-				// make sure we use stateless session; session won't be used to
-				// store user's state.
 				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-		// Add a filter to validate the tokens with every request
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
 	}
@@ -73,7 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		final CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(List.of("*"));
 		configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
-		configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+		configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type", "File-name"));
+		configuration.addExposedHeader("File-name");
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { LoginService } from 'src/app/auth/services/login.service';
 
 @Component({
   selector: 'app-navmenu',
@@ -9,7 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NavmenuComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router,
+    private loginService: LoginService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -24,5 +27,10 @@ export class NavmenuComponent implements OnInit {
 
   public showMessages() {
     this.router.navigate(['messages'], { relativeTo: this.route });
+  }
+
+  public logOut() {
+    this.loginService.logout();
+    this.router.navigate(['']);
   }
 }

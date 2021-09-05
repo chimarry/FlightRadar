@@ -27,7 +27,7 @@ public class AccountBean implements Serializable {
 	private String name;
 	private String lastName;
 	private AccountRole accountRole;
-	
+
 	private String message;
 
 	private boolean isLoggedIn;
@@ -97,7 +97,8 @@ public class AccountBean implements Serializable {
 
 	public String logIn() {
 		DbResultMessage<AccountDTO> isLoggedIn = accountService.login(username, password);
-		if (!isLoggedIn.isSuccess() || isLoggedIn.getResult() == null) {
+		if (!isLoggedIn.isSuccess() || isLoggedIn.getResult() == null
+				|| isLoggedIn.getResult().getRole() != AccountRole.Administrator) {
 			return Pages.SAME_PAGE;
 		}
 

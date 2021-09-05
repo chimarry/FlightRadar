@@ -22,6 +22,7 @@ public class EmployeesBean implements Serializable {
 	private List<AccountDTO> employees = getAll();
 	private AccountDTO selectedEmployee;
 	private String password;
+	private String confirmPassword;
 	private AccountDTO newEmployee = new AccountDTO();
 
 	public List<AccountDTO> getEmployees() {
@@ -61,7 +62,7 @@ public class EmployeesBean implements Serializable {
 	}
 
 	public String add() {
-		if (password != null) {
+		if (password != null && (password.equals(confirmPassword))) {
 			newEmployee.setRole(AccountRole.Employee);
 			accountService.addEmployee(newEmployee, password);
 			newEmployee = new AccountDTO();
@@ -89,5 +90,13 @@ public class EmployeesBean implements Serializable {
 		setEmployees(getAll());
 		setPassword(null);
 		return Pages.SAME_PAGE;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 }

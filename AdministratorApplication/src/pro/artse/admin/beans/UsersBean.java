@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 
 import pro.artse.admin.util.AlertManager;
 import pro.artse.admin.util.Pages;
+import pro.artse.admin.util.RestApiUtil;
 import pro.artse.dal.dto.AccountRole;
 import pro.artse.dal.dto.UserDTO;
 import pro.artse.dal.errorhandling.DbResultMessage;
@@ -25,10 +26,12 @@ public class UsersBean implements Serializable {
 	private List<UserDTO> users = getAll();
 	private UserDTO selectedUser;
 	private UserDTO newUser = new UserDTO();
-	private AccountRole[] possibleRoles = new AccountRole[] { AccountRole.Passenger, AccountRole.Transport };
 
 	private String password;
 	private String confirmPassword;
+
+	private AccountRole[] possibleRoles = new AccountRole[] { AccountRole.Passenger, AccountRole.Transport };
+	private List<String> countries = RestApiUtil.getCountries();
 
 	public List<UserDTO> getUsers() {
 		return users;
@@ -93,7 +96,6 @@ public class UsersBean implements Serializable {
 
 	public String update() {
 		if (selectedUser != null) {
-			// TODO: Move this to DB layer
 			if (password.isBlank())
 				setPassword(null);
 			DbResultMessage<Boolean> updated = accountService.updateUser(selectedUser, password);
@@ -114,5 +116,13 @@ public class UsersBean implements Serializable {
 		setUsers(getAll());
 		setPassword(null);
 		return Pages.SAME_PAGE;
+	}
+
+	public List<String> getCountries() {
+		return countries;
+	}
+
+	public void setCountries(List<String> countries) {
+		this.countries = countries;
 	}
 }

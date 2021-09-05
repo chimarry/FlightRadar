@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import pro.artse.dal.database.ConnectionPool;
@@ -95,7 +94,7 @@ public class AccountService implements IAccountService, Serializable {
 
 			if (!rs.next())
 				return new DbResultMessage<AccountDTO>(DbStatus.NOT_FOUND);
-			if (!Arrays.equals(Security.computePasswordHash(password), rs.getBytes("password")))
+			if (!Security.compare(rs.getBytes("password"), password))
 				return new DbResultMessage<AccountDTO>(null, DbStatus.SUCCESS, "Passwords do not match.");
 
 			dbAccount = AccountSqlExtension.mapFromSelect(rs);
@@ -254,7 +253,7 @@ public class AccountService implements IAccountService, Serializable {
 			if (!ServiceUtil.isSuccess(deleteUser))
 				return new DbResultMessage<Boolean>(false, DbStatus.UNKNOWN_ERROR, "Deleting user failed.");
 			deleteUser.close();
-			
+
 			ps = ServiceUtil.prepareStatement(connection, AccountSqlExtension.SQL_DELETE_ACCOUNT, false,
 					new Object[] { accountId });
 			ps.executeUpdate();

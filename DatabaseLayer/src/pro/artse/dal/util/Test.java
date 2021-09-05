@@ -1,11 +1,9 @@
 package pro.artse.dal.util;
 
-import java.util.List;
 
-import pro.artse.dal.dto.AccountRole;
-import pro.artse.dal.dto.FlightReservationDTO;
-import pro.artse.dal.dto.FlightReservationStatus;
-import pro.artse.dal.services.IFlightReservationService;
+import pro.artse.dal.dto.AccountDTO;
+import pro.artse.dal.errorhandling.DbResultMessage;
+import pro.artse.dal.services.IAccountService;
 import pro.artse.dal.services.ServiceFactory;
 
 public class Test {
@@ -27,12 +25,8 @@ public class Test {
 		 * System.out.println(reservationService.create(dto,
 		 * AccountRole.Passenger).getStatus());
 		 */
-		IFlightReservationService reservationService = ServiceFactory
-				.getFlightReservationService(AccountRole.Passenger);
-		reservationService.changeStatus(1, FlightReservationStatus.Canceled, 1);
-		List<FlightReservationDTO> flightReservationDTOs = reservationService.getAll(1);
-		for (var f : flightReservationDTOs)
-			System.out.println(f.getArrivalCityName() + f.getArrivalCountryName() + f.getSeatNumber() + " "
-					+ f.getAccountId() + f.getAirportDateTime());
+		 IAccountService accountService = ServiceFactory.getAccountService();
+		 DbResultMessage<AccountDTO> account =  accountService.login("maki", "maki");
+		 System.out.println(account.getMessage());
 	}
 }

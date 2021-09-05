@@ -39,6 +39,8 @@
 								</h:inputText>
 								<h:message for="username" style="color:red" />
 							</div>
+						</div>
+						<div class="form-row">
 							<div class="form-group col-md-6">
 								<h:outputLabel>Password</h:outputLabel>
 								<h:inputSecret id="password"
@@ -47,6 +49,15 @@
 									<f:validateLength minimum="2" maximum="10" />
 								</h:inputSecret>
 								<h:message for="password" style="color:red" />
+							</div>
+							<div class="form-group col-md-6">
+								<h:outputLabel>Confirm password</h:outputLabel>
+								<h:inputSecret id="confirm-password"
+									styleClass="form-control --form-control"
+									value="#{employeesBean.confirmPassword}" required="true">
+									<f:validateLength minimum="2" maximum="10" />
+								</h:inputSecret>
+								<h:message for="confirm-password" style="color:red" />
 							</div>
 						</div>
 						<h:commandButton styleClass="btn --form-button" value="Save"

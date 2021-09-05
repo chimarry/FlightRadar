@@ -77,16 +77,18 @@
 							</div>
 							<div class="form-group col-md-6">
 								<h:outputLabel>Country</h:outputLabel>
-								<h:inputText id="country"
-									styleClass="form-control --form-control"
-									value="#{usersBean.newUser.country}" required="true" />
+								<h:selectOneMenu id="country"
+									value="#{usersBean.newUser.country}" required="true">
+									<f:selectItems value="#{usersBean.countries}" />
+								</h:selectOneMenu>
 								<h:message for="country" style="color:red" />
 							</div>
 						</div>
 						<div class="form-group">
-							<h:selectOneMenu value="#{usersBean.newUser.role}">
+							<h:selectOneMenu id="role" value="#{usersBean.newUser.role}">
 								<f:selectItems value="#{usersBean.possibleRoles}" />
 							</h:selectOneMenu>
+							<h:message for="role" style="color:red" />
 						</div>
 						<h:commandButton styleClass="btn --form-button" value="Save"
 							action="#{usersBean.add}" />

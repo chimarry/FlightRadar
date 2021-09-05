@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.xml.crypto.Data;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +25,7 @@ import pro.artse.employee.entities.FlightType;
 import pro.artse.employee.mapper.IFlightReservationMapper;
 import pro.artse.employee.services.FileService;
 import pro.artse.employee.services.FlightReservationService;
+import pro.artse.employee.wrapper.CancelReservationWrapper;
 import pro.artse.employee.wrapper.FileInfo;
 import pro.artse.employee.wrapper.FlightReservationWrapper;
 
@@ -69,8 +73,9 @@ public class FlightReservationController {
 	}
 
 	@PutMapping("/cancel/{flightReservationId}")
-	public ResponseEntity<Boolean> cancel(@PathVariable int flightReservationId) {
-		return ResponseEntity.ok(flightReservationService.cancel(flightReservationId));
+	public ResponseEntity<Boolean> cancel(@PathVariable int flightReservationId,
+			@RequestBody CancelReservationWrapper data) {
+		return ResponseEntity.ok(flightReservationService.cancel(flightReservationId, data.getCancellationReason()));
 	}
 
 	@PutMapping("/confirm/{flightReservationId}")

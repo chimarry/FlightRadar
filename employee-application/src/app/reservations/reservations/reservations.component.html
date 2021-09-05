@@ -56,7 +56,7 @@
     <ng-container matColumnDef="confirm">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="confirm(element)">
+            <button mat-icon-button (click)="confirm(element)" [disabled]='element.status!=="New"'>
                 <mat-icon>thumb_up_alt</mat-icon>
             </button>
         </td>
@@ -64,7 +64,7 @@
     <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="cancel(element)">
+            <button mat-icon-button (click)="cancel(element)" [disabled]='element.status!=="New"'>
                 <mat-icon>delete</mat-icon>
             </button>
         </td>

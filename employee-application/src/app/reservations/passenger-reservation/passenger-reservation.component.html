@@ -11,5 +11,6 @@
         <p><b>Airport datetime:</b> {{reservation.airportDateTime | date:'MMM d, y, H:mm'}}</p>
         <p><b>Created on:</b> {{reservation.createdOn | date:'MMM d, y, H:mm'}}</p>
         <p><b>Seat number:</b> {{reservation.seatNumber}}</p>
+        <p><b>Cancellation reason:</b> {{reservation.cancellationReason ?? "Not cancelled"}}</p>
     </div>
 </div>

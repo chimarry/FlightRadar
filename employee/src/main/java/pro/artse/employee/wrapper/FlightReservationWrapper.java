@@ -22,7 +22,14 @@ public class FlightReservationWrapper implements Serializable{
 	protected FlightReservationStatus status;
 	protected FlightType flightType;
 	protected String username;
+	protected String cancellationReason;
 	
+	public String getCancellationReason() {
+		return cancellationReason;
+	}
+	public void setCancellationReason(String cancellationReason) {
+		this.cancellationReason = cancellationReason;
+	}
 	public int getAccountId() {
 		return accountId;
 	}

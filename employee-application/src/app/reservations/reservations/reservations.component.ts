@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { FlightReservation } from 'src/app/models/flight-reservation';
 import { FlightReservationStatus } from 'src/app/models/flight-reservation-status';
 import { FlightType } from 'src/app/models/flight-type';
+import { ConfirmCancelComponent } from '../confirm-cancel/confirm-cancel.component';
 import { PassengerReservationComponent } from '../passenger-reservation/passenger-reservation.component';
 import { ReservationService } from '../services/reservation.service';
 import { TransportReservationComponent } from '../transport-reservation/transport-reservation.component';
@@ -25,7 +27,9 @@ export class ReservationsComponent implements OnInit {
 
   public selectedFilters: FlightReservationStatus[] = [];
 
-  constructor(private service: ReservationService, private dialog: MatDialog) {
+  constructor(private service: ReservationService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,) {
   }
 
   ngOnInit() {
@@ -49,16 +53,6 @@ export class ReservationsComponent implements OnInit {
     this.refresh();
   }
 
-  add() {
-    // this.dialog.open(EventEditComponent, {
-    //   width: '600px'
-    // })
-    //   .afterClosed()
-    //   .subscribe(result => {
-    //     this.dataSource.data = this.service.getAll();
-    //   });
-  }
-
   showDetails(element: FlightReservation) {
     if (element.flightType === FlightType.Passenger)
       this.dialog.open(PassengerReservationComponent, {
@@ -68,16 +62,6 @@ export class ReservationsComponent implements OnInit {
       this.dialog.open(TransportReservationComponent, {
         data: element
       });
-    //   this.dialog.open(ConfirmModalComponent, {
-    //     width: '300px'
-    //   })
-    //     .afterClosed()
-    //     .subscribe(result => {
-    //       if (result) {
-    //         this.service.delete(element.id);
-    //         this.dataSource.data = this.service.getAll();
-    //       }
-    //     });*/
   }
 
   confirm(element: FlightReservation) {
@@ -85,7 +69,20 @@ export class ReservationsComponent implements OnInit {
   }
 
   cancel(element: FlightReservation) {
-    this.service.cancelReservation(element.flightReservationId ?? 1).subscribe(() => { this.refresh() });
+    this.dialog.open(ConfirmCancelComponent, {
+      width: '300px'
+    })
+      .afterClosed()
+      .subscribe((result: string | null) => {
+        if (result != null) {
+          this.service.cancelReservation(element.flightReservationId ?? 1, result).subscribe(() => { this.refresh() });
+          this.refresh();
+        } else {
+          this.snackBar.open("Reservation was not cancelled.", undefined, {
+            duration: 2000
+          })
+        }
+      });
   }
 
   refresh() {

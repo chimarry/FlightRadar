@@ -38,6 +38,9 @@ public class FlightReservation implements Serializable{
 	@Column(name="createdOn")
 	private LocalDateTime createdOn;
 	
+	@Column(name="cancellationReason")
+	private String cancellationReason;
+	
 	@ManyToOne
 	@JoinColumn(name = "accountId")
 	private Account account;
@@ -108,5 +111,13 @@ public class FlightReservation implements Serializable{
 
 	public void setCreatedOn(LocalDateTime createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public String getCancellationReason() {
+		return cancellationReason;
+	}
+
+	public void setCancellationReason(String cancellationReason) {
+		this.cancellationReason = cancellationReason;
 	}
 }

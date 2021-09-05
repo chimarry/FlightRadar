@@ -30,6 +30,7 @@
 			<th scope="col">Date time</th>
 			<th scope="col">Created on</th>
 			<th scope="col">Status</th>
+			<th scope="col">Cancellation reason</th>
 			<th scope="col">Change status</th>
 		</tr>
 	</thead>
@@ -68,6 +69,7 @@
 					<fmt:formatDate pattern="dd.MM.yyyy HH:mm"
 						value="${parsedCreatedOnTime}" /></td>
 				<td>${item.getStatus()}</td>
+				<td>${item.getCancellationReason()!=null? item.getCancellationReason():""}</td>
 				<c:choose>
 					<c:when test="${item.getStatus()==FlightReservationStatus.New}">
 						<c:url var="changeStatus" value="FlightReservationController">

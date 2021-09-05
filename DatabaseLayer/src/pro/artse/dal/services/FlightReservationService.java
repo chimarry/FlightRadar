@@ -113,7 +113,7 @@ public abstract class FlightReservationService implements IFlightReservationServ
 		try {
 			connectionPool = ConnectionPool.getInstance();
 			connection = connectionPool.checkOut();
-		
+
 			byte[] data = FileUtil.downloadFile(uri);
 			return data;
 		} catch (Exception ex) {
@@ -134,11 +134,11 @@ public abstract class FlightReservationService implements IFlightReservationServ
 				+ " VALUES(?,?,?,?,?,?)";
 		public static final String SELECT_ALL_RELATED_TO_ACCOUNT = "SELECT fr.flightReservationId, fr.status, fr.createdOn, fr.accountId, ac.name AS arrivalCountryName, a.name AS arrivalCityName,"
 				+ "dc.name AS departureCountryName, d.name AS departureCityName, f.airportDateTime, fr.seatNumber, "
-				+ "fr.description, fr.fileSpecificationUri FROM flightReservations fr " + "INNER JOIN flights f "
-				+ "ON f.flightId=fr.flightId " + "INNER JOIN cities a " + "ON f.arrivalCityId=a.cityId "
-				+ "INNER JOIN countries ac " + "ON ac.countryId=a.countryId " + "INNER JOIN cities d "
-				+ "ON f.departureCityId=d.cityId " + "INNER JOIN countries dc " + "ON dc.countryId=d.countryId "
-				+ "WHERE fr.accountId=%d" + " ORDER BY fr.createdOn DESC";
+				+ "fr.description, fr.fileSpecificationUri, fr.cancellationReason FROM flightReservations fr "
+				+ "INNER JOIN flights f " + "ON f.flightId=fr.flightId " + "INNER JOIN cities a "
+				+ "ON f.arrivalCityId=a.cityId " + "INNER JOIN countries ac " + "ON ac.countryId=a.countryId "
+				+ "INNER JOIN cities d " + "ON f.departureCityId=d.cityId " + "INNER JOIN countries dc "
+				+ "ON dc.countryId=d.countryId " + "WHERE fr.accountId=%d" + " ORDER BY fr.createdOn DESC";
 
 		public static final String UPDATE_STATUS = "UPDATE flightReservations SET status=%s WHERE flightReservationId=%d AND accountId=%d";
 
@@ -158,12 +158,15 @@ public abstract class FlightReservationService implements IFlightReservationServ
 		}
 
 		public static final FlightReservationDTO mapFromSelect(ResultSet rs) throws SQLException {
-			return new FlightReservationDTO(rs.getInt("accountId"), rs.getInt("flightReservationId"),
-					SqlDateTimeConvertor.toLocalDateTime(rs, "airportDateTime"), rs.getString("arrivalCityName"),
-					rs.getString("arrivalCountryName"), rs.getString("departureCityName"),
-					rs.getString("departureCountryName"), FlightReservationStatus.valueOf(rs.getString("status")),
+			FlightReservationDTO dto = new FlightReservationDTO(rs.getInt("accountId"),
+					rs.getInt("flightReservationId"), SqlDateTimeConvertor.toLocalDateTime(rs, "airportDateTime"),
+					rs.getString("arrivalCityName"), rs.getString("arrivalCountryName"),
+					rs.getString("departureCityName"), rs.getString("departureCountryName"),
+					FlightReservationStatus.valueOf(rs.getString("status")),
 					SqlDateTimeConvertor.toLocalDateTime(rs, "createdOn"), rs.getInt("seatNumber"),
 					rs.getString("description"), rs.getString("fileSpecificationUri"));
+			dto.setCancellationReason(rs.getString("cancellationReason"));
+			return dto;
 		}
 	}
 }

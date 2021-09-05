@@ -12,6 +12,7 @@ public class FlightReservationDTO {
 	private String departureCountryName;
 	private FlightReservationStatus status;
 	private LocalDateTime createdOn;
+	private String cancellationReason;
 	private int seatNumber;
 	private String cargoDescription;
 	private String fileSpecificationName;
@@ -129,5 +130,13 @@ public class FlightReservationDTO {
 
 	public void setFileSpecificationName(String fileSpecificationName) {
 		this.fileSpecificationName = fileSpecificationName;
+	}
+
+	public String getCancellationReason() {
+		return cancellationReason;
+	}
+
+	public void setCancellationReason(String cancellationReason) {
+		this.cancellationReason = cancellationReason;
 	}
 }

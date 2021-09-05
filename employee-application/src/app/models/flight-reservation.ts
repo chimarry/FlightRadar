@@ -12,11 +12,12 @@ export class FlightReservation {
     createdOn: string | null;
     status: FlightReservationStatus | null;
     flightType: FlightType | null;
+    cancellationReason: string | null;
 
     constructor(username?: string, flightReservationId?: number, airportDateTime?: string,
         arrivalCityName?: string, arrivalCountryName?: string, departureCityName?: string,
         departureCountryName?: string, createdOn?: string, status?: FlightReservationStatus,
-        flightType?: FlightType) {
+        flightType?: FlightType, cancellationReason?: string) {
         this.username = username || null;
         this.flightReservationId = flightReservationId || null;
         this.airportDateTime = airportDateTime || null;
@@ -27,5 +28,6 @@ export class FlightReservation {
         this.createdOn = createdOn || null;
         this.status = status || null;
         this.flightType = flightType || null;
+        this.cancellationReason = cancellationReason || null;
     }
 }

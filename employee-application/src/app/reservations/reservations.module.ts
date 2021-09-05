@@ -5,6 +5,7 @@ import { AppMaterialModule } from '../app-material/app-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PassengerReservationComponent } from './passenger-reservation/passenger-reservation.component';
 import { TransportReservationComponent } from './transport-reservation/transport-reservation.component';
+import { ConfirmCancelComponent } from './confirm-cancel/confirm-cancel.component';
 
 
 
@@ -12,7 +13,8 @@ import { TransportReservationComponent } from './transport-reservation/transport
   declarations: [
     ReservationsComponent,
     PassengerReservationComponent,
-    TransportReservationComponent
+    TransportReservationComponent,
+    ConfirmCancelComponent
   ],
   imports: [
     CommonModule,

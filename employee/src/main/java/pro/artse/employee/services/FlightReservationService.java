@@ -28,16 +28,17 @@ public class FlightReservationService {
 	public FlightReservation getDetails(int flightReservationId) {
 		return flightReservationRepository.findById(flightReservationId).get();
 	}
-	
-	public Boolean cancel(int flightReservationId) {
+
+	public Boolean cancel(int flightReservationId, String cancellationReason) {
 		FlightReservation entity = flightReservationRepository.findById(flightReservationId).get();
 		if (entity == null)
 			return false;
 		entity.setStatus(FlightReservationStatus.Canceled);
+		entity.setCancellationReason(cancellationReason);
 		flightReservationRepository.saveAndFlush(entity);
 		return true;
 	}
-	
+
 	public Boolean confirm(int flightReservationId) {
 		FlightReservation entity = flightReservationRepository.findById(flightReservationId).get();
 		if (entity == null)

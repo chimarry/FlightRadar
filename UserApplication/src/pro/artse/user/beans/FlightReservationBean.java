@@ -18,6 +18,7 @@ public class FlightReservationBean implements Serializable {
 	private String departureCountryName;
 	private FlightReservationStatus status;
 	private LocalDateTime createdOn;
+	private String cancellationReason;
 	private int seatNumber;
 	private String cargoDescription;
 	private String fileSpecificationName;
@@ -135,5 +136,13 @@ public class FlightReservationBean implements Serializable {
 
 	public void setFileSpecificationName(String fileSpecificationName) {
 		this.fileSpecificationName = fileSpecificationName;
+	}
+
+	public String getCancellationReason() {
+		return cancellationReason;
+	}
+
+	public void setCancellationReason(String cancellationReason) {
+		this.cancellationReason = cancellationReason;
 	}
 }

@@ -37,9 +37,11 @@ public class FlightReservationMapper {
 	}
 
 	public static FlightReservationBean mapFromDTO(FlightReservationDTO dto) {
-		return new FlightReservationBean(dto.getAccountId(), dto.getFlightReservationId(), dto.getAirportDateTime(),
-				dto.getArrivalCityName(), dto.getArrivalCountryName(), dto.getDepatureCityName(),
-				dto.getDepartureCountryName(), dto.getStatus(), dto.getCreatedOn(), dto.getSeatNumber(),
-				dto.getCargoDescription(), dto.getFileSpecificationName());
+		FlightReservationBean bean = new FlightReservationBean(dto.getAccountId(), dto.getFlightReservationId(),
+				dto.getAirportDateTime(), dto.getArrivalCityName(), dto.getArrivalCountryName(),
+				dto.getDepatureCityName(), dto.getDepartureCountryName(), dto.getStatus(), dto.getCreatedOn(),
+				dto.getSeatNumber(), dto.getCargoDescription(), dto.getFileSpecificationName());
+		bean.setCancellationReason(dto.getCancellationReason());
+		return bean;
 	}
 }

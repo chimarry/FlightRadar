@@ -31,7 +31,7 @@ export class ReservationService {
       responseType: 'blob', observe: 'response', headers: this.restUtil.getHeaders()
     }
     ).subscribe(response => {
-      this.downLoadFile(response, response.headers.get('Content-Type') ?? '', response.headers.get('File-name') ?? '');
+      this.downLoadFile(response.body, response.headers.get('Content-Type') ?? '', response.headers.get('File-name') ?? '');
     });
   }
 
@@ -44,9 +44,9 @@ export class ReservationService {
     downloadLink.click();
   }
 
-  public cancelReservation(flightReservationId: number): Observable<Boolean> {
-    return this.httpClient.put<Boolean>(RestUtilService.buildUrl("reservations/cancel/") + flightReservationId, null,
-      { headers: this.restUtil.getHeaders() });
+  public cancelReservation(flightReservationId: number, cancellationReason: string): Observable<Boolean> {
+      return this.httpClient.put<Boolean>(RestUtilService.buildUrl("reservations/cancel/") + flightReservationId, { flightReservationId, cancellationReason },
+        { headers: this.restUtil.getHeaders() });
   }
 
   public confirmReservation(flightReservationId: number): Observable<Boolean> {

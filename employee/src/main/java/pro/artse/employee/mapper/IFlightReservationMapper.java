@@ -21,7 +21,8 @@ public interface IFlightReservationMapper {
 			@Mapping(target = "accountId", source = "entity.account.accountId"),
 			@Mapping(target = "flightType", source = "entity.flight.type"),
 			@Mapping(target = "airportDateTime", source = "entity.flight.airportDateTime"),
-			@Mapping(target = "createdOn", source = "entity.createdOn") })
+			@Mapping(target = "createdOn", source = "entity.createdOn"),
+			@Mapping(target = "cancellationReason", source = "entity.cancellationReason") })
 	public FlightReservationWrapper toWrapper(FlightReservation entity);
 
 	@InheritConfiguration

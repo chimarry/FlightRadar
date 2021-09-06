@@ -25,6 +25,7 @@ import pro.artse.user.util.Pages;
 public class FlightsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String NOT_DEPARTURE = "false";
+	private static final String YES_DEPRATURE = "true";
 	private static final String LOAD = "load";
 
 	private IFlightService flightService = ServiceFactory.getFlightService();
@@ -40,13 +41,18 @@ public class FlightsController extends HttpServlet {
 		String address = Pages.FLIGHTS;
 		String action = request.getParameter("action");
 		String isDeparture = request.getParameter("isDeparture");
+
 		String date = request.getParameter("date");
 		LocalDate dayToGet = date != null ? LocalDate.parse(date) : LocalDate.now();
 
 		if (NOT_DEPARTURE.equals(isDeparture))
 			flights = getFlights(false, dayToGet);
-		else
+		else if (YES_DEPRATURE.equals(isDeparture))
 			flights = getFlights(true, dayToGet);
+		else {
+			flights = getFlights(false, dayToGet);
+			flights.addAll(getFlights(true, dayToGet));
+		}
 
 		String json = new Gson().toJson(flights);
 		response.setContentType("application/json");

@@ -96,7 +96,7 @@ public class FlightBean implements Serializable {
 	}
 
 	public void calculateAndSetTime() {
-		this.time = String.format("%d:%d", airportDateTime.getHour(), airportDateTime.getMinute());
+		this.time = String.format("%02d:%02d", airportDateTime.getHour(), airportDateTime.getMinute());
 	}
 
 	public FlightType getType() {

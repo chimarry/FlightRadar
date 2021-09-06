@@ -29,7 +29,7 @@ public class FlightService implements IFlightService {
 		if (isDepartured)
 			sql = FlightSqlExtensions.SELECT_FEATURED_DEPARTURES;
 		// TODO: Change to now
-		return getFlights(sql, LocalDate.of(2021, 8, 15));
+		return getFlights(sql, LocalDate.now());
 	}
 
 	private List<FlightDTO> getFlights(String sql, LocalDate date) {

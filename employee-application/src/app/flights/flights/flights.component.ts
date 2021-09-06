@@ -93,7 +93,15 @@ export class FlightsComponent implements OnInit {
       this.dates.pop();
       this.flight.airportDateTimes = this.dates.map(x => x.getDateWithTime());
       this.service.add(this.flight)
-        .subscribe(response => { console.log(response) });
+        .subscribe(response => {
+          if (response)
+            this.snackBar.open("Flight has been added.", undefined, {
+              duration: 2000
+            });
+          else this.snackBar.open("Adding failed.", undefined, {
+            duration: 2000
+          });
+        }, error => { console.log(error) });
       this.clear();
     }
   }

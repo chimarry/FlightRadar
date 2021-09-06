@@ -6,6 +6,7 @@ import { MessageStatus } from 'src/app/models/message-status';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageDetailsComponent } from '../message-details/message-details.component';
 import { MessageReplyComponent } from '../message-reply/message-reply.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-messages',
@@ -23,7 +24,9 @@ export class MessagesComponent implements OnInit {
 
   public searchText: string = "";
 
-  constructor(private service: MessageService, private dialog: MatDialog) {
+  constructor(private service: MessageService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -59,7 +62,17 @@ export class MessagesComponent implements OnInit {
     this.dialog.open(MessageReplyComponent, {
       data: element.email,
       width: '600px'
-    });
+    }).afterClosed()
+      .subscribe(response => {
+        if (response)
+          this.snackBar.open("Message is sending. You will be notified of outcome.", undefined, {
+            duration: 2000
+          }); else {
+          this.snackBar.open("Sending failed.", undefined, {
+            duration: 2000
+          });
+        }
+      });
   }
 
   showDetails(element: Message) {

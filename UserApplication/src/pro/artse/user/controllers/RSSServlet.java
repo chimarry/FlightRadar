@@ -1,6 +1,7 @@
 package pro.artse.user.controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class RSSServlet extends HttpServlet {
 		feed.setFeedType("rss_2.0");
 		feed.setTitle("Fligths");
 		feed.setDescription("Flights planned for today");
-		feed.setLink("http://localhost:8080/UserApplication/FlightsController?action=refresh&date=2021-08-15");
+		feed.setLink("http://localhost:8080/UserApplication/FlightsController?action=refresh&date="+LocalDate.now());
 		// + LocalDate.now().toString());
 		List<SyndEntry> entries = new ArrayList<>();
 
@@ -58,7 +59,7 @@ public class RSSServlet extends HttpServlet {
 			item.setDescription(content);
 			boolean isDeparture = !RSS_AIRPORT_LOCATION.equals(dto.getArrivalCityName());
 			item.setLink("http://localhost:8080/UserApplication/FlightsController?action=refresh" + "&isDeparture="
-					+ isDeparture + "&date=2021-08-15");
+					+ isDeparture + "&date="+LocalDate.now());
 			entries.add(item);
 			++i;
 		}

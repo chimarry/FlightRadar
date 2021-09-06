@@ -1,5 +1,8 @@
 package pro.artse.employee.services;
 
+import java.time.LocalDateTime;
+import java.util.TimeZone;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +22,10 @@ public class FlightService {
 	private CityRepository cityRepository;
 
 	public Boolean add(FlightWrapper wrapper) {
-		wrapper.getAirportDateTimes().forEach(airportDateTime -> {
+		TimeZone z = TimeZone.getDefault();
+		int mili = 4 * (z.getRawOffset() / 1000);
+		wrapper.getAirportDateTimes().forEach(x -> {
+			LocalDateTime airportDateTime = x.plusSeconds(mili);
 			City arrivalCity = cityRepository.findById(wrapper.getArrivalCityId()).get();
 			City departureCity = cityRepository.findById(wrapper.getDepartureCityId()).get();
 

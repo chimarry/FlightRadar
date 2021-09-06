@@ -8,16 +8,15 @@ export class DateTime {
         this.date = date || null;
     }
 
-    getAsString(): string {
-        return this.date?.toDateString + " " + this.time;
-    }
-
     getDateWithTime(): Date {
         if (this.time != null) {
             let values = this.time.split(":");
             this.date?.setHours(Number(values[0]));
             this.date?.setMinutes(Number(values[1]));
         }
+        console.log(this.date?.toISOString())
+        if (this.date != null)
+            this.date = new Date(this.date?.toLocaleString('en-US', { timeZone: 'Europe/Paris' }));
         return this.date ?? new Date();
     }
 }

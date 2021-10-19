@@ -49,3 +49,17 @@ Images are shown bellow.
 ----------------
 
 ### Employee application
+Employee application has backend implemented in Spring Boot, and frontend implemented in Angular with Material UI. REST services are secured so that only authorized and authenticated employee can access them. Employee has option to create fligth (with multiple dates), to see messages, search by text and reply to specific message. Employee can also manage reservations: cancel (it has to write the reason for cancellation) or confirm. Images are shown bellow.  
+
+
+![e1](/img/e1.PNG)
+------------------
+![e2](/img/e2.PNG)
+-----------------
+![e3](/img/e3.PNG)
+-------------
+![e4](/img/e4.PNG)
+----------------
+![e5](/img/e5.PNG)
+------------------
+![e6](/img/e6.PNG)

@@ -44,14 +44,18 @@ Administrator is defined on database level, and has options to:
 
 Images are shown bellow.  
 
-![a1](/img/a1.PNG)
-------------------
-![a2](/img/a2.PNG)
------------------
-![a3](/img/a3.PNG)
--------------
-![a4](/img/a4.PNG)
-----------------
+Login form:  
+![a1](/img/a1.PNG)  
+
+Home page with diagram:  
+![a2](/img/a2.PNG)  
+
+Locations:  
+![a3](/img/a3.PNG)  
+
+Employees (with register tab opened):  
+![a4](/img/a4.PNG)  
+
 
 ### Employee application
 Employee application has backend implemented in Spring Boot, and frontend implemented in Angular with Material UI. REST services are secured so that only authorized and authenticated employee can access them. Employee has option to create fligth (with multiple dates), to see messages, search by text and reply to specific message. Employee can also manage reservations: cancel (it has to write the reason for cancellation) or confirm. Images are shown bellow.  

@@ -17,9 +17,10 @@ Home page has header with login form, footer with Google map and option to send 
  When user with passenger account makes reservation, it chooses seat number. 
  When passenger with trasnport account makes reservation, it has option to upload specification file, which can later be downloaded. 
  Reservation that is not confirmed by employee can be cancelled. Images bellow show application UI. There is also RSS service for flights.  
-
+Home page:  
 ![1](/img/1.PNG)
-------------------
+
+Home page (mobile screen):  
 ![1,1](/img/1.1.PNG)
 -----------------
 ![2](/img/2.PNG)

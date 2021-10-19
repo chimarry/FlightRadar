@@ -13,11 +13,17 @@ System is meant to show how JSP M2, JSF, Spring Boot and Angular work. It is imp
 ### User application
 Home page has header with login form, footer with Google map and option to send message to employees, menu with options to see departures, arrivals, and if user is logged in option to see all reservations and option to reserve a flight. Design must be responsive. Home page shows 5 newest arrivals and departures with status (Arrived/Departured, Waiting), and it is necessary to use Ajax call to refresh those flights each minute. User is logged in using username and password. There is also an option to create new account. User can have passenger or transport account. When user with passenger account makes reservation, it chooses seat number. When passenger with trasnport account makes reservation, it has option to upload specification file, which can later be downloaded. Reservation that is not confirmed by employee can be cancelled. Images bellow show application UI.
 ![1](/img/1.PNG)
+------------------
 ![1,1](/img/1.1.PNG)
+-----------------
 ![2](/img/2.PNG)
+-------------
 ![4](/img/4.PNG)
+----------------
 ![5](/img/5.PNG)
+----------------
 ![6](/img/6.PNG)
+-------------------
 
 ### Administrator application
 

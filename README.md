@@ -18,19 +18,23 @@ Home page has header with login form, footer with Google map and option to send 
  When passenger with trasnport account makes reservation, it has option to upload specification file, which can later be downloaded. 
  Reservation that is not confirmed by employee can be cancelled. Images bellow show application UI. There is also RSS service for flights.  
 Home page:  
-![1](/img/1.PNG)
+![1](/img/1.PNG)  
 
 Home page (mobile screen):  
-![1,1](/img/1.1.PNG)
------------------
+![1,1](/img/1.1.PNG)  
+
+Restricted access:  
 ![2](/img/2.PNG)
--------------
-![4](/img/4.PNG)
-----------------
-![5](/img/5.PNG)
-----------------
-![6](/img/6.PNG)
--------------------
+
+Reserve flight:  
+![4](/img/4.PNG)  
+
+Reserve flight (mobile view):  
+![5](/img/5.PNG)  
+
+See all reservations:  
+![6](/img/6.PNG)  
+
 
 ### Administrator application
 Administrator is defined on database level, and has options to:

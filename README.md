@@ -16,7 +16,7 @@ Home page has header with login form, footer with Google map and option to send 
  User can have passenger or transport account.
  When user with passenger account makes reservation, it chooses seat number. 
  When passenger with trasnport account makes reservation, it has option to upload specification file, which can later be downloaded. 
- Reservation that is not confirmed by employee can be cancelled. Images bellow show application UI.  
+ Reservation that is not confirmed by employee can be cancelled. Images bellow show application UI. There is also RSS service for flights.  
 
 ![1](/img/1.PNG)
 ------------------
@@ -32,5 +32,20 @@ Home page has header with login form, footer with Google map and option to send 
 -------------------
 
 ### Administrator application
+Administrator is defined on database level, and has options to:
+- Manage locations (countries and cities)
+- Manage users (standard users and employees)
+- To see usage of application in last 30 days
+
+Images are shown bellow.  
+
+![a1](/img/a1.PNG)
+------------------
+![a2](/img/a2.PNG)
+-----------------
+![a3](/img/a3.PNG)
+-------------
+![a4](/img/a4.PNG)
+----------------
 
 ### Employee application
